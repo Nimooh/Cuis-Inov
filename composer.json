@@ -78,7 +78,42 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "symfony serve"
+        ],
+        "test:cs": [
+            "php-cs-fixer fix --dry-run"
+        ],
+        "fix:cs": [
+            "php-cs-fixer fix"
+        ],
+        "test:codeception": [
+            "php vendor/bin/codecept clean",
+            "php bin/console doctrine:database:drop --force --quiet --env=test",
+            "php bin/console doctrine:database:create --quiet --env=test",
+            "php bin/console doctrine:schema:create --quiet --env=test",
+            "php vendor/bin/codecept run"
+        ],
+        "test": [
+            "@test:cs",
+            "@test:codeception"
+        ],
+        "db": [
+            "php bin/console doctrine:database:drop --force --if-exists",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console doctrine:fixtures:load --no-interaction"
         ]
+    },
+    "scripts-descriptions": {
+        "start": "Démarre le serveur Web local sans restriction de durée d'exécution",
+        "test:cs": "Lance une vérification du code par PHP CS Fixer",
+        "fix:cs": "Lance une correction du code par PHP CS Fixer",
+        "test:codeception": "Génération de la base de données de test et lance les tests unitaires Codeception",
+        "test": "Lance tous les tests",
+        "db": "Génération de la base de données et des données factices"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -90,6 +125,11 @@
         }
     },
     "require-dev": {
+        "codeception/codeception": "^5.0",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-doctrine2": "^3.0",
+        "codeception/module-symfony": "^3.1",
+        "friendsofphp/php-cs-fixer": "^3.38",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.3.*",
         "symfony/css-selector": "6.3.*",
