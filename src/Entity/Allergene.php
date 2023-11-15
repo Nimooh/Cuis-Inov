@@ -13,9 +13,6 @@ class Allergene
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $idAller = null;
-
     #[ORM\Column(length: 255)]
     private ?string $nomAller = null;
 
