@@ -28,18 +28,6 @@ class Ingredient
         return $this->id;
     }
 
-    public function getIdIngr(): ?int
-    {
-        return $this->idIngr;
-    }
-
-    public function setIdIngr(int $idIngr): static
-    {
-        $this->idIngr = $idIngr;
-
-        return $this;
-    }
-
     public function getNomIngr(): ?string
     {
         return $this->nomIngr;
