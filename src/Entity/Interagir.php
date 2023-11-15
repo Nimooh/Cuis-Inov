@@ -21,18 +21,6 @@ class Interagir
         return $this->id;
     }
 
-    public function getIdInt(): ?int
-    {
-        return $this->idInt;
-    }
-
-    public function setIdInt(int $idInt): static
-    {
-        $this->idInt = $idInt;
-
-        return $this;
-    }
-
     public function isFav(): ?bool
     {
         return $this->fav;
