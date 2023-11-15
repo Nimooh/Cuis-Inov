@@ -21,18 +21,6 @@ class Allergene
         return $this->id;
     }
 
-    public function getIdAller(): ?int
-    {
-        return $this->idAller;
-    }
-
-    public function setIdAller(int $idAller): static
-    {
-        $this->idAller = $idAller;
-
-        return $this;
-    }
-
     public function getNomAller(): ?string
     {
         return $this->nomAller;
