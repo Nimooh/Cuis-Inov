@@ -40,18 +40,6 @@ class Recette
         return $this->id;
     }
 
-    public function getIdRecette(): ?int
-    {
-        return $this->idRecette;
-    }
-
-    public function setIdRecette(int $idRecette): static
-    {
-        $this->idRecette = $idRecette;
-
-        return $this;
-    }
-
     public function getNomRecette(): ?string
     {
         return $this->nomRecette;
