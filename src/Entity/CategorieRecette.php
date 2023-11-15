@@ -21,18 +21,6 @@ class CategorieRecette
         return $this->id;
     }
 
-    public function getIdCatRecette(): ?int
-    {
-        return $this->idCatRecette;
-    }
-
-    public function setIdCatRecette(int $idCatRecette): static
-    {
-        $this->idCatRecette = $idCatRecette;
-
-        return $this;
-    }
-
     public function getNomCatRecette(): ?string
     {
         return $this->nomCatRecette;
