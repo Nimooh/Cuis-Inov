@@ -14,9 +14,6 @@ class Recette
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $idRecette = null;
-
     #[ORM\Column(length: 255)]
     private ?string $nomRecette = null;
 
