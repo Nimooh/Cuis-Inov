@@ -3,6 +3,7 @@ body, html, form{
 }
 
 body{
+    font-family: Inter, sans-serif;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -16,6 +17,7 @@ form{
 }
 
 .brand{
+    font-style: italic;
     margin-top: 0;
     font-size: 500%;
     background-color: #1b1b1b;
