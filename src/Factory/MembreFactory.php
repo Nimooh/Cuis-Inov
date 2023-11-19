@@ -47,11 +47,11 @@ final class MembreFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'email' => self::faker()->text(180),
-            'nomMembre' => self::faker()->text(255),
-            'password' => self::faker()->text(),
-            'prnmMembre' => self::faker()->text(255),
-            'roles' => [],
+            'email' => 'test@test.com',
+            'nomMembre' => 'NomTest',
+            'password' => 'test',
+            'prnmMembre' => 'PrenomTest',
+            'roles' => [''],
         ];
     }
 
