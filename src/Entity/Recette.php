@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecetteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,21 @@ class Recette
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'IdRecette')]
+    private ?Interagir $IdInteragir = null;
+
+    #[ORM\ManyToOne(inversedBy: 'IdRecette')]
+    private Collection $IdCatRecette;
+
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'IdRecette')]
+    private Collection $IdIngr;
+
+    public function __construct()
+    {
+        $this->IdCatRecette = new ArrayCollection();
+        $this->IdIngr = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +137,78 @@ class Recette
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getIdInteragir(): ?Interagir
+    {
+        return $this->IdInteragir;
+    }
+
+    public function setIdInteragir(?Interagir $IdInteragir): static
+    {
+        $this->IdInteragir = $IdInteragir;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CategorieRecette>
+     */
+    public function getIdCatRecette(): Collection
+    {
+        return $this->IdCatRecette;
+    }
+
+    public function addIdCatRecette(CategorieRecette $idCatRecette): static
+    {
+        if (!$this->IdCatRecette->contains($idCatRecette)) {
+            $this->IdCatRecette->add($idCatRecette);
+            $idCatRecette->setIdRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdCatRecette(CategorieRecette $idCatRecette): static
+    {
+        if ($this->IdCatRecette->removeElement($idCatRecette)) {
+            // set the owning side to null (unless already changed)
+            if ($idCatRecette->getIdRecette() === $this) {
+                $idCatRecette->setIdRecette(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIdIngr(): Collection
+    {
+        return $this->IdIngr;
+    }
+
+    public function addIdIngr(Ingredient $idIngr): static
+    {
+        if (!$this->IdIngr->contains($idIngr)) {
+            $this->IdIngr->add($idIngr);
+            $idIngr->setIdRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdIngr(Ingredient $idIngr): static
+    {
+        if ($this->IdIngr->removeElement($idIngr)) {
+            // set the owning side to null (unless already changed)
+            if ($idIngr->getIdRecette() === $this) {
+                $idIngr->setIdRecette(null);
+            }
+        }
 
         return $this;
     }

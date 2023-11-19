@@ -16,6 +16,9 @@ class CategorieRecette
     #[ORM\Column(length: 255)]
     private ?string $nomCatRecette = null;
 
+    #[ORM\OneToMany(mappedBy: 'IdRecette', targetEntity: CategorieRecette::class)]
+    private ?Recette $IdRecette = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class CategorieRecette
     public function setNomCatRecette(string $nomCatRecette): static
     {
         $this->nomCatRecette = $nomCatRecette;
+
+        return $this;
+    }
+
+    public function getIdRecette(): ?Recette
+    {
+        return $this->IdRecette;
+    }
+
+    public function setIdRecette(?Recette $IdRecette): static
+    {
+        $this->IdRecette = $IdRecette;
 
         return $this;
     }

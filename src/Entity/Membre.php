@@ -16,7 +16,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 180)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -48,6 +48,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $telMembre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'IdMembre')]
+    private ?Interagir $fav = null;
 
     public function getId(): ?int
     {
@@ -199,6 +202,18 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTelMembre(?string $telMembre): static
     {
         $this->telMembre = $telMembre;
+
+        return $this;
+    }
+
+    public function getFav(): ?Interagir
+    {
+        return $this->fav;
+    }
+
+    public function setFav(?Interagir $fav): static
+    {
+        $this->fav = $fav;
 
         return $this;
     }
