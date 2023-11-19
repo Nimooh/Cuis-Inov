@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AllergeneRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AllergeneRepository::class)]
@@ -15,6 +17,14 @@ class Allergene
 
     #[ORM\Column(length: 255)]
     private ?string $nomAller = null;
+
+    #[ORM\OneToMany(mappedBy: 'idAller', targetEntity: Ingredient::class)]
+    private Collection $idIngr;
+
+    public function __construct()
+    {
+        $this->idIngr = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -29,6 +39,36 @@ class Allergene
     public function setNomAller(string $nomAller): static
     {
         $this->nomAller = $nomAller;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIdIngr(): Collection
+    {
+        return $this->idIngr;
+    }
+
+    public function addIdIngr(Ingredient $idIngr): static
+    {
+        if (!$this->idIngr->contains($idIngr)) {
+            $this->idIngr->add($idIngr);
+            $idIngr->setIdAller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdIngr(Ingredient $idIngr): static
+    {
+        if ($this->idIngr->removeElement($idIngr)) {
+            // set the owning side to null (unless already changed)
+            if ($idIngr->getIdAller() === $this) {
+                $idIngr->setIdAller(null);
+            }
+        }
 
         return $this;
     }
