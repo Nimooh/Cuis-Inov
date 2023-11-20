@@ -19,11 +19,11 @@ class Allergene
     private ?string $nomAller = null;
 
     #[ORM\OneToMany(mappedBy: 'idAller', targetEntity: Ingredient::class)]
-    private Collection $IdIngr;
+    private Collection $idIngr;
 
     public function __construct()
     {
-        $this->IdIngr = new ArrayCollection();
+        $this->idIngr = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -48,13 +48,13 @@ class Allergene
      */
     public function getIdIngr(): Collection
     {
-        return $this->IdIngr;
+        return $this->idIngr;
     }
 
     public function addIdIngr(Ingredient $idIngr): static
     {
-        if (!$this->IdIngr->contains($idIngr)) {
-            $this->IdIngr->add($idIngr);
+        if (!$this->idIngr->contains($idIngr)) {
+            $this->idIngr->add($idIngr);
             $idIngr->setIdAller($this);
         }
 
@@ -63,7 +63,7 @@ class Allergene
 
     public function removeIdIngr(Ingredient $idIngr): static
     {
-        if ($this->IdIngr->removeElement($idIngr)) {
+        if ($this->idIngr->removeElement($idIngr)) {
             // set the owning side to null (unless already changed)
             if ($idIngr->getIdAller() === $this) {
                 $idIngr->setIdAller(null);
