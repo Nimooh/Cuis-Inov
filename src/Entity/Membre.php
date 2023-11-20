@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MembreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -16,7 +18,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 180)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -48,6 +50,14 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $telMembre = null;
+
+    #[ORM\OneToMany(mappedBy: 'idInteragir', targetEntity: Interagir::class)]
+    private Collection $IdInteragir;
+
+    public function __construct()
+    {
+        $this->IdInteragir = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -199,6 +209,36 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTelMembre(?string $telMembre): static
     {
         $this->telMembre = $telMembre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Interagir>
+     */
+    public function getIdInteragir(): Collection
+    {
+        return $this->IdInteragir;
+    }
+
+    public function addIdInteragir(Interagir $idInteragir): static
+    {
+        if (!$this->IdInteragir->contains($idInteragir)) {
+            $this->IdInteragir->add($idInteragir);
+            $idInteragir->setIdInteragir($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdInteragir(Interagir $idInteragir): static
+    {
+        if ($this->IdInteragir->removeElement($idInteragir)) {
+            // set the owning side to null (unless already changed)
+            if ($idInteragir->getIdInteragir() === $this) {
+                $idInteragir->setIdInteragir(null);
+            }
+        }
 
         return $this;
     }
