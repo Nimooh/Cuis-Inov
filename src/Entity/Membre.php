@@ -35,7 +35,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prnmMembre = null;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $imgProfilMembre = null;
+    private $imgProfilMembre;
 
     #[ORM\Column(length: 6, nullable: true)]
     private ?string $CPMembre = null;

@@ -11,21 +11,21 @@ use Zenstruck\Foundry\RepositoryProxy;
 /**
  * @extends ModelFactory<Membre>
  *
- * @method        Membre|Proxy create(array|callable $attributes = [])
- * @method static Membre|Proxy createOne(array $attributes = [])
- * @method static Membre|Proxy find(object|array|mixed $criteria)
- * @method static Membre|Proxy findOrCreate(array $attributes)
- * @method static Membre|Proxy first(string $sortedField = 'id')
- * @method static Membre|Proxy last(string $sortedField = 'id')
- * @method static Membre|Proxy random(array $attributes = [])
- * @method static Membre|Proxy randomOrCreate(array $attributes = [])
+ * @method        Membre|Proxy                     create(array|callable $attributes = [])
+ * @method static Membre|Proxy                     createOne(array $attributes = [])
+ * @method static Membre|Proxy                     find(object|array|mixed $criteria)
+ * @method static Membre|Proxy                     findOrCreate(array $attributes)
+ * @method static Membre|Proxy                     first(string $sortedField = 'id')
+ * @method static Membre|Proxy                     last(string $sortedField = 'id')
+ * @method static Membre|Proxy                     random(array $attributes = [])
+ * @method static Membre|Proxy                     randomOrCreate(array $attributes = [])
  * @method static MembreRepository|RepositoryProxy repository()
- * @method static Membre[]|Proxy[] all()
- * @method static Membre[]|Proxy[] createMany(int $number, array|callable $attributes = [])
- * @method static Membre[]|Proxy[] createSequence(iterable|callable $sequence)
- * @method static Membre[]|Proxy[] findBy(array $attributes)
- * @method static Membre[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
- * @method static Membre[]|Proxy[] randomSet(int $number, array $attributes = [])
+ * @method static Membre[]|Proxy[]                 all()
+ * @method static Membre[]|Proxy[]                 createMany(int $number, array|callable $attributes = [])
+ * @method static Membre[]|Proxy[]                 createSequence(iterable|callable $sequence)
+ * @method static Membre[]|Proxy[]                 findBy(array $attributes)
+ * @method static Membre[]|Proxy[]                 randomRange(int $min, int $max, array $attributes = [])
+ * @method static Membre[]|Proxy[]                 randomSet(int $number, array $attributes = [])
  */
 final class MembreFactory extends ModelFactory
 {

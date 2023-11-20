@@ -27,7 +27,7 @@ class Recette
     private ?int $diffRecette = null;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $imgRecette = null;
+    private $imgRecette;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $instruction = null;
