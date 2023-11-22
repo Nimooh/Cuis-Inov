@@ -9,7 +9,7 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
-        "doctrine/orm": "^2.16",
+        "doctrine/orm": "^2.17",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.24",
         "symfony/asset": "6.3.*",
@@ -82,7 +82,11 @@
         ],
         "start": [
             "Composer\\Config::disableProcessTimeout",
-            "npm run dev-server & symfony serve"
+            "symfony serve"
+        ],
+        "start:assets": [
+            "Composer\\Config::disableProcessTimeout",
+            "npm run dev-server"
         ],
         "test:cs": [
             "php-cs-fixer fix --dry-run"
@@ -110,6 +114,7 @@
     },
     "scripts-descriptions": {
         "start": "Démarre le serveur Web local sans restriction de durée d'exécution",
+        "start:assets": "Démarre le serveur des assets sans restriction de durée d'exécution",
         "test:cs": "Lance une vérification du code par PHP CS Fixer",
         "fix:cs": "Lance une correction du code par PHP CS Fixer",
         "test:codeception": "Génération de la base de données de test et lance les tests unitaires Codeception",
