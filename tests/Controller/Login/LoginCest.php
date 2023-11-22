@@ -11,7 +11,10 @@ class LoginCest
     }
 
     // tests
-    public function tryToTest(ControllerTester $I)
+    public function pageLoadingCorrectly(ControllerTester $I)
     {
+        $I->amOnPage('/login');
+        $I->seeResponseCodeIs(200);
+        $I->seeInTitle('Log in!');
     }
 }
