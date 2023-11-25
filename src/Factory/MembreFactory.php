@@ -49,25 +49,31 @@ final class MembreFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $email = $this->normalizeName($prnm_membre).'.'.$this->normalizeName($nom_membre).'@'.self::faker()->domainName();
-        $roles = ['ROLE_USER'];
-        $password = self::faker()->password(8);
         $nom_membre = self::faker()->lastName();
         $prnm_membre = self::faker()->firstName();
+        $email = $this->normalizeName($prnm_membre).'.'.$this->normalizeName($nom_membre).self::faker()->numerify('-###').'@'.self::faker()->domainName();
+        $password = 'test';
+        $roles = ['ROLE_USER'];
+        $img_profil_membre = 'img';
+        $cpmembre = self::faker()->postcode();
+        $adr_membre = self::faker()->buildingNumber().' '.self::faker()->streetName();
+        $ville_membre = self::faker()->city();
+        $tel_membre = '0'.self::faker()->randomDigitNotNull().self::faker()->randomNumber(8, true);
 
         return [
-            'email' => 'test@test.com',
-            'nomMembre' => 'NomTest',
-            'password' => 'test',
-            'prnmMembre' => 'PrenomTest',
-            'roles' => [''],
+            'email' => $email,
+            'roles' => $roles,
+            'password' => $password,
+            'nomMembre' => $nom_membre,
+            'prnmMembre' => $prnm_membre,
+            'img_profil_membre' => $img_profil_membre,
+            'cpmembre' => $cpmembre,
+            'adr_membre' => $adr_membre,
+            'ville_membre' => $ville_membre,
+            'tel_membre' => $tel_membre,
         ];
     }
 
-    /**
-     * @param string $nom
-     * @return string
-     */
     protected function normalizeName(string $nom): string
     {
         return preg_replace('/[^a-zA-Z0-9_ ]/', '-', $this->trans->transliterate($nom));
