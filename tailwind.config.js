@@ -11,8 +11,11 @@ module.exports = {
       phGrayDark : '#272727',
       phGray : '#303030',
       phGrayLight : '#7c7c7c',
-      phOrangeDark : '#fc9a1c',
-      phOrange : '#ffa126'
+      phOrange : '#fc9a1c',
+      phOrangeLight : '#ffa126'
+    },
+    fontFamily: {
+      interPh: ['Inter', 'sans-serif']
     },
     extend: {},
   },
