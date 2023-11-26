@@ -42,13 +42,13 @@
                 </button>
 
                 <div class="relative hidden md:block">
-                    {% include 'navbar/search.html' %}
+                    {% include 'navbar/search.html.twig' %}
                 </div>
 
                 {% if is_granted('IS_AUTHENTICATED') %}
                     <a
                             href="#"
-                            class="flex items-center md:ml-3 block text-raisin-black bg-orange-peel hover:bg-orange-peel/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
+                            class="flex items-center md:ml-3 text-raisin-black bg-orange-peel hover:bg-orange-peel/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
                     >
                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
@@ -57,7 +57,7 @@
                 {% else %}
                     <a
                             href="{{ path('app_login') }}"
-                            class="flex items-center md:ml-3 block text-raisin-black bg-orange-peel hover:bg-orange-peel/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
+                            class="flex items-center md:ml-3 text-raisin-black bg-orange-peel hover:bg-orange-peel/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
                     >
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
@@ -68,7 +68,7 @@
 
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
                 <div class="relative mt-3 md:hidden">
-                    {% include 'navbar/search.html' %}
+                    {% include 'navbar/search.html.twig' %}
                 </div>
             </div>
         </div>
