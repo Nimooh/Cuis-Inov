@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Membre;
 use App\Repository\MembreRepository;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -30,16 +31,19 @@ use Zenstruck\Foundry\RepositoryProxy;
 final class MembreFactory extends ModelFactory
 {
     private \Transliterator $trans;
+    private UserPasswordHasherInterface $passwordHasher;
 
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
      * @todo inject services if required
      */
-    public function __construct()
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         parent::__construct();
+
         $this->trans = transliterator_create('Any-Lower; Latin-ASCII');
+        $this->passwordHasher = $passwordHasher;
     }
 
     /**
@@ -54,7 +58,7 @@ final class MembreFactory extends ModelFactory
         $email = $this->normalizeName($prnm_membre).'.'.$this->normalizeName($nom_membre).self::faker()->numerify('-###').'@'.self::faker()->domainName();
         $password = 'test';
         $roles = ['ROLE_USER'];
-        $img_profil_membre = 'img';
+        $img_profil_membre = null;
         $cpmembre = self::faker()->postcode();
         $adr_membre = self::faker()->buildingNumber().' '.self::faker()->streetName();
         $ville_membre = self::faker()->city();
@@ -85,7 +89,9 @@ final class MembreFactory extends ModelFactory
     protected function initialize(): self
     {
         return $this
-            // ->afterInstantiate(function(Membre $membre): void {})
+            ->afterInstantiate(function (Membre $membre) {
+                $membre->setPassword($this->passwordHasher->hashPassword($membre, $membre->getPassword()));
+            })
         ;
     }
 
