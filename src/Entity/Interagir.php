@@ -18,13 +18,13 @@ class Interagir
     #[ORM\Column(nullable: true)]
     private ?bool $fav = null;
 
-    #[ORM\ManyToOne(inversedBy: 'IdInteragir')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Membre $idInteragir = null;
+    #[ORM\OneToMany(mappedBy: 'interagir', targetEntity: Membre::class)]
+    private Collection $membres;
 
-    #[ORM\ManyToOne(inversedBy: 'idInteragir')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Recette $idRecette = null;
+    public function __construct()
+    {
+        $this->membres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -43,26 +43,32 @@ class Interagir
         return $this;
     }
 
-    public function getIdInteragir(): ?Membre
+    /**
+     * @return Collection<int, Membre>
+     */
+    public function getMembres(): Collection
     {
-        return $this->idInteragir;
+        return $this->membres;
     }
 
-    public function setIdInteragir(?Membre $idInteragir): static
+    public function addMembre(Membre $membre): static
     {
-        $this->idInteragir = $idInteragir;
+        if (!$this->membres->contains($membre)) {
+            $this->membres->add($membre);
+            $membre->setInteragir($this);
+        }
 
         return $this;
     }
 
-    public function getIdRecette(): ?Recette
+    public function removeMembre(Membre $membre): static
     {
-        return $this->idRecette;
-    }
-
-    public function setIdRecette(?Recette $idRecette): static
-    {
-        $this->idRecette = $idRecette;
+        if ($this->membres->removeElement($membre)) {
+            // set the owning side to null (unless already changed)
+            if ($membre->getInteragir() === $this) {
+                $membre->setInteragir(null);
+            }
+        }
 
         return $this;
     }
