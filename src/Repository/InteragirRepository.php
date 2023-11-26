@@ -33,10 +33,9 @@ class InteragirRepository extends ServiceEntityRepository
         $sql = '
             SELECT r.nom_recette, r.temps_recette, r.stars_recette, r.diff_recette, r.img_recette, r.instruction, r.description
             FROM recette r
-                inner join interagir i (i.idrecette = r.idrecette)
-                inner join membre m (i.idmembre = m.idmembre)
-            WHERE i.idrecette = i.idmembre
-                and i.fav IS TRUE
+                inner join interagir i (r.id = i.id_recette_id)
+                inner join membre m (i.id_interagir_id = ?)
+            WHERE i.fav IS TRUE
             ';
 
         $resultSet = $conn->executeQuery($sql, ['id' => $id]);

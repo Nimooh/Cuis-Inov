@@ -14,7 +14,7 @@ class FavorisController extends AbstractController
     public function index(InteragirRepository $repo, Request $request): Response
     {
         $query = $request->cookies->get('idMembre', '');
-        $favoris = $repo->findWithMembre($query);
+        $favoris = $repo->findWithMembre((int)$query);
 
         return $this->render('favoris/index.html.twig', ['favoris' => $favoris]);
     }
