@@ -21,9 +21,13 @@ class Interagir
     #[ORM\OneToMany(mappedBy: 'interagir', targetEntity: Membre::class)]
     private Collection $membres;
 
+    #[ORM\OneToMany(mappedBy: 'interagir', targetEntity: Recette::class)]
+    private Collection $recettes;
+
     public function __construct()
     {
         $this->membres = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,6 +71,36 @@ class Interagir
             // set the owning side to null (unless already changed)
             if ($membre->getInteragir() === $this) {
                 $membre->setInteragir(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recette>
+     */
+    public function getRecettes(): Collection
+    {
+        return $this->recettes;
+    }
+
+    public function addRecette(Recette $recette): static
+    {
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+            $recette->setInteragir($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recette $recette): static
+    {
+        if ($this->recettes->removeElement($recette)) {
+            // set the owning side to null (unless already changed)
+            if ($recette->getInteragir() === $this) {
+                $recette->setInteragir(null);
             }
         }
 
