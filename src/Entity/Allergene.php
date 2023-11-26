@@ -18,12 +18,12 @@ class Allergene
     #[ORM\Column(length: 255)]
     private ?string $nomAller = null;
 
-    #[ORM\OneToMany(mappedBy: 'idAller', targetEntity: Ingredient::class)]
-    private Collection $idIngr;
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, mappedBy: 'allergenes')]
+    private Collection $ingredients;
 
     public function __construct()
     {
-        $this->idIngr = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,30 +46,28 @@ class Allergene
     /**
      * @return Collection<int, Ingredient>
      */
-    public function getIdIngr(): Collection
+    public function getIngredients(): Collection
     {
-        return $this->idIngr;
+        return $this->ingredients;
     }
 
-    public function addIdIngr(Ingredient $idIngr): static
+    public function addIngredient(Ingredient $ingredient): static
     {
-        if (!$this->idIngr->contains($idIngr)) {
-            $this->idIngr->add($idIngr);
-            $idIngr->setIdAller($this);
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+            $ingredient->addAllergene($this);
         }
 
         return $this;
     }
 
-    public function removeIdIngr(Ingredient $idIngr): static
+    public function removeIngredient(Ingredient $ingredient): static
     {
-        if ($this->idIngr->removeElement($idIngr)) {
-            // set the owning side to null (unless already changed)
-            if ($idIngr->getIdAller() === $this) {
-                $idIngr->setIdAller(null);
-            }
+        if ($this->ingredients->removeElement($ingredient)) {
+            $ingredient->removeAllergene($this);
         }
 
         return $this;
     }
+
 }
