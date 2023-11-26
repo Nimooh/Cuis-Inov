@@ -1,0 +1,226 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <div class="w-full bg-jet rounded-lg shadow sm:max-w-md my-3">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 class="text-xl text-white font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                Inscrivez vous
+            </h1>
+
+            {{ form_start(form, {'attr': {'class': 'space-y-4 md:space-y-6'}}) }}
+
+            <div class="text-sm text-red-500">
+                {{ form_errors(form) }}
+            </div>
+
+            <div>
+                {{ form_label(
+                    form.email,
+                    'Adresse e-mail',
+                    {
+                        'label_attr': {
+                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.email.vars.valid ? '' : ' text-red-500'),
+                        },
+                    }
+                ) }}
+                {{ form_widget(
+                    form.email,
+                    {
+                        'attr': {
+                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.email.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'placeholder': 'chef@cuisi.ne',
+                        },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(
+                    form.password,
+                    'Mot de passe',
+                    {
+                        'label_attr': {
+                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.password.vars.valid ? '' : ' text-red-500'),
+                        },
+                    }
+                ) }}
+                {{ form_widget(
+                    form.password,
+                    {
+                        'attr': {
+                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.password.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'placeholder': '••••••••',
+                        },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.password) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(
+                    form.firstname,
+                    'Prénom',
+                    {
+                        'label_attr': {
+                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.firstname.vars.valid ? '' : ' text-red-500'),
+                        },
+                    }
+                ) }}
+                {{ form_widget(
+                    form.firstname,
+                    {
+                        'attr': {
+                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.firstname.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'placeholder': 'Jean',
+                        },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.firstname) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(
+                    form.lastname,
+                    'Nom',
+                    {
+                        'label_attr': {
+                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.lastname.vars.valid ? '' : ' text-red-500'),
+                        },
+                    }
+                ) }}
+                {{ form_widget(
+                    form.lastname,
+                    {
+                        'attr': {
+                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.lastname.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'placeholder': 'Martin',
+                        },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.lastname) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(
+                    form.address,
+                    'Adresse',
+                    {
+                        'label_attr': {
+                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.address.vars.valid ? '' : ' text-red-500'),
+                        },
+                    }
+                ) }}
+                {{ form_widget(
+                    form.address,
+                    {
+                        'attr': {
+                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.address.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'placeholder': "2 Rue de l'IUT",
+                        },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.address) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(
+                    form.city,
+                    'Ville',
+                    {
+                        'label_attr': {
+                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.city.vars.valid ? '' : ' text-red-500'),
+                        },
+                    }
+                ) }}
+                {{ form_widget(
+                    form.city,
+                    {
+                        'attr': {
+                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.city.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'placeholder': 'Reims',
+                        },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.city) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(
+                    form.postalCode,
+                    'Code postal',
+                    {
+                        'label_attr': {
+                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.postalCode.vars.valid ? '' : ' text-red-500'),
+                        },
+                    }
+                ) }}
+                {{ form_widget(
+                    form.postalCode,
+                    {
+                        'attr': {
+                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.postalCode.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'placeholder': '51100',
+                        },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.postalCode) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(
+                    form.phone,
+                    'Numéro de téléphone',
+                    {
+                        'label_attr': {
+                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.phone.vars.valid ? '' : ' text-red-500'),
+                        },
+                    }
+                ) }}
+                {{ form_widget(
+                    form.phone,
+                    {
+                        'attr': {
+                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.phone.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'placeholder': '06XXXXXXXX',
+                        },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.phone) }}
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+
+            <button
+                    type="submit"
+                    class="w-full text-raisin-black bg-orange-peel hover:bg-orange-peel/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >Se connecter
+            </button>
+
+            <p class="text-sm font-light text-white">
+                Déjà chef ? <a
+                        href="{{ path('app_login') }}" class="font-medium text-white hover:underline"
+                >Se connecter</a>
+            </p>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
