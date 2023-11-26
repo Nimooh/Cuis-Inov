@@ -40,6 +40,14 @@ class Recette
     #[ORM\ManyToOne(inversedBy: 'recettes')]
     private ?Interagir $interagir = null;
 
+    #[ORM\ManyToMany(targetEntity: CategorieRecette::class, inversedBy: 'recettes')]
+    private Collection $categoriesRecette;
+
+    public function __construct()
+    {
+        $this->categoriesRecette = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +145,30 @@ class Recette
     public function setInteragir(?Interagir $interagir): static
     {
         $this->interagir = $interagir;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CategorieRecette>
+     */
+    public function getCategoriesRecette(): Collection
+    {
+        return $this->categoriesRecette;
+    }
+
+    public function addCategoriesRecette(CategorieRecette $categoriesRecette): static
+    {
+        if (!$this->categoriesRecette->contains($categoriesRecette)) {
+            $this->categoriesRecette->add($categoriesRecette);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoriesRecette(CategorieRecette $categoriesRecette): static
+    {
+        $this->categoriesRecette->removeElement($categoriesRecette);
 
         return $this;
     }

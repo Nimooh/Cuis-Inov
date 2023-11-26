@@ -18,12 +18,12 @@ class CategorieRecette
     #[ORM\Column(length: 255)]
     private ?string $nomCatRecette = null;
 
-    #[ORM\OneToMany(mappedBy: 'idCatRecette', targetEntity: Recette::class)]
-    private Collection $idRecette;
+    #[ORM\ManyToMany(targetEntity: Recette::class, mappedBy: 'categoriesRecette')]
+    private Collection $recettes;
 
     public function __construct()
     {
-        $this->idRecette = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,30 +46,28 @@ class CategorieRecette
     /**
      * @return Collection<int, Recette>
      */
-    public function getIdRecette(): Collection
+    public function getRecettes(): Collection
     {
-        return $this->idRecette;
+        return $this->recettes;
     }
 
-    public function addIdRecette(Recette $idRecette): static
+    public function addRecette(Recette $recette): static
     {
-        if (!$this->idRecette->contains($idRecette)) {
-            $this->idRecette->add($idRecette);
-            $idRecette->setIdCatRecette($this);
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+            $recette->addCategoriesRecette($this);
         }
 
         return $this;
     }
 
-    public function removeIdRecette(Recette $idRecette): static
+    public function removeRecette(Recette $recette): static
     {
-        if ($this->idRecette->removeElement($idRecette)) {
-            // set the owning side to null (unless already changed)
-            if ($idRecette->getIdCatRecette() === $this) {
-                $idRecette->setIdCatRecette(null);
-            }
+        if ($this->recettes->removeElement($recette)) {
+            $recette->removeCategoriesRecette($this);
         }
 
         return $this;
     }
+
 }
