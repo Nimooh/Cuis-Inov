@@ -13,8 +13,8 @@ class FavorisController extends AbstractController
     #[Route('/favoris', name: 'app_favoris')]
     public function index(InteragirRepository $repo, Request $request): Response
     {
-        $query = $request->query->get('search', '');
-        $favoris = $repo->search($query);
+        $query = $request->cookies->get('idMembre', '');
+        $favoris = $repo->findWithMembre($query);
 
         return $this->render('favoris/index.html.twig', ['favoris' => $favoris]);
     }

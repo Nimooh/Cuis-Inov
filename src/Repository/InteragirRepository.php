@@ -21,6 +21,29 @@ class InteragirRepository extends ServiceEntityRepository
         parent::__construct($registry, Interagir::class);
     }
 
+    /**
+     * @param int $id Identifiant de l'utilisateur courant
+     * @return Recette[]
+     */
+    public function findWithMembre(int $id): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT r.nom_recette, r.temps_recette, r.stars_recette, r.diff_recette, r.img_recette, r.instruction, r.description
+            FROM recette r
+                inner join interagir i (i.idrecette = r.idrecette)
+                inner join membre m (i.idmembre = m.idmembre)
+            WHERE i.idrecette = i.idmembre
+                and i.fav IS TRUE
+            ';
+
+        $resultSet = $conn->executeQuery($sql, ['id' => $id]);
+
+        return $resultSet->fetchAllAssociative();
+    }
+
+
 //    /**
 //     * @return Interagir[] Returns an array of Interagir objects
 //     */
