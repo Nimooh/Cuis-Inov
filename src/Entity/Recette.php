@@ -43,9 +43,13 @@ class Recette
     #[ORM\ManyToMany(targetEntity: CategorieRecette::class, inversedBy: 'recettes')]
     private Collection $categoriesRecette;
 
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recettes')]
+    private Collection $ingredients;
+
     public function __construct()
     {
         $this->categoriesRecette = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +173,30 @@ class Recette
     public function removeCategoriesRecette(CategorieRecette $categoriesRecette): static
     {
         $this->categoriesRecette->removeElement($categoriesRecette);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): static
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): static
+    {
+        $this->ingredients->removeElement($ingredient);
 
         return $this;
     }
