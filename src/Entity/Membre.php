@@ -7,10 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[ORM\Entity(repositoryClass: MembreRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cette email')]
 class Membre implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,6 +22,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 100)]
+    #[Assert\Email()]
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
@@ -27,12 +34,22 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
+    #[Assert\Length([
+        'min' => 6,
+        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères',
+            // max length allowed by Symfony for security reasons
+        'max' => 4096,
+    ])]
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 30)]
     #[ORM\Column(length: 255)]
     private ?string $nomMembre = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 30)]
     #[ORM\Column(length: 255)]
     private ?string $prnmMembre = null;
 
@@ -48,6 +65,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $villeMembre = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 20)]
+    #[Assert\Regex(pattern: '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4})$/', message: 'Format de téléphone invalide')]
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $telMembre = null;
 
