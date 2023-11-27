@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Ingredient;
 use App\Entity\Recette;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,31 @@ class RecetteRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Recette::class);
+    }
+
+    public function findRecipeById(int $id):Recette
+    {
+        return $this->createQueryBuilder('recipe')
+            ->where('recipe.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param int $Id
+     * @return Ingredient[]
+     */
+    public function findAllComponentById(int $id):array
+    {
+        return $this->createQueryBuilder('comp')
+            ->select('i.*')
+            ->join('comp.ingredient', 'i')
+            ->where('comp.id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('comp.nom_ingr', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
