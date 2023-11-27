@@ -13,7 +13,7 @@
             </svg>
             <span class="sr-only">Icon description</span>
         </button>
-        <img src="" alt="foodImg">
+        <img src="{# path avec recipe.id #}" alt="foodImg">
         <button type="button" class="text-gray-900 bg-gray-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 19">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
@@ -22,13 +22,13 @@
         </button>
     </section>
     <section>
-        <h2>Titre</h2>
+        <h2>{{ recipe.nom_recette }}</h2>
         <section class="flex flex-row">
             <div class="">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
                 </svg>
-                <p>xx minutes</p>
+                <p>{{ recipe.temps_recette }} minutes</p>
                 <p>Préparation</p>
             </div>
             <div class="">
@@ -42,7 +42,7 @@
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
                     <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
                 </svg>
-                <p>Facile</p>
+                <p>{{ recipe.diff_recette }}</p>
                 <p>Difficulté</p>
             </div>
         </section>
@@ -56,22 +56,15 @@
         </section>
         <section> {# liste des etapes de la recette #}
             <p>
-                Description
+                {{ recipe.instruction }}
             </p>
         </section>
         <section class="grid grid-cols-3 md:grid-cols-4 gap-4"> {# liste des Ingredients #}
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="" alt="">
-            </div>
+            {% for elmt in components %}
+                <div>
+                    <img class="h-auto max-w-full rounded-lg" src="{# path avec elmt #}" alt="">
+                </div>
+            {% endblock %}
         </section>
     </section>
 {% endblock %}
