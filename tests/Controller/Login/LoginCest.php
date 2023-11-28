@@ -13,7 +13,7 @@ class LoginCest
     }
 
     // tests
-    public function pageLoadingCorrectly(ControllerTester $I)
+    public function pageLoginLoadingCorrectly(ControllerTester $I)
     {
         $I->amOnPage('/login');
         $I->seeResponseCodeIs(200);
@@ -28,7 +28,6 @@ class LoginCest
         ]);
         $I->amOnPage('/login');
         $I->submitForm('#login', ['email' => 'jean.michel@email.com', 'password' => new PasswordArgument('password')]);
-        $I->amOnPage('/');
         $I->seeResponseCodeIs(200);
     }
 
@@ -42,9 +41,6 @@ class LoginCest
         $I->fillField('#login input[name=email]', 'jean.michel@email.com');
         $I->fillField('#login input[name=password]', new PasswordArgument('password'));
         $I->click('Se connecter', '#login');
-        $I->amOnPage('/');
         $I->seeResponseCodeIs(200);
     }
-
-
 }
