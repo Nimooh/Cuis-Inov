@@ -37,19 +37,19 @@ class Recette
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'idRecette', targetEntity: Interagir::class)]
-    private Collection $idInteragir;
+    #[ORM\ManyToOne(inversedBy: 'recettes')]
+    private ?Interagir $interagir = null;
 
-    #[ORM\ManyToOne(inversedBy: 'idRecette')]
-    private ?CategorieRecette $idCatRecette = null;
+    #[ORM\ManyToMany(targetEntity: CategorieRecette::class, inversedBy: 'recettes')]
+    private Collection $categoriesRecette;
 
-    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'idRecette')]
-    private Collection $idIngr;
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recettes')]
+    private Collection $ingredients;
 
     public function __construct()
     {
-        $this->idInteragir = new ArrayCollection();
-        $this->idIngr = new ArrayCollection();
+        $this->categoriesRecette = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -141,44 +141,38 @@ class Recette
         return $this;
     }
 
+    public function getInteragir(): ?Interagir
+    {
+        return $this->interagir;
+    }
+
+    public function setInteragir(?Interagir $interagir): static
+    {
+        $this->interagir = $interagir;
+
+        return $this;
+    }
+
     /**
-     * @return Collection<int, Interagir>
+     * @return Collection<int, CategorieRecette>
      */
-    public function getIdInteragir(): Collection
+    public function getCategoriesRecette(): Collection
     {
-        return $this->idInteragir;
+        return $this->categoriesRecette;
     }
 
-    public function addIdInteragir(Interagir $idInteragir): static
+    public function addCategoriesRecette(CategorieRecette $categoriesRecette): static
     {
-        if (!$this->idInteragir->contains($idInteragir)) {
-            $this->idInteragir->add($idInteragir);
-            $idInteragir->setIdRecette($this);
+        if (!$this->categoriesRecette->contains($categoriesRecette)) {
+            $this->categoriesRecette->add($categoriesRecette);
         }
 
         return $this;
     }
 
-    public function removeIdInteragir(Interagir $idInteragir): static
+    public function removeCategoriesRecette(CategorieRecette $categoriesRecette): static
     {
-        if ($this->idInteragir->removeElement($idInteragir)) {
-            // set the owning side to null (unless already changed)
-            if ($idInteragir->getIdRecette() === $this) {
-                $idInteragir->setIdRecette(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getIdCatRecette(): ?CategorieRecette
-    {
-        return $this->idCatRecette;
-    }
-
-    public function setIdCatRecette(?CategorieRecette $idCatRecette): static
-    {
-        $this->idCatRecette = $idCatRecette;
+        $this->categoriesRecette->removeElement($categoriesRecette);
 
         return $this;
     }
@@ -186,24 +180,25 @@ class Recette
     /**
      * @return Collection<int, Ingredient>
      */
-    public function getIdIngr(): Collection
+    public function getIngredients(): Collection
     {
-        return $this->idIngr;
+        return $this->ingredients;
     }
 
-    public function addIdIngr(Ingredient $idIngr): static
+    public function addIngredient(Ingredient $ingredient): static
     {
-        if (!$this->idIngr->contains($idIngr)) {
-            $this->idIngr->add($idIngr);
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
         }
 
         return $this;
     }
 
-    public function removeIdIngr(Ingredient $idIngr): static
+    public function removeIngredient(Ingredient $ingredient): static
     {
-        $this->idIngr->removeElement($idIngr);
+        $this->ingredients->removeElement($ingredient);
 
         return $this;
     }
+
 }

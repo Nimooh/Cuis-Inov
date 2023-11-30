@@ -24,15 +24,16 @@ class Ingredient
     #[ORM\Column(length: 255)]
     private ?string $unite = null;
 
-    #[ORM\ManyToMany(targetEntity: Recette::class, mappedBy: 'idIngr')]
-    private Collection $idRecette;
+    #[ORM\ManyToMany(targetEntity: Recette::class, mappedBy: 'ingredients')]
+    private Collection $recettes;
 
-    #[ORM\ManyToOne(inversedBy: 'idIngr')]
-    private ?Allergene $idAller = null;
+    #[ORM\ManyToMany(targetEntity: Allergene::class, inversedBy: 'ingredients')]
+    private Collection $allergenes;
 
     public function __construct()
     {
-        $this->idRecette = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
+        $this->allergenes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,39 +80,52 @@ class Ingredient
     /**
      * @return Collection<int, Recette>
      */
-    public function getIdRecette(): Collection
+    public function getRecettes(): Collection
     {
-        return $this->idRecette;
+        return $this->recettes;
     }
 
-    public function addIdRecette(Recette $idRecette): static
+    public function addRecette(Recette $recette): static
     {
-        if (!$this->idRecette->contains($idRecette)) {
-            $this->idRecette->add($idRecette);
-            $idRecette->addIdIngr($this);
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+            $recette->addIngredient($this);
         }
 
         return $this;
     }
 
-    public function removeIdRecette(Recette $idRecette): static
+    public function removeRecette(Recette $recette): static
     {
-        if ($this->idRecette->removeElement($idRecette)) {
-            $idRecette->removeIdIngr($this);
+        if ($this->recettes->removeElement($recette)) {
+            $recette->removeIngredient($this);
         }
 
         return $this;
     }
 
-    public function getIdAller(): ?Allergene
+    /**
+     * @return Collection<int, Allergene>
+     */
+    public function getAllergenes(): Collection
     {
-        return $this->idAller;
+        return $this->allergenes;
     }
 
-    public function setIdAller(?Allergene $idAller): static
+    public function addAllergene(Allergene $allergene): static
     {
-        $this->idAller = $idAller;
+        if (!$this->allergenes->contains($allergene)) {
+            $this->allergenes->add($allergene);
+        }
 
         return $this;
     }
+
+    public function removeAllergene(Allergene $allergene): static
+    {
+        $this->allergenes->removeElement($allergene);
+
+        return $this;
+    }
+
 }

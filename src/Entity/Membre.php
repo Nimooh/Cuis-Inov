@@ -71,13 +71,8 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $telMembre = null;
 
-    #[ORM\OneToMany(mappedBy: 'idInteragir', targetEntity: Interagir::class)]
-    private Collection $IdInteragir;
-
-    public function __construct()
-    {
-        $this->IdInteragir = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'membres')]
+    private ?Interagir $interagir = null;
 
     public function getId(): ?int
     {
@@ -233,33 +228,16 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Interagir>
-     */
-    public function getIdInteragir(): Collection
+    public function getInteragir(): ?Interagir
     {
-        return $this->IdInteragir;
+        return $this->interagir;
     }
 
-    public function addIdInteragir(Interagir $idInteragir): static
+    public function setInteragir(?Interagir $interagir): static
     {
-        if (!$this->IdInteragir->contains($idInteragir)) {
-            $this->IdInteragir->add($idInteragir);
-            $idInteragir->setIdInteragir($this);
-        }
+        $this->interagir = $interagir;
 
         return $this;
     }
 
-    public function removeIdInteragir(Interagir $idInteragir): static
-    {
-        if ($this->IdInteragir->removeElement($idInteragir)) {
-            // set the owning side to null (unless already changed)
-            if ($idInteragir->getIdInteragir() === $this) {
-                $idInteragir->setIdInteragir(null);
-            }
-        }
-
-        return $this;
-    }
 }

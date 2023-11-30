@@ -16,13 +16,17 @@ class Interagir
     #[ORM\Column(nullable: true)]
     private ?bool $fav = null;
 
-    #[ORM\ManyToOne(inversedBy: 'IdInteragir')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Membre $idInteragir = null;
+    #[ORM\OneToMany(mappedBy: 'interagir', targetEntity: Membre::class)]
+    private Collection $membres;
 
-    #[ORM\ManyToOne(inversedBy: 'idInteragir')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Recette $idRecette = null;
+    #[ORM\OneToMany(mappedBy: 'interagir', targetEntity: Recette::class)]
+    private Collection $recettes;
+
+    public function __construct()
+    {
+        $this->membres = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -41,26 +45,62 @@ class Interagir
         return $this;
     }
 
-    public function getIdInteragir(): ?Membre
+    /**
+     * @return Collection<int, Membre>
+     */
+    public function getMembres(): Collection
     {
-        return $this->idInteragir;
+        return $this->membres;
     }
 
-    public function setIdInteragir(?Membre $idInteragir): static
+    public function addMembre(Membre $membre): static
     {
-        $this->idInteragir = $idInteragir;
+        if (!$this->membres->contains($membre)) {
+            $this->membres->add($membre);
+            $membre->setInteragir($this);
+        }
 
         return $this;
     }
 
-    public function getIdRecette(): ?Recette
+    public function removeMembre(Membre $membre): static
     {
-        return $this->idRecette;
+        if ($this->membres->removeElement($membre)) {
+            // set the owning side to null (unless already changed)
+            if ($membre->getInteragir() === $this) {
+                $membre->setInteragir(null);
+            }
+        }
+
+        return $this;
     }
 
-    public function setIdRecette(?Recette $idRecette): static
+    /**
+     * @return Collection<int, Recette>
+     */
+    public function getRecettes(): Collection
     {
-        $this->idRecette = $idRecette;
+        return $this->recettes;
+    }
+
+    public function addRecette(Recette $recette): static
+    {
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+            $recette->setInteragir($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recette $recette): static
+    {
+        if ($this->recettes->removeElement($recette)) {
+            // set the owning side to null (unless already changed)
+            if ($recette->getInteragir() === $this) {
+                $recette->setInteragir(null);
+            }
+        }
 
         return $this;
     }
