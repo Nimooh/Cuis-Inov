@@ -43,6 +43,9 @@ class Recette
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Interagir::class)]
     private Collection $interagirs;
 
+    #[ORM\Column]
+    private ?float $noteMoyenne = null;
+
     public function __construct()
     {
         $this->categoriesRecette = new ArrayCollection();
@@ -201,6 +204,18 @@ class Recette
                 $interagir->setRecette(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNoteMoyenne(): ?float
+    {
+        return $this->noteMoyenne;
+    }
+
+    public function setNoteMoyenne(float $noteMoyenne): static
+    {
+        $this->noteMoyenne = $noteMoyenne;
 
         return $this;
     }
