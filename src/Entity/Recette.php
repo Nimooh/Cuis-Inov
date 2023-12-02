@@ -22,9 +22,6 @@ class Recette
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $tempsRecette = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $starsRecette = null;
-
     #[ORM\Column]
     private ?int $diffRecette = null;
 
@@ -37,19 +34,20 @@ class Recette
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recettes')]
-    private ?Interagir $interagir = null;
-
     #[ORM\ManyToMany(targetEntity: CategorieRecette::class, inversedBy: 'recettes')]
     private Collection $categoriesRecette;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recettes')]
     private Collection $ingredients;
 
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Interagir::class)]
+    private Collection $interagirs;
+
     public function __construct()
     {
         $this->categoriesRecette = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+        $this->interagirs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,18 +75,6 @@ class Recette
     public function setTempsRecette(?\DateTimeInterface $tempsRecette): static
     {
         $this->tempsRecette = $tempsRecette;
-
-        return $this;
-    }
-
-    public function getStarsRecette(): ?float
-    {
-        return $this->starsRecette;
-    }
-
-    public function setStarsRecette(?float $starsRecette): static
-    {
-        $this->starsRecette = $starsRecette;
 
         return $this;
     }
@@ -141,18 +127,6 @@ class Recette
         return $this;
     }
 
-    public function getInteragir(): ?Interagir
-    {
-        return $this->interagir;
-    }
-
-    public function setInteragir(?Interagir $interagir): static
-    {
-        $this->interagir = $interagir;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, CategorieRecette>
      */
@@ -197,6 +171,36 @@ class Recette
     public function removeIngredient(Ingredient $ingredient): static
     {
         $this->ingredients->removeElement($ingredient);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Interagir>
+     */
+    public function getInteragirs(): Collection
+    {
+        return $this->interagirs;
+    }
+
+    public function addInteragir(Interagir $interagir): static
+    {
+        if (!$this->interagirs->contains($interagir)) {
+            $this->interagirs->add($interagir);
+            $interagir->setRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInteragir(Interagir $interagir): static
+    {
+        if ($this->interagirs->removeElement($interagir)) {
+            // set the owning side to null (unless already changed)
+            if ($interagir->getRecette() === $this) {
+                $interagir->setRecette(null);
+            }
+        }
 
         return $this;
     }
