@@ -19,12 +19,6 @@ class Ingredient
     #[ORM\Column(length: 255)]
     private ?string $nomIngr = null;
 
-    #[ORM\Column]
-    private ?float $qteIngr = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $unite = null;
-
     #[ORM\ManyToMany(targetEntity: Recette::class, mappedBy: 'ingredients')]
     private Collection $recettes;
 
@@ -50,30 +44,6 @@ class Ingredient
     public function setNomIngr(string $nomIngr): static
     {
         $this->nomIngr = $nomIngr;
-
-        return $this;
-    }
-
-    public function getQteIngr(): ?float
-    {
-        return $this->qteIngr;
-    }
-
-    public function setQteIngr(float $qteIngr): static
-    {
-        $this->qteIngr = $qteIngr;
-
-        return $this;
-    }
-
-    public function getUnite(): ?string
-    {
-        return $this->unite;
-    }
-
-    public function setUnite(string $unite): static
-    {
-        $this->unite = $unite;
 
         return $this;
     }
