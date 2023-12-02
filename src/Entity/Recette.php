@@ -22,9 +22,6 @@ class Recette
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $tempsRecette = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $starsRecette = null;
-
     #[ORM\Column]
     private ?int $diffRecette = null;
 
@@ -37,19 +34,23 @@ class Recette
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recettes')]
-    private ?Interagir $interagir = null;
-
     #[ORM\ManyToMany(targetEntity: CategorieRecette::class, inversedBy: 'recettes')]
     private Collection $categoriesRecette;
 
-    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recettes')]
-    private Collection $ingredients;
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Interagir::class)]
+    private Collection $interagirs;
+
+    #[ORM\Column]
+    private ?float $noteMoyenne = null;
+
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class)]
+    private Collection $composers;
 
     public function __construct()
     {
         $this->categoriesRecette = new ArrayCollection();
-        $this->ingredients = new ArrayCollection();
+        $this->interagirs = new ArrayCollection();
+        $this->composers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,18 +78,6 @@ class Recette
     public function setTempsRecette(?\DateTimeInterface $tempsRecette): static
     {
         $this->tempsRecette = $tempsRecette;
-
-        return $this;
-    }
-
-    public function getStarsRecette(): ?float
-    {
-        return $this->starsRecette;
-    }
-
-    public function setStarsRecette(?float $starsRecette): static
-    {
-        $this->starsRecette = $starsRecette;
 
         return $this;
     }
@@ -141,18 +130,6 @@ class Recette
         return $this;
     }
 
-    public function getInteragir(): ?Interagir
-    {
-        return $this->interagir;
-    }
-
-    public function setInteragir(?Interagir $interagir): static
-    {
-        $this->interagir = $interagir;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, CategorieRecette>
      */
@@ -178,25 +155,73 @@ class Recette
     }
 
     /**
-     * @return Collection<int, Ingredient>
+     * @return Collection<int, Interagir>
      */
-    public function getIngredients(): Collection
+    public function getInteragirs(): Collection
     {
-        return $this->ingredients;
+        return $this->interagirs;
     }
 
-    public function addIngredient(Ingredient $ingredient): static
+    public function addInteragir(Interagir $interagir): static
     {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
+        if (!$this->interagirs->contains($interagir)) {
+            $this->interagirs->add($interagir);
+            $interagir->setRecette($this);
         }
 
         return $this;
     }
 
-    public function removeIngredient(Ingredient $ingredient): static
+    public function removeInteragir(Interagir $interagir): static
     {
-        $this->ingredients->removeElement($ingredient);
+        if ($this->interagirs->removeElement($interagir)) {
+            // set the owning side to null (unless already changed)
+            if ($interagir->getRecette() === $this) {
+                $interagir->setRecette(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNoteMoyenne(): ?float
+    {
+        return $this->noteMoyenne;
+    }
+
+    public function setNoteMoyenne(float $noteMoyenne): static
+    {
+        $this->noteMoyenne = $noteMoyenne;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Composer>
+     */
+    public function getComposers(): Collection
+    {
+        return $this->composers;
+    }
+
+    public function addComposer(Composer $composer): static
+    {
+        if (!$this->composers->contains($composer)) {
+            $this->composers->add($composer);
+            $composer->setRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposer(Composer $composer): static
+    {
+        if ($this->composers->removeElement($composer)) {
+            // set the owning side to null (unless already changed)
+            if ($composer->getRecette() === $this) {
+                $composer->setRecette(null);
+            }
+        }
 
         return $this;
     }
