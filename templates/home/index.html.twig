@@ -1,7 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Cuis'inov{% endblock %}
-
+{# Icon of flame (difficulty)
+<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.147 15.085a7.159 7.159 0 0 1-6.189 3.307A6.713 6.713 0 0 1 3.1 15.444c-2.679-4.513.287-8.737.888-9.548A4.373 4.373 0 0 0 5 1.608c1.287.953 6.445 3.218 5.537 10.5 1.5-1.122 2.706-3.01 2.853-6.14 1.433 1.049 3.993 5.395 1.757 9.117Z"/>
+</svg>
+#}
 {% block body %}
+<div class="grow items-center min-h-screen flex flex-col p-2.5" id="main">
+    <div class="flex align-middle place-content-around w-full" id="slot_trending">
+        <div class="flex place-content-around border-2 border-black bg-BlackCuis rounded-2xl m-5 p-3 w-4/5 max-h-64" id="trending">
+            <div class="flex flex-col p-2 place-content-around" id="misc_trending">
+                <span class="text-LightGrayCuis italic">A la une</span>
+                <span class="align-middle text-orange-peel text-xl font-bold">{{ recettes.nomRecette }}</span>
+                <div class="prep-diff">
+                    <span class="text-white">{{ recettes.tempsRecette | date("d/m/Y", false) }} |</span><span class="text-white"> {{ recettes.diffRecette }}</span>
+                </div>
+            </div>
+            <img class="rounded-lg" src="{{ img }}" id="img">
+        </div>
+    </div>
 
+    <h1 class="text-white text-2xl font-bold">Les mieux notées :</h1>
+    <div class="left-0 w-full" id="bloc_list">
+        <ul class="flex flex-wrap justify-around m-1 list-none">
+
+            {% for recette in recettes %}
+                <li class="m-1 p-3 border-2 border-black bg-cover bg-black bg-opacity-100 rounded-2xl">
+                    <a class="no-underline text-black" href="#">
+                        <div class="flex flex-col items-center text-white">
+                            <img class="rounded-lg max-w-256 max-h-256" src="{{ img }}">
+                            <span>{{ recette.nomRecette }}</span>
+                            <span>{{ recette.starsRecette }}</span>
+                            <div class="prep-diff">
+                                <span>{{ recette.tempsRecette | date("d/m/Y", false) }}</span>|<span>{{ recette.diffRecette }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
 {% endblock %}
