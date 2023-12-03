@@ -74,4 +74,20 @@ class RecetteRepository extends ServiceEntityRepository
 
         return $result->fetchAllAssociative();
     }
+
+    public function findAllOrderedWithoutMostTrending()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT *
+        FROM recette
+        WHERE stars_recette != (SELECT MAX(stars_recette)
+                             FROM recette)
+        ORDER BY stars_recette DESC, nom_recette
+        ';
+        $result = $conn->executeQuery($sql);
+
+        return $result->fetchAllAssociative();
+    }
 }
