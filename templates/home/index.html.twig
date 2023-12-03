@@ -6,7 +6,7 @@
 <div class="grow items-center min-h-screen flex flex-col p-2.5" id="main">
     <div class="flex align-middle place-content-around w-full" id="slot_trending">
         <div class="border-2 border-black bg-BlackCuis shadow-lg shadow-orange-peel rounded-2xl m-5 p-3 w-4/5 min-h-64" id="trending">
-            <a class="no-underline text-black flex place-content-around" href="#">
+            <a class="no-underline text-black flex place-content-around" href="{{ path('app_details', { id: trending.id }) }}">
                 <div class="flex flex-col p-2 place-content-around" id="misc_trending">
                     <span class="text-lg text-LightGrayCuis italic">A la une</span>
                     <span class="align-middle text-orange-peel text-4xl font-bold">{{ trending.nom_recette }}</span>
@@ -48,7 +48,7 @@
 
             {% for recette in recettes %}
                 <li class="m-1 p-3 border-2 border-black bg-cover bg-black bg-opacity-100 rounded-2xl">
-                    <a class="no-underline text-black" href="#">
+                    <a class="no-underline text-black" href="{{ path('app_details', { id: recette.id }) }}">
                         <div class="flex flex-col items-center text-white">
                             <img class="rounded-lg w-64 h-64" src="{{ path('app_show_image', { id: recette.id }) }}">
                             <span>{{ recette.nom_recette }}</span>
