@@ -45,4 +45,18 @@ class RecetteRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findImgFromId($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT img_recette
+        FROM recette
+        WHERE id = :id
+        ';
+        $result = $conn->executeQuery($sql, ['id' => $id]);
+
+        return $result->fetchAllAssociative();
+    }
 }
