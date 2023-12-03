@@ -1,39 +1,110 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Cuis'inov{% endblock %}
-{# Icon of flame (difficulty)
-<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.147 15.085a7.159 7.159 0 0 1-6.189 3.307A6.713 6.713 0 0 1 3.1 15.444c-2.679-4.513.287-8.737.888-9.548A4.373 4.373 0 0 0 5 1.608c1.287.953 6.445 3.218 5.537 10.5 1.5-1.122 2.706-3.01 2.853-6.14 1.433 1.049 3.993 5.395 1.757 9.117Z"/>
-</svg>
-#}
+
 {% block body %}
 <div class="grow items-center min-h-screen flex flex-col p-2.5" id="main">
     <div class="flex align-middle place-content-around w-full" id="slot_trending">
-        <div class="flex place-content-around border-2 border-black bg-BlackCuis rounded-2xl m-5 p-3 w-4/5 max-h-64" id="trending">
-            <div class="flex flex-col p-2 place-content-around" id="misc_trending">
-                <span class="text-LightGrayCuis italic">A la une</span>
-                <span class="align-middle text-orange-peel text-xl font-bold">{{ recettes.nomRecette }}</span>
-                <div class="prep-diff">
-                    <span class="text-white">{{ recettes.tempsRecette | date("d/m/Y", false) }} |</span><span class="text-white"> {{ recettes.diffRecette }}</span>
+        <div class="border-2 border-black bg-BlackCuis shadow-lg shadow-orange-peel rounded-2xl m-5 p-3 w-4/5 min-h-64" id="trending">
+            <a class="no-underline text-black flex place-content-around" href="#">
+                <div class="flex flex-col p-2 place-content-around" id="misc_trending">
+                    <span class="text-lg text-LightGrayCuis italic">A la une</span>
+                    <span class="align-middle text-orange-peel text-4xl font-bold">{{ trending.nom_recette }}</span>
+                    <div class="flex items-center gap-8">
+                        <div class="flex gap-2">
+                            {# Calculer du total des minutes #}
+                            {% set total_minutes = trending.temps_recette|date('H') * 60 + trending.temps_recette|date('i') %}
+                            <svg class="w-6 h-6 text-yellow-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                            </svg>
+                            <span class="text-white">{{ total_minutes }} minutes</span>
+                        </div>
+                        <span> {# Bloc svg pour afficher la difficulté #}
+                                    <div class="flex items-center">
+                                        {% set flameColor = trending.diff_recette >= 1 ? 'text-yellow-300' : 'text-gray-500' %}
+                                        <svg class="w-6 h-6 dark:text-white {{ flameColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
+                                          <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+                                        </svg>
+                                        {% set flameColor = trending.diff_recette >= 2 ? 'text-yellow-300' : 'text-gray-500' %}
+                                        <svg class="w-6 h-6 dark:text-white {{ flameColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
+                                          <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+                                        </svg>
+                                        {% set flameColor = trending.diff_recette == 3 ? 'text-yellow-300' : 'text-gray-500' %}
+                                        <svg class="w-6 h-6 dark:text-white {{ flameColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
+                                          <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+                                        </svg>
+                                    </div>
+                                </span>
+                    </div>
                 </div>
-            </div>
-            <img class="rounded-lg" src="{{ img }}" id="img">
+                <img class="rounded-lg w-64 h-64" src="{{ path('app_show_image', { id: trending.id }) }}" id="img">
+            </a>
         </div>
     </div>
 
-    <h1 class="text-white text-2xl font-bold">Les mieux notées :</h1>
-    <div class="left-0 w-full" id="bloc_list">
+    <h1 class="text-white text-2xl font-bold p-5">Les mieux notées :</h1>
+    <div class="left-0 w-4/5" id="bloc_list">
         <ul class="flex flex-wrap justify-around m-1 list-none">
 
             {% for recette in recettes %}
                 <li class="m-1 p-3 border-2 border-black bg-cover bg-black bg-opacity-100 rounded-2xl">
                     <a class="no-underline text-black" href="#">
                         <div class="flex flex-col items-center text-white">
-                            <img class="rounded-lg max-w-256 max-h-256" src="{{ img }}">
-                            <span>{{ recette.nomRecette }}</span>
-                            <span>{{ recette.starsRecette }}</span>
-                            <div class="prep-diff">
-                                <span>{{ recette.tempsRecette | date("d/m/Y", false) }}</span>|<span>{{ recette.diffRecette }}</span>
+                            <img class="rounded-lg w-64 h-64" src="{{ path('app_show_image', { id: recette.id }) }}">
+                            <span>{{ recette.nom_recette }}</span>
+                            <span> {# Bloc svg pour afficher les notes #}
+                                <div class="flex items-center">
+                                    {% set starColor = recette.stars_recette >= 1 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                    </svg>
+                                    {% set starColor = recette.stars_recette > 2 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                    </svg>
+                                    {% set starColor = recette.stars_recette > 3 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                    </svg>
+                                    {% set starColor = recette.stars_recette > 4 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                    </svg>
+                                    {% set starColor = recette.stars_recette == 5 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                    </svg>
+                                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ recette.stars_recette }}</p>
+                                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">out of</p>
+                                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">5</p>
+                                </div>
+                            </span>
+                            <div class="flex items-center gap-3" id="misc">
+                                <div class="flex gap-2">
+                                    {# Calculer du total des minutes #}
+                                    {% set total_minutes = recette.temps_recette|date('H') * 60 + recette.temps_recette|date('i') %}
+                                    <svg class="w-6 h-6 text-yellow-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                                    </svg>
+                                    <span>{{ total_minutes }} minutes</span>
+                                </div>
+                                <span>|</span>
+                                <span> {# Bloc svg pour afficher la difficulté #}
+                                    <div class="flex items-center">
+                                        {% set flameColor = recette.diff_recette >= 1 ? 'text-yellow-300' : 'text-gray-500' %}
+                                        <svg class="w-6 h-6 dark:text-white {{ flameColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
+                                          <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+                                        </svg>
+                                        {% set flameColor = recette.diff_recette >= 2 ? 'text-yellow-300' : 'text-gray-500' %}
+                                        <svg class="w-6 h-6 dark:text-white {{ flameColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
+                                          <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+                                        </svg>
+                                        {% set flameColor = recette.diff_recette == 3 ? 'text-yellow-300' : 'text-gray-500' %}
+                                        <svg class="w-6 h-6 dark:text-white {{ flameColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
+                                          <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+                                        </svg>
+                                    </div>
+                                </span>
                             </div>
                         </div>
                     </a>
