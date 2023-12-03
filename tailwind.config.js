@@ -7,12 +7,12 @@ module.exports = {
   ],
   theme: {
     colors:{
-      phBlack : '#1f1f1f',
-      phGrayDark : '#272727',
-      phGray : '#303030',
-      phGrayLight : '#7c7c7c',
-      phOrange : '#fc9a1c',
-      phOrangeLight : '#ffa126'
+      cuiBlack : '#1f1f1f',
+      cuiGrayDark : '#272727',
+      cuiGray : '#303030',
+      cuiGrayLight : '#7c7c7c',
+      cuiOrange : '#fc9a1c',
+      cuiOrangeLight : '#ffa126'
     },
     fontFamily: {
       interPh: ['Inter', 'sans-serif']

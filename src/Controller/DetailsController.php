@@ -14,11 +14,11 @@ class DetailsController extends AbstractController
     public function index(RecetteRepository $rep, Request $request): Response
     {
         $id = $request->get('RecetteId');
-        $recipe = $rep->findRecipeById($id);
-        $components = $rep->findAllComponentById($id);
+        $recipe = $rep->find($id);
+        //$components = $rep->findAllComponentById($id);
         return $this->render('details/index.html.twig', [
             'recipe' => $recipe,
-            'components' => $components
+            //'components' => $components
         ]);
     }
 }
