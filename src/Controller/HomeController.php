@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     public function index(RecetteRepository $repo): Response
     {
         $trending = $repo->findMostTrending()[0];
-        $recettes = $repo->findAll();
+        $recettes = $repo->findAllOrderedWithoutMostTrending();
 
         return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending]);
     }
