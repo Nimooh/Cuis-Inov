@@ -55,26 +55,18 @@ final class MembreFactory extends ModelFactory
     {
         $nom_membre = self::faker()->lastName();
         $prnm_membre = self::faker()->firstName();
-        $email = $this->normalizeName($prnm_membre).'.'.$this->normalizeName($nom_membre).self::faker()->numerify('-###').'@'.self::faker()->domainName();
-        $password = 'test';
-        $roles = ['ROLE_USER'];
-        $img_profil_membre = null;
-        $cpmembre = self::faker()->postcode();
-        $adr_membre = self::faker()->buildingNumber().' '.self::faker()->streetName();
-        $ville_membre = self::faker()->city();
-        $tel_membre = '0'.self::faker()->randomDigitNotNull().self::faker()->randomNumber(8, true);
 
         return [
-            'email' => $email,
-            'roles' => $roles,
-            'password' => $password,
+            'email' => $this->normalizeName($prnm_membre).'.'.$this->normalizeName($nom_membre).self::faker()->numerify('-###').'@'.self::faker()->domainName(),
+            'roles' => ['ROLE_USER'],
+            'password' => 'test',
             'nomMembre' => $nom_membre,
             'prnmMembre' => $prnm_membre,
-            'img_profil_membre' => $img_profil_membre,
-            'cpmembre' => $cpmembre,
-            'adr_membre' => $adr_membre,
-            'ville_membre' => $ville_membre,
-            'tel_membre' => $tel_membre,
+            'img_profil_membre' => null,
+            'cpmembre' => str_replace(' ', '', self::faker()->postcode()),
+            'adr_membre' => self::faker()->buildingNumber().' '.self::faker()->streetName(),
+            'ville_membre' => self::faker()->city(),
+            'tel_membre' => '0'.self::faker()->randomDigitNotNull().self::faker()->randomNumber(8, true),
         ];
     }
 
