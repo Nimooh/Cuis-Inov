@@ -5,12 +5,12 @@
 {% block body %}
 <div class="grow items-center min-h-screen flex flex-col p-2.5" id="main">
     <div class="flex align-middle place-content-around w-full h-64" id="slot_trending">
-        <div class="relative border-2 border-black bg-BlackCuis rounded-2xl m-5 w-4/5 min-h-64" id="trending">
-            <a class="no-underline text-black flex h-full " href="#">
+        <div class="relative border-2 border-black bg-BlackCuis rounded-2xl m-5 overflow-hidden w-4/5 min-h-64" id="trending">
+            <a class="no-underline text-black flex h-full w-full" href="{{ path('app_details', { id: trending.id }) }}">
                 <div class="flex flex-col pl-16 p-2 place-content-around z-10" id="misc_trending">
                     <span class="text-lg text-LightGrayCuis italic">A la une</span>
                     <span class="align-middle text-orange-peel text-4xl font-bold">{{ trending.nom_recette }}</span>
-                    <div class="flex items-center gap-8">
+                    <div class="flex items-center gap-8 max-[1400px]:flex-col">
                         <div class="flex gap-2">
                             {# Calculer du total des minutes #}
                             {% set total_minutes = trending.temps_recette|date('H') * 60 + trending.temps_recette|date('i') %}
@@ -37,9 +37,11 @@
                                 </span>
                     </div>
                 </div>
-                <img class="absolute rounded-2xl w-[70%] h-full object-cover top-1/2 left-[65%] transform -translate-x-1/2 -translate-y-1/2" src="{{ path('app_show_image', { id: trending.id }) }}" id="img">
+                <img class="absolute rounded-2xl w-[70%] top-1/2 left-[65%] transform -translate-x-1/2 -translate-y-1/4 object-cover
+                max-[850px]:w-[100%] max-[850px]:top-[30%] max-[850px]:left-[50%]"
+                     src="{{ path('app_show_image', { id: trending.id }) }}" id="img">
             </a>
-            <div class="absolute top-0 left-0 bg-gradient-to-r from-black via-transparent to-transparent rounded-2xl p-3 w-full h-full" id="gradient"></div>
+            <div class="absolute top-0 left-0 bg-gradient-to-r from-black to-transparent rounded-2xl p-3 w-full h-full" id="gradient"></div>
         </div>
     </div>
 
@@ -48,8 +50,8 @@
         <ul class="flex flex-wrap justify-around m-1 list-none">
 
             {% for recette in recettes %}
-                <li class="m-1 p-3 bg-eerie-black bg-opacity-100 rounded-2xl">
-                    <a class="no-underline text-black" href="#">
+                <li class="relative m-1 p-3 bg-eerie-black bg-opacity-100 rounded-2xl">
+                    <a class="no-underline text-black" href="{{ path('app_details', { id: trending.id }) }}">
                         <div class="flex flex-col items-center text-white">
                             <img class="rounded-lg w-64 h-64" src="{{ path('app_show_image', { id: recette.id }) }}">
                             <span class="text-xl">{{ recette.nom_recette | capitalize }}</span>
@@ -106,6 +108,12 @@
                             </div>
                         </div>
                     </a>
+                    <button class="absolute top-4 right-4 m-2" id="fav">
+                        {# currentColor | none #}
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 19">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
+                        </svg>
+                    </button>
                 </li>
             {% endfor %}
 
