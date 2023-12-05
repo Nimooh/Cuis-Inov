@@ -4,11 +4,9 @@ namespace App\Controller;
 
 use App\Repository\RecetteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 class HomeController extends AbstractController
 {
@@ -22,7 +20,7 @@ class HomeController extends AbstractController
     }
 
 
-    #[Route("/image/{id}", name: 'app_show_image')]
+    #[Route("/image/{id}", name: 'app_show_image', requirements: ['id' => Requirement::DIGITS])]
     public function showImage(RecetteRepository $repo, int $id): Response
     {
         return new Response(
