@@ -67,7 +67,7 @@ class RecetteRepository extends ServiceEntityRepository
         $sql = '
         SELECT *
         FROM recette
-        WHERE stars_recette = (SELECT MAX(stars_recette)
+        WHERE note_moyenne = (SELECT MAX(note_moyenne)
                              FROM recette)
         ';
         $result = $conn->executeQuery($sql);
@@ -82,9 +82,9 @@ class RecetteRepository extends ServiceEntityRepository
         $sql = '
         SELECT *
         FROM recette
-        WHERE stars_recette != (SELECT MAX(stars_recette)
+        WHERE note_moyenne != (SELECT MAX(note_moyenne)
                              FROM recette)
-        ORDER BY stars_recette DESC, nom_recette
+        ORDER BY note_moyenne DESC, nom_recette
         ';
         $result = $conn->executeQuery($sql);
 
