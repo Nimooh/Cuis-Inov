@@ -6,8 +6,8 @@
 <div class="grow items-center min-h-screen flex flex-col p-2.5" id="main">
     <div class="flex align-middle place-content-around w-full h-64" id="slot_trending">
         <div class="relative border-2 border-black bg-BlackCuis rounded-2xl m-5 overflow-hidden w-4/5 min-h-64" id="trending">
-            <a class="no-underline text-black flex h-full w-full" href="{{ path('app_details', { id: trending.id }) }}">
-                <div class="flex flex-col pl-16 p-2 place-content-around z-10" id="misc_trending">
+            <a class="no-underline text-black flex" href="{{ path('app_details', { id: trending.id }) }}">
+                <div class="flex flex-col pl-16 p-2 place-content-around z-20 w-full place-items-start" id="misc_trending">
                     <span class="text-lg text-LightGrayCuis italic">A la une</span>
                     <span class="align-middle text-orange-peel text-4xl font-bold">{{ trending.nom_recette }}</span>
                     <div class="flex items-center gap-8 max-[1400px]:flex-col">
@@ -41,7 +41,7 @@
                 max-[850px]:w-[100%] max-[850px]:top-[30%] max-[850px]:left-[50%]"
                      src="{{ path('app_show_image', { id: trending.id }) }}" id="img">
             </a>
-            <div class="absolute top-0 left-0 bg-gradient-to-r from-black to-transparent rounded-2xl p-3 w-full h-full" id="gradient"></div>
+            <div class="absolute top-0 left-0 bg-gradient-to-r from-black to-transparent rounded-2xl p-3 w-full h-full z-10" id="gradient"></div>
         </div>
     </div>
 
@@ -51,29 +51,29 @@
 
             {% for recette in recettes %}
                 <li class="relative m-1 p-3 bg-eerie-black bg-opacity-100 rounded-2xl">
-                    <a class="no-underline text-black" href="{{ path('app_details', { id: trending.id }) }}">
+                    <a class="no-underline text-black" href="{{ path('app_details', { id: recette.id }) }}">
                         <div class="flex flex-col items-center text-white">
                             <img class="rounded-lg w-64 h-64" src="{{ path('app_show_image', { id: recette.id }) }}">
                             <span class="text-xl">{{ recette.nom_recette | capitalize }}</span>
                             <span> {# Bloc svg pour afficher les notes #}
-                                <div class="flex items-center" title="{{ recette.stars_recette }} out of 5">
-                                    {% set starColor = recette.stars_recette >= 1 ? 'text-yellow-300' : 'text-gray-500' %}
+                                <div class="flex items-center" title="{{ recette.note_moyenne }} out of 5">
+                                    {% set starColor = recette.note_moyenne >= 1 ? 'text-yellow-300' : 'text-gray-500' %}
                                     <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                         <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                                     </svg>
-                                    {% set starColor = recette.stars_recette > 2 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    {% set starColor = recette.note_moyenne > 2 ? 'text-yellow-300' : 'text-gray-500' %}
                                     <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                         <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                                     </svg>
-                                    {% set starColor = recette.stars_recette > 3 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    {% set starColor = recette.note_moyenne > 3 ? 'text-yellow-300' : 'text-gray-500' %}
                                     <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                         <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                                     </svg>
-                                    {% set starColor = recette.stars_recette > 4 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    {% set starColor = recette.note_moyenne > 4 ? 'text-yellow-300' : 'text-gray-500' %}
                                     <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                         <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                                     </svg>
-                                    {% set starColor = recette.stars_recette == 5 ? 'text-yellow-300' : 'text-gray-500' %}
+                                    {% set starColor = recette.note_moyenne == 5 ? 'text-yellow-300' : 'text-gray-500' %}
                                     <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                         <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                                     </svg>
