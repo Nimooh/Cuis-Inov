@@ -7,17 +7,16 @@ module.exports = {
   ],
   theme: {
     colors:{
-      Black : '#1f1f1f',
-      GrayDark : '#272727',
-      Gray : '#303030',
-      GrayLight : '#7c7c7c',
-      Orange : '#fc9a1c',
-      OrangeLight : '#ffa126'
+      cuiBlack : '#1f1f1f',
+      cuiGrayDark : '#272727',
+      cuiGray : '#303030',
+      cuiGrayLight : '#7c7c7c',
+      cuiOrange : '#fc9a1c',
+      cuiOrangeLight : '#ffa126'
     },
     fontFamily: {
       interPh: ['Inter', 'sans-serif']
     },
-    extend: {},
   },
   plugins: [
     require('flowbite/plugin')
