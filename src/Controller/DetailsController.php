@@ -15,10 +15,10 @@ class DetailsController extends AbstractController
     {
         $id = $request->get('RecetteId');
         $recipe = $rep->find($id);
-        //$components = $rep->findAllComponentById($id);
+        $components = $rep->findAllComponentsByRecipeId($id);
         return $this->render('details/index.html.twig', [
             'recipe' => $recipe,
-            //'components' => $components
+            'components' => $components
         ]);
     }
 }
