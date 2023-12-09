@@ -25,23 +25,20 @@ class Recette
     #[ORM\Column]
     private ?int $diffRecette = null;
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $imgRecette = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $instruction = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\Column]
+    private ?float $noteMoyenne = null;
 
     #[ORM\ManyToMany(targetEntity: CategorieRecette::class, inversedBy: 'recettes')]
     private Collection $categoriesRecette;
 
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Interagir::class)]
     private Collection $interagirs;
-
-    #[ORM\Column]
-    private ?float $noteMoyenne = null;
 
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class)]
     private Collection $composers;
@@ -90,18 +87,6 @@ class Recette
     public function setDiffRecette(?string $diffRecette): static
     {
         $this->diffRecette = $diffRecette;
-
-        return $this;
-    }
-
-    public function getImgRecette()
-    {
-        return $this->imgRecette;
-    }
-
-    public function setImgRecette($imgRecette): static
-    {
-        $this->imgRecette = $imgRecette;
 
         return $this;
     }

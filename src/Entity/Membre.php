@@ -36,9 +36,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prnmMembre = null;
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $imgProfilMembre = null;
-
     #[ORM\Column(length: 6, nullable: true)]
     private ?string $CPMembre = null;
 
@@ -150,18 +147,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrnmMembre(string $prnmMembre): static
     {
         $this->prnmMembre = $prnmMembre;
-
-        return $this;
-    }
-
-    public function getImgProfilMembre()
-    {
-        return $this->imgProfilMembre;
-    }
-
-    public function setImgProfilMembre($imgProfilMembre): static
-    {
-        $this->imgProfilMembre = $imgProfilMembre;
 
         return $this;
     }
