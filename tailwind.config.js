@@ -6,17 +6,18 @@ module.exports = {
     "./node_modules/flowbite/**/*.js" // set up the path to the flowbite package
   ],
   theme: {
-    extend: {
-      colors: {
-        'orange-peel': '#fc9a1c',
-        'gray': '#7c7c7c',
-        'jet': '#303030',
-        'raisin-black': '#272727',
-        'eerie-black': '#1f1f1f',
-        'BlackCuis' : '#1f1f1f',
-        'LightGrayCuis' : '#7c7c7c',
-      },
+    colors:{
+      phBlack : '#1f1f1f',
+      phGrayDark : '#272727',
+      phGray : '#303030',
+      phGrayLight : '#7c7c7c',
+      phOrange : '#fc9a1c',
+      phOrangeLight : '#ffa126'
     },
+    fontFamily: {
+      interPh: ['Inter', 'sans-serif']
+    },
+    extend: {},
   },
   plugins: [
     require('flowbite/plugin')
