@@ -3,8 +3,8 @@
 {% block title %}Hello DetailsController!{% endblock %}
 
 {% block body %}
-    <div id="content" class="flex flex-col min-w-[calc(80%-1rem)] text-white text-2xl justify-between gap-12">
-        <section id="top"  class="flex flex-row justify-between bg-cuiBlack ">
+    <div id="content" class="flex flex-col min-w-[calc(80%-1rem)] h-full text-white text-2xl justify-between gap-12">
+        <section id="top"  class="flex flex-row justify-between">
             <button onclick="window.location = '/'" class="text-cuiBlack bg-cuiGray hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-6 h-6 text-cuiBlack dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
@@ -18,7 +18,7 @@
             </button>
         </section>
         <section id="details" class="flex flex-col grow items-center bg-cuiGray rounded-lg gap-8">
-            <p class="text-5xl">{{ recipe.nomRecette }}</p>
+            <p class="text-5xl">{{ recipe.nomRecette | capitalize }}</p>
             <section id="characteristic" class="flex flex-row w-[calc(80%-2rem)] justify-around gap-3">
                 <div class="flex flex-col items-center">
                     <svg class="w-6 h-6 text-cuiOrange dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -49,11 +49,11 @@
                     <p>Difficulté</p>
                 </div>
             </section>
-            <section id="selector_toggle" class="flex flex-row bg-cuiBlack rounded-full p-1">
-                <button id="button_reci" type="button" class="bg-cuiGray text-cuiOrange py-2.5 px-5 text-sm font-medium rounded-full">
+            <section id="selector_toggle" class="flex flex-row bg-cuiBlack w-1/3 h-20 rounded-full p-1">
+                <button id="button_reci" type="button" class="bg-cuiGray text-cuiOrange text-lg text-center w-1/2 py-2.5 px-5 font-medium rounded-full">
                     Recette
                 </button>
-                <button id="button_comp" type="button" class="bg-cuiBlack text-cuiGray hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 text-sm font-medium rounded-full">
+                <button id="button_comp" type="button" class="bg-cuiBlack text-cuiGray text-lg text-center w-1/2 hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 font-medium rounded-full">
                     Ingredients
                 </button>
             </section>
@@ -70,10 +70,16 @@
                     <div class="flex flex-col items-center bg-cuiBlack rounded-lg">
                         <img class="h-auto max-w-full rounded-lg" src="{{ asset('img/logo.png') }}" alt="">
                         <div class="flex flex-row">
-                            {{ elmt.nom_ingr }} {{ elmt.qte }} {{ elmt.nom_unit }}
+                            {{ elmt.nom_ingr | capitalize }} {{ elmt.qte }} {{ elmt.nom_unit }}
                         </div>
                     </div>
                 {% endfor %}
+                <div class="flex flex-col items-center bg-cuiBlack rounded-lg">
+                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('img/logo.png') }}" alt="">
+                    <div class="flex flex-row">
+                        test
+                    </div>
+                </div>
             </section>
         </section>
     </div>
@@ -85,17 +91,17 @@
         let displayComponents = document.querySelector('#components');
 
         buttonRecipe.addEventListener('click', () => {
-            buttonRecipe.className = "bg-cuiGray text-cuiOrange py-2.5 px-5 text-sm font-medium rounded-full";
-            buttonComponents.className = "bg-cuiBlack text-cuiGray hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 text-sm font-medium rounded-full";
+            buttonRecipe.className = "bg-cuiGray text-cuiOrange text-lg text-center w-1/2 py-2.5 px-5 font-medium rounded-full";
+            buttonComponents.className = "bg-cuiBlack text-cuiGray text-lg text-center w-1/2 hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 font-medium rounded-full";
             displayRecipe.className = "flex flex-col gap-5";
             displayComponents.className = "hidden";
 
         });
         buttonComponents.addEventListener('click', () => {
-            buttonComponents.className = "bg-cuiGray text-cuiOrange py-2.5 px-5 text-sm font-medium rounded-full";
-            buttonRecipe.className = "bg-cuiBlack text-cuiGray hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 text-sm font-medium rounded-full";
+            buttonComponents.className = "bg-cuiGray text-cuiOrange text-lg text-center w-1/2 py-2.5 px-5 font-medium rounded-full";
+            buttonRecipe.className = "bg-cuiBlack text-cuiGray text-lg text-center w-1/2 hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 font-medium rounded-full";
             displayRecipe.className = "hidden";
-            displayComponents.className = "grid grid-cols-3 md:grid-cols-4 gap-4";
+            displayComponents.className = "grid grid-cols-3 md:grid-cols-5 gap-4";
         })
     </script>
 {% endblock %}

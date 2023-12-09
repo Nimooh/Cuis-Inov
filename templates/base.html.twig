@@ -22,13 +22,13 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3">
                 <img src="/img/logo.png" class="h-8" alt="Cui'inov Logo"/>
-                <span class="self-center text-orange-peel text-2xl font-semibold whitespace-nowrap">CUIS'INOV</span>
+                <span class="self-center text-cuiOrange text-2xl font-semibold whitespace-nowrap">CUIS'INOV</span>
             </a>
             <div class="flex md:order-2">
                 <button
                         type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
                         aria-expanded="false"
-                        class="md:hidden text-gray p-2.5 me-1"
+                        class="md:hidden text-cuiOrange p-2.5 me-1"
                 >
                     <svg
                             class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -57,7 +57,7 @@
                 {% else %}
                     <a
                             href="{{ path('app_login') }}"
-                            class="flex items-center md:ml-3 text-raisin-black bg-orange-peel hover:bg-orange-peel/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
+                            class="flex items-center md:ml-3 text-raisin-black bg-cuiOrange hover:bg-orange-peel/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
                     >
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
@@ -73,7 +73,7 @@
             </div>
         </div>
     </nav>
-    <main class="grow flex justify-center items-center bg-cuiBlack">
+    <main class="grow flex justify-center items-center bg-cuiGrayDark">
         {% block body %}{% endblock %}
     </main>
 </div>
