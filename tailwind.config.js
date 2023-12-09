@@ -13,6 +13,8 @@ module.exports = {
         'jet': '#303030',
         'raisin-black': '#272727',
         'eerie-black': '#1f1f1f',
+        'BlackCuis' : '#1f1f1f',
+        'LightGrayCuis' : '#7c7c7c',
       },
     },
   },
