@@ -19,6 +19,7 @@
         </section>
         <section id="details" class="flex flex-col grow items-center bg-cuiGray rounded-lg gap-8">
             <p class="text-5xl">{{ recipe.nomRecette | capitalize }}</p>
+            <p class="text-3xl">{{ recipe.description | capitalize }}</p>
             <section id="characteristic" class="flex flex-row w-[calc(80%-2rem)] justify-around gap-3">
                 <div class="flex flex-col items-center">
                     <svg class="w-6 h-6 text-cuiOrange dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -69,17 +70,11 @@
                 {% for elmt in components %}
                     <div class="flex flex-col items-center bg-cuiBlack rounded-lg">
                         <img class="h-auto max-w-full rounded-lg" src="{{ asset('img/logo.png') }}" alt="">
-                        <div class="flex flex-row">
-                            {{ elmt.nom_ingr | capitalize }} {{ elmt.qte }} {{ elmt.nom_unit }}
+                        <div class="flex flex-row gap-2">
+                            {{ elmt.nom_ingr | capitalize }} <span class="font-bold">{{ elmt.qte }} {{ elmt.nom_unit }}</span>
                         </div>
                     </div>
                 {% endfor %}
-                <div class="flex flex-col items-center bg-cuiBlack rounded-lg">
-                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('img/logo.png') }}" alt="">
-                    <div class="flex flex-row">
-                        test
-                    </div>
-                </div>
             </section>
         </section>
     </div>
