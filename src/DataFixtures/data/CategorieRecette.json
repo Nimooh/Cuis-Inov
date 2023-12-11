@@ -1,0 +1,14 @@
+[
+    { "nomCatRecette": "Entrée froide" },
+    { "nomCatRecette": "Entrée chaude" },
+    { "nomCatRecette": "Plat" },
+    { "nomCatRecette": "Dessert" },
+    { "nomCatRecette": "Apéritif" },
+    { "nomCatRecette": "Snack" },
+    { "nomCatRecette": "Soupe" },
+    { "nomCatRecette": "Salade" },
+    { "nomCatRecette": "Pâtisserie" },
+    { "nomCatRecette": "Cuisine du monde" },
+    { "nomCatRecette": "Végétarien" },
+    { "nomCatRecette": "Végan" }
+]
