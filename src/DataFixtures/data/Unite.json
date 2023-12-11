@@ -1,0 +1,14 @@
+[
+  { "nomUnit": "c. à café" },
+  { "nomUnit": "c. à soupe" },
+  { "nomUnit": "tasse" },
+  { "nomUnit": "verre" },
+  { "nomUnit": "oz" },
+  { "nomUnit": "lb" },
+  { "nomUnit": "g" },
+  { "nomUnit": "kg" },
+  { "nomUnit": "ml" },
+  { "nomUnit": "L" },
+  { "nomUnit": "pincée" },
+  { "nomUnit": "poignée" }
+]
