@@ -25,7 +25,7 @@ class RecetteFixtures extends Fixture implements DependentFixtureInterface
         $p = json_decode(file_get_contents('src/DataFixtures/data/Recette.json'), true);
         foreach ($p as $r) {
             $time = new \DateTime("00:00:00");
-            $recette = RecetteFactory::createOne(['nomRecette' => $r['name'], 'tempsRecette' => $time->add(new \DateInterval("PT{$r['temps_recette']}M")), 'diffRecette' => $r['diff_recette'], 'instruction' => $r['instructions'], 'description' => $r['description']]);
+            $recette = RecetteFactory::createOne(['nomRecette' => $r['name'],'note_moyenne' => $r['stars_recette'], 'tempsRecette' => $time->add(new \DateInterval("PT{$r['temps_recette']}M")), 'diffRecette' => $r['diff_recette'], 'instruction' => $r['instructions'], 'description' => $r['description']]);
             foreach ($r['categories'] as $cat) {
                 $recette->addCategoriesRecette($categories->findOneBy(['nomCatRecette' => $cat['nomCatRecette']]));
             }
