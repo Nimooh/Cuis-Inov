@@ -62,7 +62,6 @@ final class MembreFactory extends ModelFactory
             'password' => 'test',
             'nomMembre' => $nom_membre,
             'prnmMembre' => $prnm_membre,
-            'img_profil_membre' => null,
             'cpmembre' => str_replace(' ', '', self::faker()->postcode()),
             'adr_membre' => self::faker()->buildingNumber().' '.self::faker()->streetName(),
             'ville_membre' => self::faker()->city(),

@@ -18,8 +18,14 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
         $allergenes = $manager->getRepository(Allergene::class);
         $p = json_decode(file_get_contents('src/DataFixtures/data/Recette.json'), true);
         $recIng = [];
-        for ($r = 0; $r < sizeof($p); ++$r) {
-            $recIng = array_merge($p[$r]['ingredients'], $recIng);
+        $recIngName = [];
+        foreach ($p as $r) {
+            foreach ($r['ingredients'] as $ing) {
+                if (!array_search($ing['nomIngr'], $recIngName)) {
+                    $recIng[] = $ing;
+                    $recIngName[] = $ing['nomIngr'];
+                }
+            }
         }
         foreach ($recIng as $i) {
             $ingr = IngredientFactory::createOne(['nomIngr' => $i['nomIngr']]);

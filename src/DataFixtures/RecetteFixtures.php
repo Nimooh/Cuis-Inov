@@ -24,13 +24,13 @@ class RecetteFixtures extends Fixture implements DependentFixtureInterface
         $unites = $manager->getRepository(Unite::class);
         $p = json_decode(file_get_contents('src/DataFixtures/data/Recette.json'), true);
         foreach ($p as $r) {
-            $time = new \DateTime("00:00:00");
-            $recette = RecetteFactory::createOne(['nomRecette' => $r['name'],'note_moyenne' => $r['stars_recette'], 'tempsRecette' => $time->add(new \DateInterval("PT{$r['temps_recette']}M")), 'diffRecette' => $r['diff_recette'], 'instruction' => $r['instructions'], 'description' => $r['description']]);
+            $time = new \DateTime('00:00:00');
+            $recette = RecetteFactory::createOne(['nomRecette' => $r['name'], 'noteMoyenne' => $r['stars_recette'], 'tempsRecette' => $time->add(new \DateInterval("PT{$r['temps_recette']}M")), 'diffRecette' => $r['diff_recette'], 'instruction' => $r['instructions'], 'description' => $r['description']]);
             foreach ($r['categories'] as $cat) {
                 $recette->addCategoriesRecette($categories->findOneBy(['nomCatRecette' => $cat['nomCatRecette']]));
             }
             foreach ($r['ingredients'] as $ing) {
-                $composer = $composers->findOneBy(['ingredient' => $ingredients->findOneBy(['nomIngr' => $ing['nomIngr']]), 'unite' => $unites->findOneBy(['nomUnit' => $ing['unit']]), 'qte' => (int) $ing['quantity']]);
+                $composer = $composers->findOneBy(['recette' => null, 'ingredient' => $ingredients->findOneBy(['nomIngr' => $ing['nomIngr']]), 'unite' => $unites->findOneBy(['nomUnit' => $ing['unit']]), 'qte' => (int) $ing['quantity']]);
                 $recette->addComposer($composer);
             }
         }
