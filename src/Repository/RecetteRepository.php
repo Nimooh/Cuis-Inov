@@ -46,20 +46,6 @@ class RecetteRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findImgFromId($id)
-    {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-        SELECT img_recette
-        FROM recette
-        WHERE id = :id
-        ';
-        $result = $conn->executeQuery($sql, ['id' => $id]);
-
-        return $result->fetchAllAssociative();
-    }
-
     public function findMostTrending()
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -69,22 +55,6 @@ class RecetteRepository extends ServiceEntityRepository
         FROM recette
         WHERE note_moyenne = (SELECT MAX(note_moyenne)
                              FROM recette)
-        ';
-        $result = $conn->executeQuery($sql);
-
-        return $result->fetchAllAssociative();
-    }
-
-    public function findAllOrderedWithoutMostTrending()
-    {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-        SELECT *
-        FROM recette
-        WHERE note_moyenne != (SELECT MAX(note_moyenne)
-                             FROM recette)
-        ORDER BY note_moyenne DESC, nom_recette
         ';
         $result = $conn->executeQuery($sql);
 
