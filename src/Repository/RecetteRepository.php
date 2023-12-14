@@ -45,4 +45,78 @@ class RecetteRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findImgFromId($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT img_recette
+        FROM recette
+        WHERE id = :id
+        ';
+        $result = $conn->executeQuery($sql, ['id' => $id]);
+
+        return $result->fetchAllAssociative();
+    }
+
+    public function findMostTrending()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT *
+        FROM recette
+        WHERE note_moyenne = (SELECT MAX(note_moyenne)
+                             FROM recette)
+        ';
+        $result = $conn->executeQuery($sql);
+
+        return $result->fetchAllAssociative();
+    }
+
+    public function findAllOrderedWithoutMostTrending()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT *
+        FROM recette
+        WHERE note_moyenne != (SELECT MAX(note_moyenne)
+                             FROM recette)
+        ORDER BY note_moyenne DESC, nom_recette
+        ';
+        $result = $conn->executeQuery($sql);
+
+        return $result->fetchAllAssociative();
+    }
+
+    /**
+     * @param int $id
+     * @return Recette[]
+     */
+    public function findByRecipeId(int $id):array
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllComponentsByRecipeId(int $id):array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = ' 
+        SELECT qte, nom_unit, nom_ingr
+        FROM composer c LEFT JOIN unite u ON (c.unite_id = u.id)
+        LEFT JOIN ingredient i ON (c.ingredient_id = i.id)
+        WHERE c.recette_id = :id
+        ORDER BY i.nom_ingr ASC;
+        ';
+
+        $result = $conn->executeQuery($sql, ['id' => $id]);
+        return $result->fetchAllAssociative();
+    }
 }

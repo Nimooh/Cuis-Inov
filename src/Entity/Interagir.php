@@ -16,14 +16,14 @@ class Interagir
     #[ORM\Column(nullable: true)]
     private ?bool $fav = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $noteRecette = null;
+
     #[ORM\ManyToOne(inversedBy: 'interagirs')]
     private ?Membre $membre = null;
 
     #[ORM\ManyToOne(inversedBy: 'interagirs')]
     private ?Recette $recette = null;
-
-    #[ORM\Column]
-    private ?int $noteRecette = null;
 
     public function getId(): ?int
     {

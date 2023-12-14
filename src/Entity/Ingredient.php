@@ -6,8 +6,10 @@ use App\Repository\IngredientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
+#[UniqueEntity(fields: ['nomIngr'], message: 'Il existe déjà un ingrédient avec ce nom')]
 class Ingredient
 {
     #[ORM\Id]
