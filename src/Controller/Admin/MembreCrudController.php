@@ -22,8 +22,8 @@ class MembreCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('nomMembre', 'Nom')->setColumns(6),
-            TextField::new('prnmMembre', 'Prénom')->setColumns(6),
+            TextField::new('nomMembre', 'Nom'),
+            TextField::new('prnmMembre', 'Prénom'),
             EmailField::new('email', 'Adresse e-mail'),
             TelephoneField::new('telMembre', 'Numéro de téléphone'),
             ArrayField::new('roles')
@@ -35,9 +35,8 @@ class MembreCrudController extends AbstractCrudController
                     };
                 }),
             TextField::new('adrMembre', 'Adresse'),
-            TextField::new('villeMembre', 'Ville')->setColumns(6),
-            TextField::new('CPMembre', 'Code postal')->setColumns(6),
-            AvatarField::new('imgProfilMembre', 'Image de profil')->hideOnForm(),
+            TextField::new('villeMembre', 'Ville'),
+            TextField::new('CPMembre', 'Code postal'),
         ];
     }
 }
