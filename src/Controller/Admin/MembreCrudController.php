@@ -2,10 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Filter\IsAdminFilter;
 use App\Entity\Membre;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
@@ -38,5 +39,12 @@ class MembreCrudController extends AbstractCrudController
             TextField::new('villeMembre', 'Ville'),
             TextField::new('CPMembre', 'Code postal'),
         ];
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add(IsAdminFilter::new('roles'))
+        ;
     }
 }
