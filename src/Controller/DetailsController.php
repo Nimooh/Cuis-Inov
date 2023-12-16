@@ -13,7 +13,7 @@ class DetailsController extends AbstractController
     #[Route('/details', name: 'app_details')]
     public function index(RecetteRepository $rep, Request $request): Response
     {
-        $id = $request->get('RecetteId');
+        $id = $request->get('id');
         $recipe = $rep->find($id);
         $components = $rep->findAllComponentsByRecipeId($id);
         return $this->render('details/index.html.twig', [
