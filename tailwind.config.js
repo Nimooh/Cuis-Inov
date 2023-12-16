@@ -15,7 +15,7 @@ module.exports = {
       cuiOrangeLight : '#ffa126'
     },
     fontFamily: {
-      interPh: ['Inter', 'sans-serif']
+      cuiInter: ['Inter', 'sans-serif']
     },
   },
   plugins: [
