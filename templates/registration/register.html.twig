@@ -3,7 +3,7 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="w-full bg-jet rounded-lg shadow sm:max-w-md my-3">
+    <div class="w-full bg-cuiGray rounded-lg shadow sm:max-w-md my-3">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 class="text-xl text-white font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Inscrivez vous
@@ -21,7 +21,7 @@
                     'Adresse e-mail',
                     {
                         'label_attr': {
-                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.email.vars.valid ? '' : ' text-red-500'),
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.email.vars.valid ? '' : ' text-red-500'),
                         },
                     }
                 ) }}
@@ -45,7 +45,7 @@
                     'Mot de passe',
                     {
                         'label_attr': {
-                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.password.vars.valid ? '' : ' text-red-500'),
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.password.vars.valid ? '' : ' text-red-500'),
                         },
                     }
                 ) }}
@@ -69,7 +69,7 @@
                     'Prénom',
                     {
                         'label_attr': {
-                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.firstname.vars.valid ? '' : ' text-red-500'),
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.firstname.vars.valid ? '' : ' text-red-500'),
                         },
                     }
                 ) }}
@@ -93,7 +93,7 @@
                     'Nom',
                     {
                         'label_attr': {
-                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.lastname.vars.valid ? '' : ' text-red-500'),
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.lastname.vars.valid ? '' : ' text-red-500'),
                         },
                     }
                 ) }}
@@ -117,7 +117,7 @@
                     'Adresse',
                     {
                         'label_attr': {
-                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.address.vars.valid ? '' : ' text-red-500'),
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.address.vars.valid ? '' : ' text-red-500'),
                         },
                     }
                 ) }}
@@ -141,7 +141,7 @@
                     'Ville',
                     {
                         'label_attr': {
-                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.city.vars.valid ? '' : ' text-red-500'),
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.city.vars.valid ? '' : ' text-red-500'),
                         },
                     }
                 ) }}
@@ -165,7 +165,7 @@
                     'Code postal',
                     {
                         'label_attr': {
-                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.postalCode.vars.valid ? '' : ' text-red-500'),
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.postalCode.vars.valid ? '' : ' text-red-500'),
                         },
                     }
                 ) }}
@@ -189,7 +189,7 @@
                     'Numéro de téléphone',
                     {
                         'label_attr': {
-                            'class': 'block mb-2 text-sm text-orange-peel font-medium' ~ (form.phone.vars.valid ? '' : ' text-red-500'),
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.phone.vars.valid ? '' : ' text-red-500'),
                         },
                     }
                 ) }}
@@ -211,7 +211,7 @@
 
             <button
                     type="submit"
-                    class="w-full text-raisin-black bg-orange-peel hover:bg-orange-peel/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    class="w-full text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >S'inscrire
             </button>
 

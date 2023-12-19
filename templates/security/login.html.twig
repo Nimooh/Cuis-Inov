@@ -3,7 +3,7 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="w-full bg-jet rounded-lg shadow sm:max-w-md">
+    <div class="w-full bg-cuiGray rounded-lg shadow sm:max-w-md">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 class="text-xl text-white font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Connectez vous
@@ -15,7 +15,7 @@
 
                 <div>
                     <label
-                            for="inputEmail" class="block mb-2 text-sm text-orange-peel font-medium  {{ error ? 'text-red-500' }}"
+                            for="inputEmail" class="block mb-2 text-sm text-cuiOrange font-medium  {{ error ? 'text-red-500' }}"
                     >Adresse e-mail</label>
                     <input
                             type="email" name="email" id="inputEmail" placeholder="chef@cuisi.ne"
@@ -24,7 +24,7 @@
                     >
                 </div>
                 <div>
-                    <label for="inputPassword" class="block mb-2 text-sm text-orange-peel font-medium {{ error ? 'text-red-500' }}">Mot de passe</label>
+                    <label for="inputPassword" class="block mb-2 text-sm text-cuiOrange font-medium {{ error ? 'text-red-500' }}">Mot de passe</label>
                     <input
                             type="password" name="password" id="inputPassword" placeholder="••••••••"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 {{ error ? 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500' }}"
@@ -36,7 +36,7 @@
                 >
                 <button
                         type="submit"
-                        class="w-full text-raisin-black bg-orange-peel hover:bg-orange-peel/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                        class="w-full text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >Se connecter
                 </button>
                 <p class="text-sm font-light text-white">
