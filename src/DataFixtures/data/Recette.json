@@ -1,0 +1,279 @@
+[
+  {
+    "name": "Soupe de Lentilles",
+    "categories": [
+      { "nomCatRecette": "Soupe" },
+      { "nomCatRecette": "Cuisine du monde" },
+      { "nomCatRecette": "Végétarien" }
+    ],
+    "stars_recette": 4,
+    "temps_recette": 40,
+    "diff_recette": 2,
+    "description": "Une soupe réconfortante aux lentilles, agrémentée d'épices et d'aromates pour une saveur chaleureuse et délicieuse.",
+    "ingredients": [
+      { "nomIngr": "Lentilles vertes", "quantity": 200, "unit": "g", "allergenes": null },
+      { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Carottes", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Céleri", "quantity": 2, "unit": "branches", "allergenes": null },
+      { "nomIngr": "Ail", "quantity": 2, "unit": "gousses", "allergenes": null },
+      { "nomIngr": "Tomates concassées en conserve", "quantity": 400, "unit": "g", "allergenes": null },
+      { "nomIngr": "Bouillon de légumes", "quantity": 1, "unit": "L", "allergenes": null },
+      { "nomIngr": "Curcuma en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Cumin en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Paprika", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
+    ],
+    "instructions": "Dans une casserole, faire chauffer l'huile d'olive. Faire revenir l'oignon, l'ail, les carottes et le céleri coupés en dés pendant quelques minutes. Ajouter les lentilles, les tomates concassées, le bouillon de légumes et les épices (curcuma, cumin, paprika). \n\nPorter à ébullition puis réduire le feu et laisser mijoter à feu doux pendant environ 30 minutes jusqu'à ce que les lentilles soient tendres. \n\nSaler et poivrer selon votre goût. Mixer partiellement la soupe pour obtenir une texture onctueuse tout en laissant quelques morceaux de légumes. \n\nServir chaud avec un filet d'huile d'olive."
+  },
+  {
+    "name": "Salade Méditerranéenne",
+    "categories": [
+      { "nomCatRecette": "Salade" },
+      { "nomCatRecette": "Cuisine du monde" },
+      { "nomCatRecette": "Végétarien" }
+    ],
+    "stars_recette": 5,
+    "temps_recette": 15,
+    "diff_recette": 1,
+    "description": "Une salade colorée et savoureuse inspirée des saveurs méditerranéennes, mélangeant des légumes frais, du fromage feta et des olives pour un repas léger et plein de goût.",
+    "ingredients": [
+      { "nomIngr": "Concombres", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Tomates", "quantity": 3, "unit": null, "allergenes": null },
+      { "nomIngr": "Poivrons rouges", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Oignon rouge", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Olives noires", "quantity": 100, "unit": "g", "allergenes": null },
+      { "nomIngr": "Fromage feta", "quantity": 150, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Vinaigre balsamique", "quantity": 15, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Origan séché", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
+    ],
+    "instructions": "Couper les concombres, les tomates, les poivrons et l'oignon rouge en dés. Dénoyauter les olives si nécessaire. \n\nDans un grand bol, mélanger les légumes coupés, les olives et le fromage feta émietté. \n\nDans un petit récipient, préparer la vinaigrette en mélangeant l'huile d'olive, le vinaigre balsamique, l'origan, le sel et le poivre. \n\nVerser la vinaigrette sur la salade et bien mélanger. Réfrigérer pendant quelques minutes avant de servir pour laisser les saveurs se mêler."
+  },
+  {
+    "name": "Curry de Légumes Indien",
+    "categories": [
+      { "nomCatRecette": "Plat" },
+      { "nomCatRecette": "Cuisine du monde" },
+      { "nomCatRecette": "Végétarien" }
+    ],
+    "stars_recette": 4,
+    "temps_recette": 40,
+    "diff_recette": 2,
+    "description": "Un plat végétarien et épicé, mélangeant des légumes colorés dans une sauce parfumée au curry, parfait pour les amateurs de saveurs indiennes.",
+    "ingredients": [
+      { "nomIngr": "Pommes de terre", "quantity": 3, "unit": null, "allergenes": null },
+      { "nomIngr": "Carottes", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Petits pois", "quantity": 150, "unit": "g", "allergenes": null },
+      { "nomIngr": "Tomates", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Ail", "quantity": 2, "unit": "gousses", "allergenes": null },
+      { "nomIngr": "Gingembre frais", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Huile végétale", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Lait de coco", "quantity": 200, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Curry en poudre", "quantity": 2, "unit": "c. à soupe", "allergenes": null },
+      { "nomIngr": "Cumin en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Coriandre en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
+    ],
+    "instructions": "Éplucher et couper les pommes de terre et les carottes en dés. Émincer l'oignon, hacher l'ail et râper le gingembre. \n\nDans une casserole, faire chauffer l'huile végétale. Faire revenir l'oignon, l'ail et le gingembre pendant quelques minutes. Ajouter les pommes de terre, les carottes, les petits pois et les tomates. \n\nIncorporer les épices (curry, cumin, coriandre) et faire revenir pendant quelques minutes. Verser le lait de coco, saler et poivrer. Laisser mijoter à feu doux pendant environ 20-25 minutes jusqu'à ce que les légumes soient tendres. \n\nServir chaud avec du riz ou du pain naan."
+  },
+  {
+    "name": "Tarte aux Pommes",
+    "categories": [
+      { "nomCatRecette": "Dessert" },
+      { "nomCatRecette": "Pâtisserie" }
+    ],
+    "stars_recette": 5,
+    "temps_recette": 60,
+    "diff_recette": 2,
+    "description": "Une délicieuse tarte aux pommes, avec une croûte dorée et des tranches de pommes tendres, parfaitement sucrée et croustillante.",
+    "ingredients": [
+      { "nomIngr": "Pâte brisée", "quantity": 1, "unit": null, "allergenes": ["gluten", "lactose"] },
+      { "nomIngr": "Pommes", "quantity": 4, "unit": null, "allergenes": null },
+      { "nomIngr": "Sucre en poudre", "quantity": 50, "unit": "g", "allergenes": null },
+      { "nomIngr": "Cannelle en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Beurre", "quantity": 20, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Gelée de pomme ou abricot", "quantity": 2, "unit": "c. à soupe", "allergenes": null }
+    ],
+    "instructions": "Préchauffer le four à 180°C. \n\nÉtaler la pâte brisée dans un moule à tarte et piquer le fond avec une fourchette. \n\nÉplucher, évider et couper les pommes en tranches fines. Disposer les tranches de pommes sur la pâte en les superposant légèrement. Saupoudrer de sucre et de cannelle. \n\nParsemer de quelques noisettes de beurre sur les pommes. Enfourner pendant environ 40-45 minutes jusqu'à ce que la croûte soit dorée et les pommes tendres. \n\nFaire chauffer la gelée dans une petite casserole et badigeonner les pommes dès la sortie du four pour les faire briller. Laisser refroidir avant de servir."
+  },
+  {
+    "name": "Salade César",
+    "categories": [
+      { "nomCatRecette": "Entrée froide" },
+      { "nomCatRecette": "Salade" }
+    ],
+    "stars_recette": 4,
+    "temps_recette": 20,
+    "diff_recette": 1,
+    "description": "Une salade classique et savoureuse avec des feuilles de laitue croquante, du poulet grillé, des croûtons et une vinaigrette crémeuse.",
+    "ingredients": [
+      { "nomIngr": "Laitue romaine", "quantity": 1, "unit": "tête", "allergenes": null },
+      { "nomIngr": "Poulet grillé", "quantity": 200, "unit": "g", "allergenes": null },
+      { "nomIngr": "Croûtons", "quantity": 50, "unit": "g", "allergenes": ["gluten"] },
+      { "nomIngr": "Parmesan râpé", "quantity": 30, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Sauce César", "quantity": 50, "unit": "ml", "allergenes": ["lactose", "oeuf"] }
+    ],
+    "instructions": "Laver et essorer la laitue, la déchirer en morceaux. Trancher le poulet grillé. Mélanger la laitue, le poulet, les croûtons et le parmesan. Ajouter la sauce César et mélanger délicatement. Servir immédiatement."
+  },
+  {
+    "name": "Pâtes à la Carbonara",
+    "categories": [
+      { "nomCatRecette": "Plat" }
+    ],
+    "stars_recette": 5,
+    "temps_recette": 25,
+    "diff_recette": 2,
+    "description": "Des pâtes crémeuses avec du lard croustillant, du parmesan et des œufs pour une saveur italienne authentique.",
+    "ingredients": [
+      { "nomIngr": "Spaghettis", "quantity": 250, "unit": "g", "allergenes": ["gluten"] },
+      { "nomIngr": "Lardons", "quantity": 150, "unit": "g", "allergenes": null },
+      { "nomIngr": "Œufs", "quantity": 2, "unit": null, "allergenes": ["oeuf"] },
+      { "nomIngr": "Parmesan râpé", "quantity": 50, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Crème fraîche", "quantity": 100, "unit": "ml", "allergenes": ["lactose"] }
+    ],
+    "instructions": "Cuire les spaghettis selon les instructions sur l'emballage. Pendant ce temps, faire revenir les lardons dans une poêle jusqu'à ce qu'ils soient croustillants. Battre les œufs, ajouter le parmesan et la crème fraîche. Égoutter les pâtes et les mélanger avec les lardons. Hors du feu, ajouter le mélange d'œufs et mélanger rapidement pour enrober les pâtes. Servir chaud."
+  },
+  {
+    "name": "Chili Con Carne",
+    "categories": [
+      { "nomCatRecette": "Plat" },
+      { "nomCatRecette": "Cuisine du monde" }
+    ],
+    "stars_recette": 4,
+    "temps_recette": 60,
+    "diff_recette": 2,
+    "description": "Un plat épicé et savoureux à base de viande hachée, de haricots rouges, de tomates et d'épices pour une expérience mexicaine authentique.",
+    "ingredients": [
+      { "nomIngr": "Viande hachée", "quantity": 300, "unit": "g", "allergenes": null },
+      { "nomIngr": "Haricots rouges", "quantity": 400, "unit": "g", "allergenes": null },
+      { "nomIngr": "Tomates concassées en conserve", "quantity": 400, "unit": "g", "allergenes": null },
+      { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Poivron rouge", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Ail", "quantity": 2, "unit": "gousses", "allergenes": null },
+      { "nomIngr": "Chili en poudre", "quantity": 2, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Cumin en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Coriandre en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null }
+    ],
+    "instructions": "Faire revenir l'oignon, le poivron et l'ail dans une casserole jusqu'à ce qu'ils ramollissent. Ajouter la viande hachée et faire dorer. Incorporer les tomates, les haricots rouges égouttés et les épices. Laisser mijoter pendant 40 minutes. Servir chaud."
+  },
+  {
+    "name": "Risotto aux Champignons",
+    "categories": [
+      { "nomCatRecette": "Plat" },
+      { "nomCatRecette": "Cuisine du monde" },
+      { "nomCatRecette": "Végétarien" }
+    ],
+    "stars_recette": 5,
+    "temps_recette": 40,
+    "diff_recette": 2,
+    "description": "Un plat crémeux et parfumé avec du riz Arborio, des champignons sautés et du parmesan, idéal pour une soirée confortable.",
+    "ingredients": [
+      { "nomIngr": "Riz Arborio", "quantity": 300, "unit": "g", "allergenes": ["gluten"] },
+      { "nomIngr": "Champignons", "quantity": 250, "unit": "g", "allergenes": null },
+      { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Bouillon de légumes", "quantity": 1, "unit": "L", "allergenes": null },
+      { "nomIngr": "Vin blanc sec", "quantity": 100, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Parmesan râpé", "quantity": 50, "unit": "g", "allergenes": ["lactose"] }
+    ],
+    "instructions": "Faire revenir l'oignon dans une casserole avec un peu d'huile jusqu'à ce qu'il devienne translucide. Ajouter les champignons émincés et les faire sauter. Ajouter le riz et remuer pendant quelques minutes. Déglacer avec le vin blanc. Ajouter progressivement le bouillon chaud tout en remuant jusqu'à ce que le riz soit crémeux. Ajouter le parmesan râpé et servir chaud."
+  },
+  {
+    "name": "Gâteau au Chocolat Fondant",
+    "categories": [
+      { "nomCatRecette": "Dessert" },
+      { "nomCatRecette": "Pâtisserie" }
+    ],
+    "stars_recette": 5,
+    "temps_recette": 45,
+    "diff_recette": 2,
+    "description": "Un délicieux gâteau moelleux au chocolat noir intense, parfait pour les amateurs de chocolat.",
+    "ingredients": [
+      { "nomIngr": "Chocolat noir", "quantity": 200, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Beurre", "quantity": 150, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Œufs", "quantity": 4, "unit": null, "allergenes": ["oeuf"] },
+      { "nomIngr": "Sucre en poudre", "quantity": 150, "unit": "g", "allergenes": null },
+      { "nomIngr": "Farine", "quantity": 50, "unit": "g", "allergenes": ["gluten"] }
+    ],
+    "instructions": "Faire fondre le chocolat avec le beurre au bain-marie. Battre les œufs avec le sucre jusqu'à ce que le mélange blanchisse. Incorporer le chocolat fondu. Ajouter la farine tamisée et mélanger délicatement. Verser la pâte dans un moule préalablement beurré et fariné. Cuire au four préchauffé à 180°C pendant environ 25-30 minutes. Laisser refroidir avant de démouler."
+  },
+  {
+    "name": "Salade de Quinoa aux Légumes Grillés",
+    "categories": [
+      { "nomCatRecette": "Entrée froide" },
+      { "nomCatRecette": "Végétarien" }
+    ],
+    "stars_recette": 4,
+    "temps_recette": 30,
+    "diff_recette": 2,
+    "description": "Une salade saine et délicieuse, mêlant du quinoa savoureux et des légumes grillés, parfaite pour un déjeuner léger ou une entrée rafraîchissante.",
+    "ingredients": [
+      { "nomIngr": "Quinoa", "quantity": 150, "unit": "g", "allergenes": null },
+      { "nomIngr": "Courgettes", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Poivrons rouges", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Oignon rouge", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Tomates cerises", "quantity": 200, "unit": "g", "allergenes": null },
+      { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Vinaigre balsamique", "quantity": 15, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Basilic frais", "quantity": 10, "unit": "feuilles", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
+    ],
+    "instructions": "Cuire le quinoa selon les instructions sur l'emballage et laisser refroidir. \n\nCouper les courgettes, les poivrons et l'oignon en gros morceaux. Faire griller les légumes au four ou sur un grill. \n\nDans un saladier, mélanger le quinoa refroidi, les légumes grillés et les tomates cerises coupées en deux. Assaisonner avec de l'huile d'olive, du vinaigre balsamique, du basilic frais, du sel et du poivre. Mélanger délicatement et servir."
+  },
+  {
+    "name": "Poulet au Citron et à l'Ail",
+    "categories": [
+      { "nomCatRecette": "Plat" }
+    ],
+    "stars_recette": 5,
+    "temps_recette": 45,
+    "diff_recette": 2,
+    "description": "Un plat de poulet savoureux et parfumé, mariné avec du citron et de l'ail pour une explosion de saveurs en bouche.",
+    "ingredients": [
+      { "nomIngr": "Blancs de poulet", "quantity": 4, "unit": null, "allergenes": null },
+      { "nomIngr": "Citron", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Ail", "quantity": 4, "unit": "gousses", "allergenes": null },
+      { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Thym frais", "quantity": 10, "unit": "branches", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
+    ],
+    "instructions": "Préchauffer le four à 200°C. \n\nMélanger le jus de citron, l'ail écrasé, l'huile d'olive, le thym, le sel et le poivre dans un bol. \n\nPlacer les blancs de poulet dans un plat allant au four, verser la marinade dessus et laisser mariner pendant 30 minutes. Enfourner pendant environ 25-30 minutes jusqu'à ce que le poulet soit doré et cuit à point. Servir chaud."
+  },
+  {
+    "name": "Smoothie Fruits Rouges et Banane",
+    "categories": [
+      { "nomCatRecette": "Dessert" },
+      { "nomCatRecette": "Entrée froide" }
+    ],
+    "stars_recette": 5,
+    "temps_recette": 10,
+    "diff_recette": 1,
+    "description": "Un smoothie rafraîchissant, mélangeant des fruits rouges et une touche de banane pour une boisson saine et délicieuse.",
+    "ingredients": [
+      { "nomIngr": "Fruits rouges (frais ou surgelés)", "quantity": 200, "unit": "g", "allergenes": null },
+      { "nomIngr": "Banane", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Yaourt nature", "quantity": 150, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Lait d'amande", "quantity": 200, "unit": "ml", "allergenes": ["fruits à coque"] },
+      { "nomIngr": "Miel (facultatif)", "quantity": 1, "unit": "c. à soupe", "allergenes": null }
+    ],
+    "instructions": "Mettre les fruits rouges, la banane, le yaourt nature, le lait d'amande et éventuellement le miel dans un blender. Mixer jusqu'à obtenir une consistance lisse. \n\nVerser dans des verres et servir immédiatement pour profiter de la fraîcheur du smoothie."
+  }
+
+
+
+
+
+
+
+
+
+
+
+]

@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DetailsController!{% endblock %}
+
+{% block body %}
+    <div id="content" class="flex flex-col min-w-[calc(80%-1rem)] h-full text-white text-2xl justify-between gap-12">
+        <section id="top"  class="flex flex-row justify-between">
+            <button onclick="window.location = '/'" class="text-cuiBlack bg-cuiGray h-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-6 h-6 text-cuiBlack dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
+                </svg>
+            </button>
+            <img class="max-w-md max-h-md" src="{{ asset('img/recette/' ~ recipe.id ~ '.png') }}" alt="foodImg">
+            <button type="button" class="text-cuiBlack bg-cuiGray h-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-6 h-6 text-cuiBlack dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 19">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
+                </svg>
+            </button>
+        </section>
+        <section id="details" class="flex flex-col grow items-center bg-cuiGray rounded-lg gap-8">
+            <p class="text-5xl">{{ recipe.nomRecette | capitalize }}</p>
+            <p class="text-3xl">{{ recipe.description | capitalize }}</p>
+            <section id="characteristic" class="flex flex-row w-[calc(80%-2rem)] justify-around">
+                <div class="flex flex-col items-center">
+                    <svg class="w-6 h-6 text-cuiOrange dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                    </svg>
+                    {% set total_minutes = recipe.tempsRecette|date('H') * 60 + recipe.tempsRecette|date('i') %}
+                    <span class="text-white">{{ total_minutes }} minutes</span>
+                    <p class="text-cuiGrayLight mt-2">Préparation</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <svg class="w-6 h-6 text-cuiOrange dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <p>{{ recipe.noteMoyenne }}</p>
+                    <p class="text-cuiGrayLight mt-2">Notation</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <svg class="w-6 h-6 text-cuiOrange dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
+                        <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+                    </svg>
+                    {% if recipe.diffRecette == 1 %}
+                        <p>FACILE</p>
+                    {% elseif recipe.diffRecette == 2%}
+                        <p>MOYEN</p>
+                    {% else %}
+                        <p>DIFFICILE</p>
+                    {% endif %}
+                    <p class="text-cuiGrayLight mt-2">Difficulté</p>
+                </div>
+            </section>
+            <section id="sharing">
+                {# modifier l'url une fois sur le serveur #}
+                <button id="sharing_button" onclick="clipboard('http://localhost:8000/details?RecetteId={{ recipe.id }}')" type="button" class="inline-flex items-center font-medium bg-cuiBlack hover:bg-cuiOrange hover:text-cuiBlack text-cuiOrange h-20 w-fit text-2xl py-2.5 px-5 rounded-full">
+                    <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5.953 7.467 6.094-2.612m.096 8.114L5.857 9.676m.305-1.192a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0ZM17 3.84a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Zm0 10.322a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Z"/>
+                    </svg>
+                    Partager
+                </button>
+            </section>
+            <section id="selector_toggle" class="flex flex-row bg-cuiBlack w-1/3 h-20 rounded-full p-1">
+                <button id="button_reci" type="button" class="bg-cuiGray text-cuiOrange text-lg text-center w-1/2 py-2.5 px-5 font-medium rounded-full">
+                    Recette
+                </button>
+                <button id="button_comp" type="button" class="bg-cuiBlack text-cuiGray text-lg text-center w-1/2 hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 font-medium rounded-full">
+                    Ingredients
+                </button>
+            </section>
+            <section id="instruction" class="flex flex-col gap-5"> {# liste des etapes de la recette #}
+                {% set instructions = recipe.instruction |split('\n') %}
+                {% for elmt in instructions %}
+                <p>
+                    {{ elmt }}
+                </p>
+                {% endfor %}
+            </section>
+            <section id="components" class="hidden"> {# liste des Ingredients (remplacer grid par hidden pour la balance)#}
+                {% for elmt in components %}
+                    <div class="flex flex-col items-center bg-cuiBlack">
+                        <div class="grow">
+                            <img class="min-h-full min-w-full max-h-full max-w-full rounded-lg" src="{{ asset('img/ingredient/' ~ elmt.ingredient_id ~ '.png') }}" alt="">
+                        </div>
+                        <div class="flex flex-row gap-2">
+                            {{ elmt.nom_ingr | capitalize }} <span class="font-bold">{{ elmt.qte }} {{ elmt.nom_unit }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </section>
+        </section>
+    </div>
+
+    <script>
+        let buttonRecipe = document.querySelector('#button_reci');
+        let buttonComponents = document.querySelector('#button_comp');
+        let ShareSection = document.querySelector('#sharing');
+        let displayRecipe = document.querySelector('#instruction');
+        let displayComponents = document.querySelector('#components');
+
+        buttonRecipe.addEventListener('click', () => {
+            buttonRecipe.className = "bg-cuiGray text-cuiOrange text-lg text-center w-1/2 py-2.5 px-5 font-medium rounded-full";
+            buttonComponents.className = "bg-cuiBlack text-cuiGray text-lg text-center w-1/2 hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 font-medium rounded-full";
+            displayRecipe.className = "flex flex-col gap-5";
+            displayComponents.className = "hidden";
+
+        });
+        buttonComponents.addEventListener('click', () => {
+            buttonComponents.className = "bg-cuiGray text-cuiOrange text-lg text-center w-1/2 py-2.5 px-5 font-medium rounded-full";
+            buttonRecipe.className = "bg-cuiBlack text-cuiGray text-lg text-center w-1/2 hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 font-medium rounded-full";
+            displayRecipe.className = "hidden";
+            displayComponents.className = "grid grid-cols-3 md:grid-cols-5 gap-4";
+        })
+
+        function clipboard(text) {
+            navigator.clipboard.writeText(text);
+            ShareSection.querySelector('#sharing_button').innerHTML = 'Copié !';
+            ShareSection.querySelector('#sharing_button').className = "inline-flex items-center justify-center text-center font-medium bg-cuiBlack text-cuiOrange h-20 w-40 text-2xl py-2.5 px-5 rounded-full";
+        }
+    </script>
+{% endblock %}

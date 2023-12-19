@@ -53,9 +53,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prnmMembre = null;
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $imgProfilMembre;
-
     #[ORM\Column(length: 6, nullable: true)]
     private ?string $CPMembre = null;
 
@@ -71,8 +68,14 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $telMembre = null;
 
-    #[ORM\ManyToOne(inversedBy: 'membres')]
-    private ?Interagir $interagir = null;
+    #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Interagir::class)]
+    private Collection $interagirs;
+
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+        $this->interagirs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -168,18 +171,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImgProfilMembre()
-    {
-        return $this->imgProfilMembre;
-    }
-
-    public function setImgProfilMembre($imgProfilMembre): static
-    {
-        $this->imgProfilMembre = $imgProfilMembre;
-
-        return $this;
-    }
-
     public function getCPMembre(): ?string
     {
         return $this->CPMembre;
@@ -228,16 +219,33 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getInteragir(): ?Interagir
+    /**
+     * @return Collection<int, Interagir>
+     */
+    public function getInteragirs(): Collection
     {
-        return $this->interagir;
+        return $this->interagirs;
     }
 
-    public function setInteragir(?Interagir $interagir): static
+    public function addInteragir(Interagir $interagir): static
     {
-        $this->interagir = $interagir;
+        if (!$this->interagirs->contains($interagir)) {
+            $this->interagirs->add($interagir);
+            $interagir->setMembre($this);
+        }
 
         return $this;
     }
 
+    public function removeInteragir(Interagir $interagir): static
+    {
+        if ($this->interagirs->removeElement($interagir)) {
+            // set the owning side to null (unless already changed)
+            if ($interagir->getMembre() === $this) {
+                $interagir->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
 }

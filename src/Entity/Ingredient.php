@@ -6,8 +6,10 @@ use App\Repository\IngredientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
+#[UniqueEntity(fields: ['nomIngr'], message: 'Il existe déjà un ingrédient avec ce nom')]
 class Ingredient
 {
     #[ORM\Id]
@@ -18,22 +20,16 @@ class Ingredient
     #[ORM\Column(length: 255)]
     private ?string $nomIngr = null;
 
-    #[ORM\Column]
-    private ?float $qteIngr = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $unite = null;
-
-    #[ORM\ManyToMany(targetEntity: Recette::class, mappedBy: 'ingredients')]
-    private Collection $recettes;
-
     #[ORM\ManyToMany(targetEntity: Allergene::class, inversedBy: 'ingredients')]
     private Collection $allergenes;
 
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: Composer::class)]
+    private Collection $composers;
+
     public function __construct()
     {
-        $this->recettes = new ArrayCollection();
         $this->allergenes = new ArrayCollection();
+        $this->composers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,57 +45,6 @@ class Ingredient
     public function setNomIngr(string $nomIngr): static
     {
         $this->nomIngr = $nomIngr;
-
-        return $this;
-    }
-
-    public function getQteIngr(): ?float
-    {
-        return $this->qteIngr;
-    }
-
-    public function setQteIngr(float $qteIngr): static
-    {
-        $this->qteIngr = $qteIngr;
-
-        return $this;
-    }
-
-    public function getUnite(): ?string
-    {
-        return $this->unite;
-    }
-
-    public function setUnite(string $unite): static
-    {
-        $this->unite = $unite;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Recette>
-     */
-    public function getRecettes(): Collection
-    {
-        return $this->recettes;
-    }
-
-    public function addRecette(Recette $recette): static
-    {
-        if (!$this->recettes->contains($recette)) {
-            $this->recettes->add($recette);
-            $recette->addIngredient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecette(Recette $recette): static
-    {
-        if ($this->recettes->removeElement($recette)) {
-            $recette->removeIngredient($this);
-        }
 
         return $this;
     }
@@ -124,6 +69,36 @@ class Ingredient
     public function removeAllergene(Allergene $allergene): static
     {
         $this->allergenes->removeElement($allergene);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Composer>
+     */
+    public function getComposers(): Collection
+    {
+        return $this->composers;
+    }
+
+    public function addComposer(Composer $composer): static
+    {
+        if (!$this->composers->contains($composer)) {
+            $this->composers->add($composer);
+            $composer->setIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposer(Composer $composer): static
+    {
+        if ($this->composers->removeElement($composer)) {
+            // set the owning side to null (unless already changed)
+            if ($composer->getIngredient() === $this) {
+                $composer->setIngredient(null);
+            }
+        }
 
         return $this;
     }
