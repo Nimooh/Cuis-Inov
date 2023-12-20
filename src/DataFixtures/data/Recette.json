@@ -25,7 +25,7 @@
       { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
       { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
     ],
-    "instructions": "Dans une casserole, faire chauffer l'huile d'olive. Faire revenir l'oignon, l'ail, les carottes et le céleri coupés en dés pendant quelques minutes. Ajouter les lentilles, les tomates concassées, le bouillon de légumes et les épices (curcuma, cumin, paprika). \n\nPorter à ébullition puis réduire le feu et laisser mijoter à feu doux pendant environ 30 minutes jusqu'à ce que les lentilles soient tendres. \n\nSaler et poivrer selon votre goût. Mixer partiellement la soupe pour obtenir une texture onctueuse tout en laissant quelques morceaux de légumes. \n\nServir chaud avec un filet d'huile d'olive."
+    "instructions": "Dans une casserole, faire chauffer l'huile d'olive.\n\n Faire revenir l'oignon, l'ail, les carottes et le céleri coupés en dés pendant quelques minutes. \n\nAjouter les lentilles, les tomates concassées, le bouillon de légumes et les épices (curcuma, cumin, paprika). \n\nPorter à ébullition puis réduire le feu et laisser mijoter à feu doux pendant environ 30 minutes jusqu'à ce que les lentilles soient tendres. \n\nSaler et poivrer selon votre goût. Mixer partiellement la soupe pour obtenir une texture onctueuse tout en laissant quelques morceaux de légumes. \n\nServir chaud avec un filet d'huile d'olive."
   },
   {
     "name": "Salade Méditerranéenne",
@@ -51,7 +51,7 @@
       { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
       { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
     ],
-    "instructions": "Couper les concombres, les tomates, les poivrons et l'oignon rouge en dés. Dénoyauter les olives si nécessaire. \n\nDans un grand bol, mélanger les légumes coupés, les olives et le fromage feta émietté. \n\nDans un petit récipient, préparer la vinaigrette en mélangeant l'huile d'olive, le vinaigre balsamique, l'origan, le sel et le poivre. \n\nVerser la vinaigrette sur la salade et bien mélanger. Réfrigérer pendant quelques minutes avant de servir pour laisser les saveurs se mêler."
+    "instructions": "Couper les concombres, les tomates, les poivrons et l'oignon rouge en dés. \n\nDénoyauter les olives si nécessaire. \n\nDans un grand bol, mélanger les légumes coupés, les olives et le fromage feta émietté. \n\nDans un petit récipient, préparer la vinaigrette en mélangeant l'huile d'olive, le vinaigre balsamique, l'origan, le sel et le poivre. \n\nVerser la vinaigrette sur la salade et bien mélanger. \n\nRéfrigérer pendant quelques minutes avant de servir pour laisser les saveurs se mêler."
   },
   {
     "name": "Curry de Légumes Indien",
@@ -80,7 +80,7 @@
       { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
       { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
     ],
-    "instructions": "Éplucher et couper les pommes de terre et les carottes en dés. Émincer l'oignon, hacher l'ail et râper le gingembre. \n\nDans une casserole, faire chauffer l'huile végétale. Faire revenir l'oignon, l'ail et le gingembre pendant quelques minutes. Ajouter les pommes de terre, les carottes, les petits pois et les tomates. \n\nIncorporer les épices (curry, cumin, coriandre) et faire revenir pendant quelques minutes. Verser le lait de coco, saler et poivrer. Laisser mijoter à feu doux pendant environ 20-25 minutes jusqu'à ce que les légumes soient tendres. \n\nServir chaud avec du riz ou du pain naan."
+    "instructions": "Éplucher et couper les pommes de terre et les carottes en dés. \n\nÉmincer l'oignon, hacher l'ail et râper le gingembre. \n\nDans une casserole, faire chauffer l'huile végétale. \n\nFaire revenir l'oignon, l'ail et le gingembre pendant quelques minutes. Ajouter les pommes de terre, les carottes, les petits pois et les tomates. \n\nIncorporer les épices (curry, cumin, coriandre) et faire revenir pendant quelques minutes. \n\nVerser le lait de coco, saler et poivrer. \n\nLaisser mijoter à feu doux pendant environ 20-25 minutes jusqu'à ce que les légumes soient tendres. \n\nServir chaud avec du riz ou du pain naan."
   },
   {
     "name": "Tarte aux Pommes",
@@ -100,7 +100,7 @@
       { "nomIngr": "Beurre", "quantity": 20, "unit": "g", "allergenes": ["lactose"] },
       { "nomIngr": "Gelée de pomme ou abricot", "quantity": 2, "unit": "c. à soupe", "allergenes": null }
     ],
-    "instructions": "Préchauffer le four à 180°C. \n\nÉtaler la pâte brisée dans un moule à tarte et piquer le fond avec une fourchette. \n\nÉplucher, évider et couper les pommes en tranches fines. Disposer les tranches de pommes sur la pâte en les superposant légèrement. Saupoudrer de sucre et de cannelle. \n\nParsemer de quelques noisettes de beurre sur les pommes. Enfourner pendant environ 40-45 minutes jusqu'à ce que la croûte soit dorée et les pommes tendres. \n\nFaire chauffer la gelée dans une petite casserole et badigeonner les pommes dès la sortie du four pour les faire briller. Laisser refroidir avant de servir."
+    "instructions": "Préchauffer le four à 180°C. \n\nÉtaler la pâte brisée dans un moule à tarte et piquer le fond avec une fourchette. \n\nÉplucher, évider et couper les pommes en tranches fines. \n\nDisposer les tranches de pommes sur la pâte en les superposant légèrement. \n\nSaupoudrer de sucre et de cannelle. \n\nParsemer de quelques noisettes de beurre sur les pommes. \n\nEnfourner pendant environ 40-45 minutes jusqu'à ce que la croûte soit dorée et les pommes tendres. \n\nFaire chauffer la gelée dans une petite casserole et badigeonner les pommes dès la sortie du four pour les faire briller. \n\nLaisser refroidir avant de servir."
   },
   {
     "name": "Salade César",
@@ -119,7 +119,7 @@
       { "nomIngr": "Parmesan râpé", "quantity": 30, "unit": "g", "allergenes": ["lactose"] },
       { "nomIngr": "Sauce César", "quantity": 50, "unit": "ml", "allergenes": ["lactose", "oeuf"] }
     ],
-    "instructions": "Laver et essorer la laitue, la déchirer en morceaux. Trancher le poulet grillé. Mélanger la laitue, le poulet, les croûtons et le parmesan. Ajouter la sauce César et mélanger délicatement. Servir immédiatement."
+    "instructions": "Laver et essorer la laitue, la déchirer en morceaux. \n\nTrancher le poulet grillé. Mélanger la laitue, le poulet, les croûtons et le parmesan. \n\nAjouter la sauce César et mélanger délicatement. \n\nServir immédiatement."
   },
   {
     "name": "Pâtes à la Carbonara",
@@ -137,7 +137,7 @@
       { "nomIngr": "Parmesan râpé", "quantity": 50, "unit": "g", "allergenes": ["lactose"] },
       { "nomIngr": "Crème fraîche", "quantity": 100, "unit": "ml", "allergenes": ["lactose"] }
     ],
-    "instructions": "Cuire les spaghettis selon les instructions sur l'emballage. Pendant ce temps, faire revenir les lardons dans une poêle jusqu'à ce qu'ils soient croustillants. Battre les œufs, ajouter le parmesan et la crème fraîche. Égoutter les pâtes et les mélanger avec les lardons. Hors du feu, ajouter le mélange d'œufs et mélanger rapidement pour enrober les pâtes. Servir chaud."
+    "instructions": "Cuire les spaghettis selon les instructions sur l'emballage. \n\nPendant ce temps, faire revenir les lardons dans une poêle jusqu'à ce qu'ils soient croustillants. \n\nBattre les œufs, ajouter le parmesan et la crème fraîche. \n\nÉgoutter les pâtes et les mélanger avec les lardons. Hors du feu, ajouter le mélange d'œufs et mélanger rapidement pour enrober les pâtes. \n\nServir chaud."
   },
   {
     "name": "Chili Con Carne",
@@ -160,7 +160,7 @@
       { "nomIngr": "Cumin en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
       { "nomIngr": "Coriandre en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null }
     ],
-    "instructions": "Faire revenir l'oignon, le poivron et l'ail dans une casserole jusqu'à ce qu'ils ramollissent. Ajouter la viande hachée et faire dorer. Incorporer les tomates, les haricots rouges égouttés et les épices. Laisser mijoter pendant 40 minutes. Servir chaud."
+    "instructions": "Faire revenir l'oignon, le poivron et l'ail dans une casserole jusqu'à ce qu'ils ramollissent. \n\nAjouter la viande hachée et faire dorer. \n\nIncorporer les tomates, les haricots rouges égouttés et les épices. \n\nLaisser mijoter pendant 40 minutes. \n\nServir chaud."
   },
   {
     "name": "Risotto aux Champignons",
@@ -181,7 +181,7 @@
       { "nomIngr": "Vin blanc sec", "quantity": 100, "unit": "ml", "allergenes": null },
       { "nomIngr": "Parmesan râpé", "quantity": 50, "unit": "g", "allergenes": ["lactose"] }
     ],
-    "instructions": "Faire revenir l'oignon dans une casserole avec un peu d'huile jusqu'à ce qu'il devienne translucide. Ajouter les champignons émincés et les faire sauter. Ajouter le riz et remuer pendant quelques minutes. Déglacer avec le vin blanc. Ajouter progressivement le bouillon chaud tout en remuant jusqu'à ce que le riz soit crémeux. Ajouter le parmesan râpé et servir chaud."
+    "instructions": "Faire revenir l'oignon dans une casserole avec un peu d'huile jusqu'à ce qu'il devienne translucide. \n\nAjouter les champignons émincés et les faire sauter. \n\nAjouter le riz et remuer pendant quelques minutes. \n\nDéglacer avec le vin blanc. \n\nAjouter progressivement le bouillon chaud tout en remuant jusqu'à ce que le riz soit crémeux. \n\nAjouter le parmesan râpé et servir chaud."
   },
   {
     "name": "Gâteau au Chocolat Fondant",
@@ -200,7 +200,7 @@
       { "nomIngr": "Sucre en poudre", "quantity": 150, "unit": "g", "allergenes": null },
       { "nomIngr": "Farine", "quantity": 50, "unit": "g", "allergenes": ["gluten"] }
     ],
-    "instructions": "Faire fondre le chocolat avec le beurre au bain-marie. Battre les œufs avec le sucre jusqu'à ce que le mélange blanchisse. Incorporer le chocolat fondu. Ajouter la farine tamisée et mélanger délicatement. Verser la pâte dans un moule préalablement beurré et fariné. Cuire au four préchauffé à 180°C pendant environ 25-30 minutes. Laisser refroidir avant de démouler."
+    "instructions": "Faire fondre le chocolat avec le beurre au bain-marie. \n\nBattre les œufs avec le sucre jusqu'à ce que le mélange blanchisse. \n\nIncorporer le chocolat fondu. \n\nAjouter la farine tamisée et mélanger délicatement. \n\nVerser la pâte dans un moule préalablement beurré et fariné. \n\nCuire au four préchauffé à 180°C pendant environ 25-30 minutes. \n\nLaisser refroidir avant de démouler."
   },
   {
     "name": "Salade de Quinoa aux Légumes Grillés",
@@ -224,7 +224,7 @@
       { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
       { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
     ],
-    "instructions": "Cuire le quinoa selon les instructions sur l'emballage et laisser refroidir. \n\nCouper les courgettes, les poivrons et l'oignon en gros morceaux. Faire griller les légumes au four ou sur un grill. \n\nDans un saladier, mélanger le quinoa refroidi, les légumes grillés et les tomates cerises coupées en deux. Assaisonner avec de l'huile d'olive, du vinaigre balsamique, du basilic frais, du sel et du poivre. Mélanger délicatement et servir."
+    "instructions": "Cuire le quinoa selon les instructions sur l'emballage et laisser refroidir. \n\nCouper les courgettes, les poivrons et l'oignon en gros morceaux. \n\nFaire griller les légumes au four ou sur un grill. \n\nDans un saladier, mélanger le quinoa refroidi, les légumes grillés et les tomates cerises coupées en deux. \n\nAssaisonner avec de l'huile d'olive, du vinaigre balsamique, du basilic frais, du sel et du poivre. \n\nMélanger délicatement et servir."
   },
   {
     "name": "Poulet au Citron et à l'Ail",
@@ -244,7 +244,7 @@
       { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
       { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
     ],
-    "instructions": "Préchauffer le four à 200°C. \n\nMélanger le jus de citron, l'ail écrasé, l'huile d'olive, le thym, le sel et le poivre dans un bol. \n\nPlacer les blancs de poulet dans un plat allant au four, verser la marinade dessus et laisser mariner pendant 30 minutes. Enfourner pendant environ 25-30 minutes jusqu'à ce que le poulet soit doré et cuit à point. Servir chaud."
+    "instructions": "Préchauffer le four à 200°C. \n\nMélanger le jus de citron, l'ail écrasé, l'huile d'olive, le thym, le sel et le poivre dans un bol. \n\nPlacer les blancs de poulet dans un plat allant au four, verser la marinade dessus et laisser mariner pendant 30 minutes. \n\nEnfourner pendant environ 25-30 minutes jusqu'à ce que le poulet soit doré et cuit à point. \n\nServir chaud."
   },
   {
     "name": "Smoothie Fruits Rouges et Banane",
@@ -263,7 +263,7 @@
       { "nomIngr": "Lait d'amande", "quantity": 200, "unit": "ml", "allergenes": ["fruits à coque"] },
       { "nomIngr": "Miel (facultatif)", "quantity": 1, "unit": "c. à soupe", "allergenes": null }
     ],
-    "instructions": "Mettre les fruits rouges, la banane, le yaourt nature, le lait d'amande et éventuellement le miel dans un blender. Mixer jusqu'à obtenir une consistance lisse. \n\nVerser dans des verres et servir immédiatement pour profiter de la fraîcheur du smoothie."
+    "instructions": "Mettre les fruits rouges, la banane, le yaourt nature, le lait d'amande et éventuellement le miel dans un blender. \n\nMixer jusqu'à obtenir une consistance lisse. \n\nVerser dans des verres et servir immédiatement pour profiter de la fraîcheur du smoothie."
   }
 
 
