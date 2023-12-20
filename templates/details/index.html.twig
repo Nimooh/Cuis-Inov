@@ -51,7 +51,7 @@
                 </div>
             </section>
             {# modifier l'url une fois sur le serveur #}
-            <button id="sharing_button" onclick="clipboard('http://localhost:8000/details?id={{ recipe.id }}')" type="button" class="inline-flex items-center font-medium bg-cuiBlack hover:bg-cuiOrange hover:text-cuiBlack text-cuiOrange h-20 w-fit text-2xl py-2.5 px-5 rounded-full">
+            <button id="sharing_button" onclick="clipboard(location.href)" type="button" class="inline-flex items-center font-medium bg-cuiBlack hover:bg-cuiOrange hover:text-cuiBlack text-cuiOrange h-20 w-fit text-2xl py-2.5 px-5 rounded-full">
                 <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5.953 7.467 6.094-2.612m.096 8.114L5.857 9.676m.305-1.192a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0ZM17 3.84a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Zm0 10.322a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Z"/>
                 </svg>
