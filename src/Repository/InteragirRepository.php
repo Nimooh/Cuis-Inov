@@ -31,18 +31,17 @@ class InteragirRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-            SELECT r.nom_recette, r.temps_recette, r.stars_recette, r.diff_recette, r.img_recette, r.instruction, r.description
+            SELECT r.id, r.nom_recette, r.temps_recette, r.note_moyenne, r.diff_recette, r.description, i.fav
             FROM recette r
-                inner join interagir i (r.id = i.id_recette_id)
-                inner join membre m (i.id_interagir_id = ?)
+                inner join interagir i ON (r.id = i.recette_id)
             WHERE i.fav IS TRUE
+                AND i.membre_id = :id
             ';
 
         $resultSet = $conn->executeQuery($sql, ['id' => $id]);
 
-        return $resultSet->fetchAssociative();
+        return $resultSet->fetchAllAssociative();
     }
-
 
     //    /**
     //     * @return Interagir[] Returns an array of Interagir objects
