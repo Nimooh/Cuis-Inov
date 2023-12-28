@@ -46,20 +46,6 @@ class RecetteRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findImgFromId($id)
-    {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-        SELECT img_recette
-        FROM recette
-        WHERE id = :id
-        ';
-        $result = $conn->executeQuery($sql, ['id' => $id]);
-
-        return $result->fetchAllAssociative();
-    }
-
     public function findMostTrending()
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -109,7 +95,7 @@ class RecetteRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = ' 
-        SELECT qte, nom_unit, nom_ingr, ingredient_id
+        SELECT qte, nom_unit, nom_ingr
         FROM composer c LEFT JOIN unite u ON (c.unite_id = u.id)
         LEFT JOIN ingredient i ON (c.ingredient_id = i.id)
         WHERE c.recette_id = :id
