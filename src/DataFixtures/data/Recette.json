@@ -41,7 +41,7 @@
     "ingredients": [
       { "nomIngr": "Concombres", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Tomates", "quantity": 3, "unit": null, "allergenes": null },
-      { "nomIngr": "Poivrons rouges", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Poivron rouge", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Oignon rouge", "quantity": 1, "unit": null, "allergenes": null },
       { "nomIngr": "Olives noires", "quantity": 100, "unit": "g", "allergenes": null },
       { "nomIngr": "Fromage feta", "quantity": 150, "unit": "g", "allergenes": ["lactose"] },
