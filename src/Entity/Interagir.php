@@ -14,7 +14,7 @@ class Interagir
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $fav = null;
+    private ?bool $fav = false;
 
     #[ORM\Column(nullable: true)]
     private ?int $noteRecette = null;
