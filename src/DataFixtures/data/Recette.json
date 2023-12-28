@@ -98,7 +98,7 @@
       { "nomIngr": "Sucre en poudre", "quantity": 50, "unit": "g", "allergenes": null },
       { "nomIngr": "Cannelle en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
       { "nomIngr": "Beurre", "quantity": 20, "unit": "g", "allergenes": ["lactose"] },
-      { "nomIngr": "Gelée de pomme ou abricot", "quantity": 2, "unit": "c. à soupe", "allergenes": null }
+      { "nomIngr": "Gelée de pomme", "quantity": 2, "unit": "c. à soupe", "allergenes": null }
     ],
     "instructions": "Préchauffer le four à 180°C. \n\nÉtaler la pâte brisée dans un moule à tarte et piquer le fond avec une fourchette. \n\nÉplucher, évider et couper les pommes en tranches fines. \n\nDisposer les tranches de pommes sur la pâte en les superposant légèrement. \n\nSaupoudrer de sucre et de cannelle. \n\nParsemer de quelques noisettes de beurre sur les pommes. \n\nEnfourner pendant environ 40-45 minutes jusqu'à ce que la croûte soit dorée et les pommes tendres. \n\nFaire chauffer la gelée dans une petite casserole et badigeonner les pommes dès la sortie du four pour les faire briller. \n\nLaisser refroidir avant de servir."
   },
@@ -129,15 +129,16 @@
     "stars_recette": 5,
     "temps_recette": 25,
     "diff_recette": 2,
-    "description": "Des pâtes crémeuses avec du lard croustillant, du parmesan et des œufs pour une saveur italienne authentique.",
+    "description": "Des pâtes crémeuses avec du lard croustillant, du parmesan et des oeufs pour une saveur italienne authentique.",
     "ingredients": [
       { "nomIngr": "Spaghettis", "quantity": 250, "unit": "g", "allergenes": ["gluten"] },
       { "nomIngr": "Lardons", "quantity": 150, "unit": "g", "allergenes": null },
-      { "nomIngr": "Œufs", "quantity": 2, "unit": null, "allergenes": ["oeuf"] },
+      { "nomIngr": "Oeuf", "quantity": 2, "unit": null, "allergenes": ["oeuf"] },
       { "nomIngr": "Parmesan râpé", "quantity": 50, "unit": "g", "allergenes": ["lactose"] },
       { "nomIngr": "Crème fraîche", "quantity": 100, "unit": "ml", "allergenes": ["lactose"] }
     ],
-    "instructions": "Cuire les spaghettis selon les instructions sur l'emballage. \n\nPendant ce temps, faire revenir les lardons dans une poêle jusqu'à ce qu'ils soient croustillants. \n\nBattre les œufs, ajouter le parmesan et la crème fraîche. \n\nÉgoutter les pâtes et les mélanger avec les lardons. Hors du feu, ajouter le mélange d'œufs et mélanger rapidement pour enrober les pâtes. \n\nServir chaud."
+    "instructions": "Cuire les spaghettis selon les instructions sur l'emballage. \n\nPendant ce temps, faire revenir les lardons dans une poêle jusqu'à ce qu'ils soient croustillants. \n\nBattre les oeufs, ajouter le parmesan et la crème fraîche. \n\nÉgoutter les pâtes et les mélanger avec les lardons. Hors du feu, ajouter le mélange d'oeufs et mélanger rapidement pour enrober les pâtes. \n\nServir chaud.",
+
   },
   {
     "name": "Chili Con Carne",
@@ -196,11 +197,11 @@
     "ingredients": [
       { "nomIngr": "Chocolat noir", "quantity": 200, "unit": "g", "allergenes": ["lactose"] },
       { "nomIngr": "Beurre", "quantity": 150, "unit": "g", "allergenes": ["lactose"] },
-      { "nomIngr": "Œufs", "quantity": 4, "unit": null, "allergenes": ["oeuf"] },
+      { "nomIngr": "Oeuf", "quantity": 4, "unit": null, "allergenes": ["oeuf"] },
       { "nomIngr": "Sucre en poudre", "quantity": 150, "unit": "g", "allergenes": null },
       { "nomIngr": "Farine", "quantity": 50, "unit": "g", "allergenes": ["gluten"] }
     ],
-    "instructions": "Faire fondre le chocolat avec le beurre au bain-marie. \n\nBattre les œufs avec le sucre jusqu'à ce que le mélange blanchisse. \n\nIncorporer le chocolat fondu. \n\nAjouter la farine tamisée et mélanger délicatement. \n\nVerser la pâte dans un moule préalablement beurré et fariné. \n\nCuire au four préchauffé à 180°C pendant environ 25-30 minutes. \n\nLaisser refroidir avant de démouler."
+    "instructions": "Faire fondre le chocolat avec le beurre au bain-marie. \n\nBattre les oeufs avec le sucre jusqu'à ce que le mélange blanchisse. \n\nIncorporer le chocolat fondu. \n\nAjouter la farine tamisée et mélanger délicatement. \n\nVerser la pâte dans un moule préalablement beurré et fariné. \n\nCuire au four préchauffé à 180°C pendant environ 25-30 minutes. \n\nLaisser refroidir avant de démouler."
   },
   {
     "name": "Salade de Quinoa aux Légumes Grillés",
@@ -215,7 +216,7 @@
     "ingredients": [
       { "nomIngr": "Quinoa", "quantity": 150, "unit": "g", "allergenes": null },
       { "nomIngr": "Courgettes", "quantity": 2, "unit": null, "allergenes": null },
-      { "nomIngr": "Poivrons rouges", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Poivron rouge", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Oignon rouge", "quantity": 1, "unit": null, "allergenes": null },
       { "nomIngr": "Tomates cerises", "quantity": 200, "unit": "g", "allergenes": null },
       { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
@@ -257,11 +258,11 @@
     "diff_recette": 1,
     "description": "Un smoothie rafraîchissant, mélangeant des fruits rouges et une touche de banane pour une boisson saine et délicieuse.",
     "ingredients": [
-      { "nomIngr": "Fruits rouges (frais ou surgelés)", "quantity": 200, "unit": "g", "allergenes": null },
+      { "nomIngr": "Fruits rouges", "quantity": 200, "unit": "g", "allergenes": null },
       { "nomIngr": "Banane", "quantity": 1, "unit": null, "allergenes": null },
       { "nomIngr": "Yaourt nature", "quantity": 150, "unit": "g", "allergenes": ["lactose"] },
       { "nomIngr": "Lait d'amande", "quantity": 200, "unit": "ml", "allergenes": ["fruits à coque"] },
-      { "nomIngr": "Miel (facultatif)", "quantity": 1, "unit": "c. à soupe", "allergenes": null }
+      { "nomIngr": "Miel", "quantity": 1, "unit": "c. à soupe", "allergenes": null }
     ],
     "instructions": "Mettre les fruits rouges, la banane, le yaourt nature, le lait d'amande et éventuellement le miel dans un blender. \n\nMixer jusqu'à obtenir une consistance lisse. \n\nVerser dans des verres et servir immédiatement pour profiter de la fraîcheur du smoothie."
   }
