@@ -66,13 +66,16 @@ class RecetteRepository extends ServiceEntityRepository
 
     public function findAllOrderedWithoutMostTrending($trendingId): array
     {
-        $qb = $this->createQueryBuilder('r')
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.interagirs','i')
+            ->addSelect('i.fav')
             ->andWhere('r.id <> :trendingId')
             ->setParameter('trendingId', $trendingId)
             ->orderBy('r.noteMoyenne', 'DESC')
-            ->addOrderBy('r.nomRecette', 'ASC');
-
-        return $qb->getQuery()->getResult();
+            ->addOrderBy('r.nomRecette', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     /**
