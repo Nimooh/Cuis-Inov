@@ -43,6 +43,23 @@ class InteragirRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
+    public function updateDB(bool $fav, int $idMembre, int $idRecette)
+    {
+        // Inversion de $fav pour mettre à jour la nouvelle valeur
+        $fav = $fav ? 0 : 1;
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            UPDATE interagir
+            SET fav = :fav
+            WHERE membre_id = :idMembre
+                AND recette_id = :idRecette
+            ';
+
+        $conn->executeQuery($sql, ['fav' => $fav, 'idMembre' => $idMembre, 'idRecette' => $idRecette]);
+    }
+
     //    /**
     //     * @return Interagir[] Returns an array of Interagir objects
     //     */
