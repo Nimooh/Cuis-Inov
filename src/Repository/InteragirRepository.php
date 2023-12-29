@@ -61,28 +61,17 @@ class InteragirRepository extends ServiceEntityRepository
         ;
     }
 
-    //    /**
-    //     * @return Interagir[] Returns an array of Interagir objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('i.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function insertDB(int $idMembre, int $idRecette)
+    {
+        $conn = $this->getEntityManager()->getConnection();
 
-    //    public function findOneBySomeField($value): ?Interagir
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $sql = '
+            INSERT INTO interagir (fav, membre_id, recette_id)
+            VALUES (1, :idMembre, :idRecette)
+            ';
+
+        $resultSet = $conn->executeQuery($sql, ['idMembre' => $idMembre, 'idRecette' => $idRecette]);
+
+        return $resultSet->fetchAllAssociative();
+    }
 }
