@@ -12,7 +12,7 @@
                     <li class="relative m-1 p-3 bg-eerie-black bg-opacity-100 rounded-2xl">
                         <a class="no-underline text-black" href="#">
                             <div class="flex flex-col items-center text-white">
-                                <img class="rounded-lg w-64 h-64" title="{{ recette.description }}" src="{{ path('app_show_image', { id: recette.id }) }}">
+                                <img class="rounded-lg object-cover w-64 h-64" title="{{ recette.description }}" src="{{ asset('img/recettes/' ~ recette.id ~ '.png') }}">
                                 <span class="text-xl">{{ recette.nom_recette | capitalize }}</span>
                                 <span> {# Bloc svg pour afficher les notes #}
                                     <div class="flex items-center" title="{{ recette.note_moyenne }} / 5">
