@@ -43,35 +43,50 @@ class InteragirRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
-    public function updateDB(bool $fav, int $idMembre, int $idRecette)
+    public function updateDB(?bool $fav = null, int $idMembre, int $idRecette, ?int $noteRecette = null)
     {
-        // Inversion de $fav pour mettre à jour la nouvelle valeur
-        $fav = $fav ? 0 : 1;
+        if($fav !== null) {
+            // Inversion de $fav pour mettre à jour la nouvelle valeur
+            $fav = $fav ? 0 : 1;
 
-        $this->createQueryBuilder('i')
-            ->update('App\Entity\Interagir', 'i')
-            ->set('i.fav', ':fav')
-            ->where('i.membre = :idMembre')
-            ->andWhere('i.recette = :idRecette')
-            ->setParameter('fav', $fav)
-            ->setParameter('idMembre', $idMembre)
-            ->setParameter('idRecette', $idRecette)
-            ->getQuery()
-            ->execute()
-        ;
+            $this->createQueryBuilder('i')
+                ->update('App\Entity\Interagir', 'i')
+                ->set('i.fav', ':fav')
+                ->where('i.membre = :idMembre')
+                ->andWhere('i.recette = :idRecette')
+                ->setParameter('fav', $fav)
+                ->setParameter('idMembre', $idMembre)
+                ->setParameter('idRecette', $idRecette)
+                ->getQuery()
+                ->execute()
+            ;
+        } elseif($noteRecette !== null) {
+            $this->createQueryBuilder('i')
+                ->update('App\Entity\Interagir', 'i')
+                ->set('i.noteRecette', ':noteRecette')
+                ->where('i.membre = :idMembre')
+                ->andWhere('i.recette = :idRecette')
+                ->setParameter('noteRecette', $noteRecette)
+                ->setParameter('idMembre', $idMembre)
+                ->setParameter('idRecette', $idRecette)
+                ->getQuery()
+                ->execute()
+            ;
+        }
+
     }
 
-    public function insertDB(int $idMembre, int $idRecette)
+    public function insertDB(int $idMembre, int $idRecette, ?int $noteRecette = null)
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-            INSERT INTO interagir (fav, membre_id, recette_id)
-            VALUES (1, :idMembre, :idRecette)
+            INSERT INTO interagir (fav, membre_id, recette_id, note_recette)
+            VALUES (1, :idMembre, :idRecette, :noteRecette)
             ';
 
-        $resultSet = $conn->executeQuery($sql, ['idMembre' => $idMembre, 'idRecette' => $idRecette]);
-
-        return $resultSet->fetchAllAssociative();
+        $conn->executeQuery($sql, ['idMembre' => $idMembre,
+                                                'idRecette' => $idRecette,
+                                                'noteRecette' => $noteRecette]);
     }
 }
