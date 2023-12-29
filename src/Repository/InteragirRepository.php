@@ -48,16 +48,17 @@ class InteragirRepository extends ServiceEntityRepository
         // Inversion de $fav pour mettre à jour la nouvelle valeur
         $fav = $fav ? 0 : 1;
 
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-            UPDATE interagir
-            SET fav = :fav
-            WHERE membre_id = :idMembre
-                AND recette_id = :idRecette
-            ';
-
-        $conn->executeQuery($sql, ['fav' => $fav, 'idMembre' => $idMembre, 'idRecette' => $idRecette]);
+        $this->createQueryBuilder('i')
+            ->update('App\Entity\Interagir', 'i')
+            ->set('i.fav', ':fav')
+            ->where('i.membre = :idMembre')
+            ->andWhere('i.recette = :idRecette')
+            ->setParameter('fav', $fav)
+            ->setParameter('idMembre', $idMembre)
+            ->setParameter('idRecette', $idRecette)
+            ->getQuery()
+            ->execute()
+        ;
     }
 
     //    /**
