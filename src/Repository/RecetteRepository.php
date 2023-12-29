@@ -46,7 +46,7 @@ class RecetteRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findMostTrending()
+    public function findMostTrending(): ?Recette
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -58,23 +58,24 @@ class RecetteRepository extends ServiceEntityRepository
         ';
         $result = $conn->executeQuery($sql);
 
-        return $result->fetchAllAssociative();
+        $data = $result->fetchAllAssociative();
+
+        $entityManager = $this->getEntityManager();
+        return $entityManager->getRepository(Recette::class)->find($data[0]['id']);
     }
 
-    public function findAllOrderedWithoutMostTrending()
+    public function findAllOrderedWithoutMostTrending($trendingId): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-        SELECT *
-        FROM recette
-        WHERE note_moyenne != (SELECT MAX(note_moyenne)
-                             FROM recette)
-        ORDER BY note_moyenne DESC, nom_recette
-        ';
-        $result = $conn->executeQuery($sql);
-
-        return $result->fetchAllAssociative();
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.interagirs','i')
+            ->addSelect('i.fav')
+            ->andWhere('r.id <> :trendingId')
+            ->setParameter('trendingId', $trendingId)
+            ->orderBy('r.noteMoyenne', 'DESC')
+            ->addOrderBy('r.nomRecette', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     /**
