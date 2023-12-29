@@ -23,7 +23,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/update', name: 'app_recette_update')]
-    public function updateDB(InteragirRepository $repo, #[MapQueryParameter(filter: \FILTER_VALIDATE_BOOLEAN)] bool $fav,
+    public function updateDB(InteragirRepository $repo, #[MapQueryParameter(filter: \FILTER_VALIDATE_BOOLEAN)] ?bool $fav,
                              #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $idRecette)
     {
         /** @var \App\Entity\Membre $user */
@@ -32,8 +32,11 @@ class HomeController extends AbstractController
         //Redirection vers la page de connexion, si l'utilisateur non-connecté se retrouve sur cette page
         if($user === null)
             return $this->redirectToRoute('app_login', [], 303);
-
-        $repo->updateDB($fav, $user->getId(), $idRecette);
+        //Rajoute une nouvelle ligne dans la BD, si aucune interaction avant
+        if($fav === null)
+            $repo->insertDB($user->getId(), $idRecette);
+        else
+            $repo->updateDB($fav, $user->getId(), $idRecette);
 
         return $this->redirectToRoute('app_home');
     }
