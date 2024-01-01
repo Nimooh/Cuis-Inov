@@ -71,10 +71,14 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Interagir::class)]
     private Collection $interagirs;
 
+    #[ORM\OneToMany(mappedBy: 'Membre', targetEntity: Recette::class)]
+    private Collection $recettes;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
         $this->interagirs = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -243,6 +247,36 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($interagir->getMembre() === $this) {
                 $interagir->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recette>
+     */
+    public function getRecettes(): Collection
+    {
+        return $this->recettes;
+    }
+
+    public function addRecette(Recette $recette): static
+    {
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+            $recette->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recette $recette): static
+    {
+        if ($this->recettes->removeElement($recette)) {
+            // set the owning side to null (unless already changed)
+            if ($recette->getMembre() === $this) {
+                $recette->setMembre(null);
             }
         }
 
