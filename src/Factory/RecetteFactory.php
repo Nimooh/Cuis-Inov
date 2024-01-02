@@ -47,9 +47,12 @@ final class RecetteFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'diffRecette' => self::faker()->randomNumber(),
-            'nomRecette' => self::faker()->text(255),
-            'noteMoyenne' => self::faker()->randomFloat(),
+            'nomRecette' => self::faker()->word(),
+            'tempsRecette' => self::faker()->time(),
+            'diffRecette' => self::faker()->numberBetween(1,5),
+            'instruction' => self::faker()->paragraph(),
+            'description' => self::faker()->sentence(),
+            'noteMoyenne' => self::faker()->randomFloat(1, 1, 5),
         ];
     }
 

@@ -47,7 +47,7 @@ final class IngredientFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'nomIngr' => self::faker()->text(255),
+            'nomIngr' => self::faker()->word(),
         ];
     }
 
