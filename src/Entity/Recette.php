@@ -43,6 +43,9 @@ class Recette
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class)]
     private Collection $composers;
 
+    #[ORM\ManyToOne(inversedBy: 'recettes')]
+    private ?Membre $Membre = null;
+
     public function __construct()
     {
         $this->categoriesRecette = new ArrayCollection();
@@ -207,6 +210,18 @@ class Recette
                 $composer->setRecette(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->Membre;
+    }
+
+    public function setMembre(?Membre $Membre): static
+    {
+        $this->Membre = $Membre;
 
         return $this;
     }

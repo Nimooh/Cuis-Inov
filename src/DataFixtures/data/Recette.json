@@ -41,7 +41,7 @@
     "ingredients": [
       { "nomIngr": "Concombres", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Tomates", "quantity": 3, "unit": null, "allergenes": null },
-      { "nomIngr": "Poivrons rouges", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Poivron rouge", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Oignon rouge", "quantity": 1, "unit": null, "allergenes": null },
       { "nomIngr": "Olives noires", "quantity": 100, "unit": "g", "allergenes": null },
       { "nomIngr": "Fromage feta", "quantity": 150, "unit": "g", "allergenes": ["lactose"] },
@@ -137,7 +137,7 @@
       { "nomIngr": "Parmesan râpé", "quantity": 50, "unit": "g", "allergenes": ["lactose"] },
       { "nomIngr": "Crème fraîche", "quantity": 100, "unit": "ml", "allergenes": ["lactose"] }
     ],
-    "instructions": "Cuire les spaghettis selon les instructions sur l'emballage. \n\nPendant ce temps, faire revenir les lardons dans une poêle jusqu'à ce qu'ils soient croustillants. \n\nBattre les oeufs, ajouter le parmesan et la crème fraîche. \n\nÉgoutter les pâtes et les mélanger avec les lardons. Hors du feu, ajouter le mélange d'oeufs et mélanger rapidement pour enrober les pâtes. \n\nServir chaud.",
+    "instructions": "Cuire les spaghettis selon les instructions sur l'emballage. \n\nPendant ce temps, faire revenir les lardons dans une poêle jusqu'à ce qu'ils soient croustillants. \n\nBattre les oeufs, ajouter le parmesan et la crème fraîche. \n\nÉgoutter les pâtes et les mélanger avec les lardons. Hors du feu, ajouter le mélange d'oeufs et mélanger rapidement pour enrober les pâtes. \n\nServir chaud."
 
   },
   {
