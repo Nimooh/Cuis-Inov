@@ -33,4 +33,24 @@ class HomeCest
         $I->seeElement('#bloc_list');
     }
 
+    public function timesOfLiInListIsCorrect(ControllerTester $I): void
+    {
+        RecetteFactory::createMany(15);
+
+        $I->amOnPage('/');
+        $I->seeNumberOfElements('#trending', 1);
+        $I->seeNumberOfElements('div#bloc_list > ul > li', 14);
+    }
+
+    public function isLinkCorrect(ControllerTester $I): void
+    {
+        RecetteFactory::createMany(15);
+
+        $I->amOnPage('/');
+        $I->click('div#bloc_list > ul > li > a:first-of-type');
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeCurrentRouteIs('app_details');
+
+    }
+
 }
