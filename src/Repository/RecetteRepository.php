@@ -36,7 +36,14 @@ class RecetteRepository extends ServiceEntityRepository
         $data = $result->fetchAllAssociative();
 
         $entityManager = $this->getEntityManager();
-        return $entityManager->getRepository(Recette::class)->find($data[0]['id']);
+
+        //Affichage alternative si la base de données est vide
+        $result = null;
+        try {
+            $result = $entityManager->getRepository(Recette::class)->find($data[0]['id']);
+        } finally {
+            return $result;
+        }
     }
 
     /**
