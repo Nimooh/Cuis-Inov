@@ -48,7 +48,7 @@ class RecetteRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql ='
-        SELECT r.id, r.nom_recette, r.temps_recette, r.diff_recette, r.description, r.note_moyenne, false AS fav
+        SELECT r.id, r.nom_recette, r.temps_recette, r.diff_recette, r.description, r.note_moyenne, null AS fav
         FROM recette r
         WHERE r.id <> :trending
             AND r.id NOT IN (
