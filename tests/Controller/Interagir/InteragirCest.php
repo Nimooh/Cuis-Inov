@@ -25,6 +25,16 @@ class InteragirCest
         $I->seeCurrentRouteIs('app_favoris');
     }
 
+    public function isTitleCorrect(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+        $I->amLoggedInAs($membre);
+
+        $I->amOnPage('/favoris');
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeInTitle('Vos Favoris!');
+    }
+
     public function AlternativeRenderingFor0Favoris(ControllerTester $I): void
     {
         $membre = MembreFactory::createOne()->object();
@@ -34,6 +44,4 @@ class InteragirCest
         $I->seeResponseCodeIsSuccessful();
         $I->see('Vous n\'avez aucun favoris', 'h1');
     }
-
-
 }
