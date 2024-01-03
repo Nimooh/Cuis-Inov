@@ -94,4 +94,45 @@ class HomeCest
         $I->assertEqualsIgnoringCase(['Flanc','Gauffre','Tarte'], $aLinkText, 'Les deux arrays ne sont pas égales');
     }
 
+    public function isElementOfTheRecetteCorrect(ControllerTester $I): void
+    {
+        RecetteFactory::createSequence(
+            [
+                ['nomRecette' => 'Chocolat',
+                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'diffRecette' => 3,
+                    'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
+                    'description' => 'Une recette test',
+                    'noteMoyenne' => 5,
+                ],
+                ['nomRecette' => 'Lasagne',
+                'tempsRecette' => new \DateTime('02:36:00'),
+                'diffRecette' => 3,
+                'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
+                'description' => 'Le plat préféré de Garfield',
+                'noteMoyenne' => 4.79,
+                ],
+            ]
+        );
+
+        $I->amOnPage('/');
+
+        //Test pour le titre de la recette
+        $I->see('Lasagne', ['css' => 'div#bloc_list > ul > li > a > div > span:first-of-type']);
+
+        //Test pour le temps de la recette
+        $I->see('156 minutes', ['css' => 'div#misc > div > span']);
+
+        //Test pour la difficulté de la recette
+        $difficulty = $I->grabAttributeFrom('div#misc > span:last-of-type > div', 'title');
+        $I->assertEquals('Difficile', $difficulty);
+
+        //Test pour la description de la recette
+        $recipeTitle = $I->grabAttributeFrom('div#bloc_list > ul > li > a > div > img', 'title');
+        $I->assertEquals('Le plat préféré de Garfield', $recipeTitle);
+
+        //Test pour la note de la recette
+        $rating = $I->grabAttributeFrom('div#bloc_list > ul > li > a > div > span > div', 'title');
+        $I->assertEquals('4.79 / 5', $rating);
+    }
 }
