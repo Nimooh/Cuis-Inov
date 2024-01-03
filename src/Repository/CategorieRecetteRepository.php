@@ -45,4 +45,16 @@ class CategorieRecetteRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getNames()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = ' 
+        SELECT nom_cat_recette
+        FROM categorie_recette 
+        ORDER BY nom_cat_recette ASC;
+        ';
+
+        $result = $conn->executeQuery($sql);
+    }
 }

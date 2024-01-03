@@ -45,4 +45,16 @@ class AllergeneRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getNames()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = ' 
+        SELECT nom_aller
+        FROM allergene 
+        ORDER BY nom_aller ASC;
+        ';
+
+        $result = $conn->executeQuery($sql);
+    }
 }

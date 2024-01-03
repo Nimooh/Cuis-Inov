@@ -52,7 +52,7 @@ class IngredientRepository extends ServiceEntityRepository
         $sql = ' 
         SELECT nom_ingr
         FROM ingredient 
-        ORDER BY i.nom_ingr ASC;
+        ORDER BY nom_ingr ASC;
         ';
 
         $result = $conn->executeQuery($sql);
