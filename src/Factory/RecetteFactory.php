@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Recette;
 use App\Repository\RecetteRepository;
+use DateTimeImmutable;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -48,8 +49,8 @@ final class RecetteFactory extends ModelFactory
     {
         return [
             'nomRecette' => self::faker()->word(),
-            'tempsRecette' => self::faker()->time(),
-            'diffRecette' => self::faker()->numberBetween(1,5),
+            'tempsRecette' => new DateTimeImmutable(self::faker()->time()),
+            'diffRecette' => self::faker()->numberBetween(1,3),
             'instruction' => self::faker()->paragraph(),
             'description' => self::faker()->sentence(),
             'noteMoyenne' => self::faker()->randomFloat(1, 1, 5),
