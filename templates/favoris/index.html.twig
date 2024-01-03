@@ -3,85 +3,92 @@
 {% block title %}Vos Favoris!{% endblock %}
 
 {% block body %}
-<div class="grow items-center min-h-screen flex flex-col p-2.5" id="main">
-    <h1 class="text-white text-2xl font-bold p-5">Vos Favoris :</h1>
-    <div class="left-0 w-4/5" id="bloc_list">
-        <ul class="flex flex-wrap justify-around m-1 list-none">
-            {% if favoris is not null %}
-                {% for recette in favoris %}
-                    <li class="relative m-1 p-3 bg-cuiGray bg-opacity-100 rounded-2xl">
-                        <a class="no-underline text-black" href="#">
-                            <div class="flex flex-col items-center text-white">
-                                <img class="rounded-lg object-cover w-64 h-64" title="{{ recette.description }}" src="{{ asset('img/recettes/' ~ recette.id ~ '.png') }}">
-                                <span class="text-xl w-64 text-center">{{ recette.nom_recette | capitalize }}</span>
-                                <span> {# Bloc svg pour afficher les notes #}
-                                    <div class="flex items-center" title="{{ recette.note_moyenne }} / 5">
-                                        {% for i in range(1, 5) %}
-                                            {% set starColor = recette.note_moyenne >= i ? 'text-yellow-300' : 'text-gray-500' %}
-                                            <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                                        </svg>
-                                        {% endfor %}
-
-                                    </div>
-                                </span>
-                                <div class="flex items-center gap-3" id="misc">
-                                    <div class="flex gap-2">
-                                        {# Calculer du total des minutes #}
-                                        {% set total_minutes = recette.temps_recette|date('H') * 60 + recette.temps_recette|date('i') %}
-                                        <svg class="w-6 h-6 text-yellow-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
-                                        </svg>
-                                        <span>{{ total_minutes }} minutes</span>
-                                    </div>
-                                    <span>|</span>
-                                    <span> {# Bloc svg pour afficher la difficulté #}
-                                        {% set  difficultyName = ['Facile', 'Moyen', 'Difficile'] %}
-                                        <div title="{{ difficultyName[recette.diff_recette-1] }}" class="flex items-center">
-                                            {% for i in range(1, 3) %}
-                                                {% set flameColor = recette.diff_recette >= i ? 'text-yellow-300' : 'text-gray-500' %}
-                                                <svg class="w-6 h-6 dark:text-white {{ flameColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
-                                                  <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+    {% if favoris is not empty %}
+        <div class="grow items-center min-h-screen flex flex-col p-2.5" id="main">
+            <h1 class="text-white text-2xl font-bold p-5">Vos Favoris :</h1>
+            <div class="left-0 w-4/5" id="bloc_list">
+                <ul class="flex flex-wrap justify-around m-1 list-none">
+                    {% if favoris is not null %}
+                        {% for recette in favoris %}
+                            <li class="relative m-1 p-3 bg-cuiGray bg-opacity-100 rounded-2xl">
+                                <a class="no-underline text-black" href="#">
+                                    <div class="flex flex-col items-center text-white">
+                                        <img class="rounded-lg object-cover w-64 h-64" title="{{ recette.description }}" src="{{ asset('img/recettes/' ~ recette.id ~ '.png') }}">
+                                        <span class="text-xl w-64 text-center">{{ recette.nom_recette | capitalize }}</span>
+                                        <span> {# Bloc svg pour afficher les notes #}
+                                            <div class="flex items-center" title="{{ recette.note_moyenne }} / 5">
+                                                {% for i in range(1, 5) %}
+                                                    {% set starColor = recette.note_moyenne >= i ? 'text-yellow-300' : 'text-gray-500' %}
+                                                    <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                                                 </svg>
-                                            {% endfor %}
+                                                {% endfor %}
+
+                                            </div>
+                                        </span>
+                                        <div class="flex items-center gap-3" id="misc">
+                                            <div class="flex gap-2">
+                                                {# Calculer du total des minutes #}
+                                                {% set total_minutes = recette.temps_recette|date('H') * 60 + recette.temps_recette|date('i') %}
+                                                <svg class="w-6 h-6 text-yellow-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                                                </svg>
+                                                <span>{{ total_minutes }} minutes</span>
+                                            </div>
+                                            <span>|</span>
+                                            <span> {# Bloc svg pour afficher la difficulté #}
+                                                {% set  difficultyName = ['Facile', 'Moyen', 'Difficile'] %}
+                                                <div title="{{ difficultyName[recette.diff_recette-1] }}" class="flex items-center">
+                                                    {% for i in range(1, 3) %}
+                                                        {% set flameColor = recette.diff_recette >= i ? 'text-yellow-300' : 'text-gray-500' %}
+                                                        <svg class="w-6 h-6 dark:text-white {{ flameColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
+                                                          <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
+                                                        </svg>
+                                                    {% endfor %}
+                                                </div>
+                                            </span>
                                         </div>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                        <a id="container" class="absolute top-4 right-4 m-2" href="{{ path('app_favoris_update', {'fav': recette.fav, 'idRecette': recette.id}) }}">
-                            <button id="button">
-                                <svg id="hearth" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 21 19">
-                                    <path id="outline" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
-                                </svg>
-                            </button>
-                        </a>
-                    </li>
-                {% endfor %}
-            {% endif %}
-            {# else rajouter un texte center center, "Vous n'avez aucun favoris (ou un truc drole)" #}
-        </ul>
-    </div>
-</div>
-<script>
-    let buttons = document.querySelectorAll('#button');
+                                    </div>
+                                </a>
+                                <a id="container" class="absolute top-4 right-4 m-2" href="{{ path('app_favoris_update', {'fav': recette.fav, 'idRecette': recette.id}) }}">
+                                    <button id="button">
+                                        <svg id="hearth" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 21 19">
+                                            <path id="outline" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
+                                        </svg>
+                                    </button>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    {# else rajouter un texte center center, "Vous n'avez aucun favoris (ou un truc drole)" #}
+                </ul>
+            </div>
+        </div>
+        <script>
+            let buttons = document.querySelectorAll('#button');
 
-    buttons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            let recipeContainer = button.closest('#container');
-            let hearth = recipeContainer.querySelector('#hearth');
-            let hearthOutline = recipeContainer.querySelector('#outline');
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    let recipeContainer = button.closest('#container');
+                    let hearth = recipeContainer.querySelector('#hearth');
+                    let hearthOutline = recipeContainer.querySelector('#outline');
 
-            const isFav = hearth.getAttribute('fill') === 'red';
+                    const isFav = hearth.getAttribute('fill') === 'red';
 
-            if (!isFav) {
-                hearth.setAttribute('fill', 'red');
-                hearthOutline.setAttribute('stroke', 'none');
-            } else {
-                hearth.setAttribute('fill', 'none');
-                hearthOutline.setAttribute('stroke', 'currentColor');
-            }
-        })
-    });
-</script>
+                    if (!isFav) {
+                        hearth.setAttribute('fill', 'red');
+                        hearthOutline.setAttribute('stroke', 'none');
+                    } else {
+                        hearth.setAttribute('fill', 'none');
+                        hearthOutline.setAttribute('stroke', 'currentColor');
+                    }
+                })
+            });
+        </script>
+    {% else %}
+        <div class="grow items-center min-h-screen max-w-full flex flex-col p-2.5" id="main">
+            <h1 class="text-white text-[5rem] font-bold p-10">Vous n'avez aucun favoris</h1>
+            <p class="text-cuiGrayLight text-[1rem] italic">Perso je vous conseille le fondant au chocolat</p>
+        </div>
+    {% endif %}
 {% endblock %}
