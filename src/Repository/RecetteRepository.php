@@ -21,31 +21,6 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    //    /**
-    //     * @return Recette[] Returns an array of Recette objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Recette
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-
     public function findMostTrending(): ?Recette
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -64,18 +39,37 @@ class RecetteRepository extends ServiceEntityRepository
         return $entityManager->getRepository(Recette::class)->find($data[0]['id']);
     }
 
-    public function findAllOrderedWithoutMostTrending($trendingId): array
+    /**
+     * @return Recette[]
+     */
+    public function findAllOrderedWithoutMostTrending(int $trendingId, int $userId): array
     {
-        return $this->createQueryBuilder('r')
-            ->leftJoin('r.interagirs','i')
-            ->addSelect('i.fav')
-            ->andWhere('r.id <> :trendingId')
-            ->setParameter('trendingId', $trendingId)
-            ->orderBy('r.noteMoyenne', 'DESC')
-            ->addOrderBy('r.nomRecette', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
+        //Faire 2 requetes : 1 qui recupere toutes les recettes, et 2 qui recupere false de partout sauf ou c'est fav:true
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql ='
+        SELECT r.id, r.nom_recette, r.temps_recette, r.diff_recette, r.description, r.note_moyenne, false AS fav
+        FROM recette r
+        WHERE r.id <> :trending
+            AND r.id NOT IN (
+                SELECT r.id
+                FROM recette r
+                    LEFT JOIN interagir i  ON r.id = i.recette_id
+                WHERE r.id <> :trending
+                    AND i.membre_id = :userId
+            )
+        UNION 
+        SELECT  r.id, r.nom_recette, r.temps_recette, r.diff_recette, r.description, r.note_moyenne, i.fav
+        FROM recette r
+            LEFT JOIN interagir i  ON r.id = i.recette_id
+        WHERE r.id <> :trending
+            AND i.membre_id = :userId
+        ORDER BY note_moyenne DESC, nom_recette ASC
+        ';
+
+        $resultSet = $conn->executeQuery($sql, ['trending' => $trendingId, 'userId' => $userId]);
+
+        return $resultSet->fetchAllAssociative();
     }
 
     /**

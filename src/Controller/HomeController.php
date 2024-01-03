@@ -14,10 +14,15 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(RecetteRepository $repo): Response
     {
+        /** @var \App\Entity\Membre $user */
+        $user = $this->getUser();
+        $userId = $user ? $user->getId() : 0; //User par défault id 0
+
         $trending = $repo->findMostTrending();
 
         $trendingId = $trending->getId();
-        $recettes = $repo->findAllOrderedWithoutMostTrending($trendingId);
+        $recettes = $repo->findAllOrderedWithoutMostTrending($trendingId, $userId);
+        //dump($recettes);
 
         return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending]);
     }
