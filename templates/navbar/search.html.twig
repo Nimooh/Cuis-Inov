@@ -26,7 +26,7 @@
 
 
 <div id="crud-modal"  tabindex="-1" aria-hidden="true" class="hidden  overflow-y-auto overflow-x-hidden z-50 fixed top-0 right-0 left-0  justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class=" relative p-4 w-full max-w-md max-h-full">
+    <div class=" relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
         <div class=" bg-cuiBlack relative  rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
@@ -47,33 +47,36 @@
                     <!-- Catégories -->
                     <div class="col-span-2">
                         <label for="category" class="block mb-2 text-sm font-medium text-white">Catégories</label>
-                        <input type="text" name="name" id="name" class="bg-cuiGray  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                        <input type="text" name="name" id="name" class="bg-cuiGray  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
 
                     <!-- Ingrédients -->
 
                     <div class="col-span-2">
                         <label for="ingredient" class="block mb-2 text-sm font-medium text-white">Ingrédients</label>
-                        <input type="text" name="name" id="name" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  required="">
+                        <input type="text" name="name" id="name" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
 
                     <!-- Allèrgenes -->
 
                     <div class="col-span-2 sm:col-span-1">
                         <label for="Allergènes" class="block mb-2 text-sm font-medium text-white">Allèrgenes</label>
-                        <select id="allergenes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-
+                        <select id="allergenes" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            {% for allergene in allergenes%}
+                                <option>{{ allergenes.nom }}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <!-- Difficultés -->
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="Difficultés" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Difficultés</label>
-                        <select id="difficultes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option>Facile</option>
-                        <option>Moyen</option>
-                        <option>Difficile</option>
+                        <label for="Difficultés" class="block mb-2 text-sm font-medium text-white dark:text-white">Difficultés</label>
+                        <select id="difficultes" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <option>------</option>
+                            <option>Facile</option>
+                            <option>Moyen</option>
+                            <option>Difficile</option>
 
                         </select>
                     </div>
@@ -86,3 +89,117 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    var ingredientsList = {{ ingredients }}
+    var categoriesList = {{ categories }}
+
+
+
+        function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function(e) {
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        /*close the list of autocompleted values,
+                        (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+                currentFocus++;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 38) { //up
+                /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+                currentFocus--;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    /*and simulate a click on the "active" item:*/
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+        function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        /*execute a function when someone clicks in the document:*/
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+
+
+
+    /*Utilisation du script */
+    autocomplete(document.getElementById("categories"), categoriesList);
+    autocomplete(document.getElementById("ingredients"), ingredientsList);
+
+
+
+</script>
