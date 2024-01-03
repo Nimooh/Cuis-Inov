@@ -53,4 +53,45 @@ class HomeCest
 
     }
 
+    public function isOrderCorrect(ControllerTester $I): void
+    {
+        RecetteFactory::createSequence(
+            [
+                ['nomRecette' => 'Chocolat',
+                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'diffRecette' => 3,
+                    'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
+                    'description' => 'Une recette test',
+                    'noteMoyenne' => 5,
+                ],
+                ['nomRecette' => 'Tarte',
+                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'diffRecette' => 3,
+                    'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
+                    'description' => 'Une recette test',
+                    'noteMoyenne' => 2.16,
+                ],
+                ['nomRecette' => 'Flanc',
+                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'diffRecette' => 3,
+                    'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
+                    'description' => 'Une recette test',
+                    'noteMoyenne' => 3.1415,
+                ],
+                ['nomRecette' => 'Gauffre',
+                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'diffRecette' => 3,
+                    'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
+                    'description' => 'Une recette test',
+                    'noteMoyenne' => 3.1415,
+                ],
+            ]
+        );
+
+        $I->amOnPage('/');
+        $aLinkText = $I->grabMultiple('div#bloc_list > ul > li > a > div > span.text-xl.w-64.text-center');
+        //Test ordre décroissant sur la note, PUIS, alphabétique sur le nom (sachant que chocolat ira dans le #trending)
+        $I->assertEqualsIgnoringCase(['Flanc','Gauffre','Tarte'], $aLinkText, 'Les deux arrays ne sont pas égales');
+    }
+
 }
