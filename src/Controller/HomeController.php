@@ -19,10 +19,12 @@ class HomeController extends AbstractController
         $userId = $user ? $user->getId() : 0; //User par défault id 0
 
         $trending = $repo->findMostTrending();
-
-        $trendingId = $trending->getId();
-        $recettes = $repo->findAllOrderedWithoutMostTrending($trendingId, $userId);
-        //dump($recettes);
+        if(!empty($trending)) {
+            $trendingId = $trending->getId();
+            $recettes = $repo->findAllOrderedWithoutMostTrending($trendingId, $userId);
+        } else {
+            $recettes = $repo->findAllOrderedWithoutMostTrending(0, $userId);
+        }
 
         return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending]);
     }

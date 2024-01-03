@@ -3,7 +3,7 @@
 {% block title %}Cuis'inov{% endblock %}
 
 {% block body %}
-    {% if trending is not null %}
+    {% if trending is not empty %}
     <div class="grow items-center min-h-screen max-w-full flex flex-col p-2.5" id="main">
         <div class="flex align-middle place-content-around w-full h-64" id="slot_trending">
             <div class="relative border-2 border-black bg-BlackCuis rounded-2xl m-5 overflow-hidden w-4/5 min-h-64" id="trending">
