@@ -50,4 +50,38 @@ class LoginCest
         $I->seeResponseCodeIsSuccessful();
         $I->seeCurrentRouteIs('app_home');
     }
+
+    public function failTestEmailDoesNotExist(ControllerTester $I)
+    {
+        MembreFactory::createOne([
+            'email' => 'jean.michel@email.com',
+            'password' => 'password',
+        ]);
+
+        $I->amOnPage('/login');
+        $I->submitForm('#login', ['email' => 'notjean.michel@email.com', 'password' => new PasswordArgument('password')]);
+        $I->see('Identifiants invalides');
+        $I->seeCurrentRouteIs('app_login');
+    }
+
+    public function failTestWrongPassword(ControllerTester $I)
+    {
+        MembreFactory::createOne([
+            'email' => 'jean.michel@email.com',
+            'password' => 'password',
+        ]);
+
+        $I->amOnPage('/login');
+        $I->submitForm('#login', ['email' => 'jean.michel@email.com', 'password' => new PasswordArgument('wrongPassword')]);
+        $I->see('Identifiants invalides');
+        $I->seeCurrentRouteIs('app_login');
+    }
+
+    public function failTestEmptyForm(ControllerTester $I)
+    {
+        $I->amOnPage('/login');
+        $I->submitForm('#login', ['email' => '', 'password' => '']);
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeCurrentRouteIs('app_login');
+    }
 }

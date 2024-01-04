@@ -56,4 +56,73 @@ class RegisterCest
         $I->seeResponseCodeIsSuccessful();
         $I->seeCurrentRouteIs('app_home');
     }
+
+    public function failTestEmptyForm(ControllerTester $I)
+    {
+        $I->amOnPage('/register');
+        $I->submitForm('#form_register', [
+            'registration_form[email]' => '',
+            'registration_form[password]' => '',
+            'registration_form[firstname]' => '',
+            'registration_form[lastname]' => '',
+            'registration_form[address]' => '',
+            'registration_form[city]' => '',
+            'registration_form[postalCode]' => '',
+            'registration_form[phone]' => '',
+        ]);
+        $I->seeResponseCodeIs(422);
+        $I->seeCurrentRouteIs('app_register');
+    }
+
+    public function failTestWrongEmail(ControllerTester $I)
+    {
+        $I->amOnPage('/register');
+        $I->submitForm('#form_register', [
+            'registration_form[email]' => 'a@a',
+            'registration_form[password]' => 'password',
+            'registration_form[firstname]' => 'Jean',
+            'registration_form[lastname]' => 'Michel',
+            'registration_form[address]' => '10 rue de la Villette',
+            'registration_form[city]' => 'Monge',
+            'registration_form[postalCode]' => '67200',
+            'registration_form[phone]' => '0611223344',
+        ]);
+        $I->see('Cette valeur n\'est pas une adresse email valide');
+        $I->seeCurrentRouteIs('app_register');
+    }
+
+    public function failTestWrongPhoneNumberString(ControllerTester $I)
+    {
+        $I->amOnPage('/register');
+        $I->submitForm('#form_register', [
+            'registration_form[email]' => 'jean.michel@email.com',
+            'registration_form[password]' => 'password',
+            'registration_form[firstname]' => 'Jean',
+            'registration_form[lastname]' => 'Michel',
+            'registration_form[address]' => '10 rue de la Villette',
+            'registration_form[city]' => 'Monge',
+            'registration_form[postalCode]' => '67200',
+            'registration_form[phone]' => 'a',
+        ]);
+        $I->see('Format de téléphone invalide');
+        $I->seeCurrentRouteIs('app_register');
+    }
+
+    public function failTestWrongPhoneNumberNotLongEnough(ControllerTester $I)
+    {
+        $I->amOnPage('/register');
+        $I->submitForm('#form_register', [
+            'registration_form[email]' => 'jean.michel@email.com',
+            'registration_form[password]' => 'password',
+            'registration_form[firstname]' => 'Jean',
+            'registration_form[lastname]' => 'Michel',
+            'registration_form[address]' => '10 rue de la Villette',
+            'registration_form[city]' => 'Monge',
+            'registration_form[postalCode]' => '67200',
+            'registration_form[phone]' => '01',
+        ]);
+        $I->see('Format de téléphone invalide');
+        $I->seeCurrentRouteIs('app_register');
+    }
+
 }
