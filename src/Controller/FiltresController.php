@@ -2,24 +2,23 @@
 
 namespace App\Controller;
 
-use App\Repository\IngredientRepository;
-use App\Repository\CategorieRecetteRepository;
 use App\Repository\AllergeneRepository;
+use App\Repository\CategorieRecetteRepository;
+use App\Repository\IngredientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FiltresController extends AbstractController
 {
-    #[Route('/filtres', name: 'app_filtres')]
-    public function index(IngredientRepository $ings,CategorieRecetteRepository $cats, AllergeneRepository $alls ): Response
+    public function filtre(IngredientRepository $ings, CategorieRecetteRepository $cats, AllergeneRepository $alls): Response
     {
-        $ingredients = $ings->getNames();
-        $categories = $cats->getNames();
-        $allergenes = $alls->getNames();
+        $ingredients = $ings->findAll();
+        $categories = $cats->findAll();
+        $allergenes = $alls->findAll();
 
         return $this->render('navbar/search.html.twig', [
-            'ingredients' => $ingredients,'categories' => $categories,'allergenes' => $allergenes,
+            'ingredients' => $ingredients, 'categories' => $categories, 'allergenes' => $allergenes,
         ]);
     }
 }
