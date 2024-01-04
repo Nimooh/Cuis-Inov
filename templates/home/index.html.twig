@@ -23,12 +23,10 @@
                             </span>
                         <div class="flex items-center gap-8 max-[1400px]:flex-col">
                             <div class="flex gap-2">
-                                {# Calculer du total des minutes #}
-                                {% set total_minutes = trending.tempsRecette|date('H') * 60 + trending.tempsRecette|date('i') %}
                                 <svg class="w-6 h-6 text-yellow-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
                                 </svg>
-                                <span class="text-white">{{ total_minutes }} minutes</span>
+                                <span class="text-white">{{ trending.tempsRecette|date('%i') }} minutes</span>
                             </div>
                             <span> {# Bloc svg pour afficher la difficulté #}
                                 {% set  difficultyName = ['Facile', 'Moyen', 'Difficile'] %}
@@ -73,12 +71,10 @@
                             </span>
                                 <div class="flex items-center gap-3" id="misc">
                                     <div class="flex gap-2">
-                                        {# Calculer du total des minutes #}
-                                        {% set total_minutes = recette.tempsRecette|date('H') * 60 + recette.tempsRecette|date('i') %}
                                         <svg class="w-6 h-6 text-yellow-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
                                         </svg>
-                                        <span>{{ total_minutes }} minutes</span>
+                                        <span>{{ recette.tempsRecette|date('%i') }} minutes</span>
                                     </div>
                                     <span>|</span>
                                     <span> {# Bloc svg pour afficher la difficulté #}
