@@ -1,0 +1,204 @@
+{{ form_start(form, {'attr': {'id': 'form_crud_recette', 'class': 'space-y-4 md:space-y-6'}}) }}
+
+<div class="text-sm text-red-500">
+    {{ form_errors(form) }}
+</div>
+
+<div>
+    {{ form_label(
+        form.nomRecette,
+        'Nom de la recette',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.nomRecette.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.nomRecette,
+        {
+            'attr': {
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.nomRecette.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.nomRecette) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.tempsRecette,
+        'Durée',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.tempsRecette.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.tempsRecette,
+        {
+            'attr': {
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.tempsRecette.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.tempsRecette) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.diffRecette,
+        'Difficulté',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.diffRecette.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.diffRecette,
+        {
+            'attr': {
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.diffRecette.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.diffRecette) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.noteMoyenne,
+        'Note Moyenne',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.noteMoyenne.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.noteMoyenne,
+        {
+            'attr': {
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.noteMoyenne.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.noteMoyenne) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.description,
+        'Description',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.description.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.description,
+        {
+            'attr': {
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.description.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.description) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.instruction,
+        'Instructions',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.instruction.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.instruction,
+        {
+            'attr': {
+            'class': 'min-h-min bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.instruction.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.instruction) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.categoriesRecette,
+        'Catégories',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.categoriesRecette.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.categoriesRecette,
+        {
+            'attr': {
+                'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.categoriesRecette.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                'placeholder': '',
+            },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.categoriesRecette) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.composers,
+        'Ingrédients',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.composers.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.composers,
+        {
+            'attr': {
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.composers.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.composers) }}
+    </div>
+</div>
+
+<button
+        type="submit"
+        class="w-full text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+>{{ submit_label }}</button>
+
+{{ form_end(form) }}

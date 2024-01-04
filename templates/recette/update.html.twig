@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% set title = "Édition de #{ recipe.nomRecette|capitalize }" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="w-full bg-cuiGray rounded-lg shadow sm:max-w-md my-3">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 class="text-xl text-white font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                {{ title }}
+            </h1>
+
+            {{ include('recette/_form.html.twig', { form: form, submit_label: 'Modifier'}, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}
