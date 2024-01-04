@@ -1,3 +1,4 @@
+
 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
     <svg
             class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +23,41 @@
     </svg>
 </button>
 
+<style>
+    * { box-sizing: border-box; }
+    body {
+        font: 16px Arial;
+    }
 
+
+
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top: 100%;
+        left: 0;
+        right: 0;
+    }
+    .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+    }
+    .autocomplete-items div:hover {
+        /*when hovering an item:*/
+        background-color: #e9e9e9;
+    }
+    .autocomplete-active {
+        /*when navigating through the items using the arrow keys:*/
+        background-color: DodgerBlue !important;
+        color: #ffffff;
+    }
+</style>
 
 
 <div id="crud-modal"  tabindex="-1" aria-hidden="true" class="hidden  overflow-y-auto overflow-x-hidden z-50 fixed top-0 right-0 left-0  justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -45,16 +80,16 @@
                 <div class="grid gap-4 mb-4 grid-cols-2">
 
                     <!-- Catégories -->
-                    <div class="col-span-2">
+                    <div class="col-span-2 relative inline-block 	autocomplete">
                         <label for="category" class="block mb-2 text-sm font-medium text-white">Catégories</label>
-                        <input type="text" name="name" id="name" class="bg-cuiGray  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input type="text" name="name" id="categories" class="bg-cuiGray  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
 
                     <!-- Ingrédients -->
 
-                    <div class="col-span-2">
+                    <div class="col-span-2 relative inline-block	autocomplete" >
                         <label for="ingredient" class="block mb-2 text-sm font-medium text-white">Ingrédients</label>
-                        <input type="text" name="name" id="name" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input type="text" name="name" id="ingredients" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
 
                     <!-- Allèrgenes -->
@@ -62,8 +97,9 @@
                     <div class="col-span-2 sm:col-span-1">
                         <label for="Allergènes" class="block mb-2 text-sm font-medium text-white">Allèrgenes</label>
                         <select id="allergenes" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            {% for allergene in allergenes%}
-                                <option>{{ allergenes.nom }}</option>
+                            <option>------</option>
+                             {% for allergene in allergenes %}
+                                <option>{{ allergene.nomAller }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -90,14 +126,21 @@
     </div>
 </div>
 
+
 <script>
 
-    var ingredientsList = {{ ingredients }}
-    var categoriesList = {{ categories }}
+    var ingredientsList = []
+    var categoriesList = []
+    {%for ingredient in ingredients %}
+    ingredientsList.push("{{ ingredient.nomIngr }}")
+    {% endfor %}
+
+    {%for categorie in categories %}
+    categoriesList.push("{{ categorie.nomCatRecette }}")
+    {% endfor %}
 
 
-
-        function autocomplete(inp, arr) {
+    function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
         var currentFocus;
