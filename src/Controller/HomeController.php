@@ -25,7 +25,7 @@ class HomeController extends AbstractController
         } else {
             $recettes = $repo->findAllOrderedWithoutMostTrending(0, $userId);
         }
-
+        //dump($recettes);
         return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending]);
     }
 
