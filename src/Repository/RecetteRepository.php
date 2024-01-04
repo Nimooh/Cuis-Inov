@@ -72,17 +72,21 @@ class RecetteRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
-    /**
-     * @param int $id
-     * @return Recette[]
-     */
-    public function findByRecipeId(int $id):array
+    public function findByRecipeId(int $idMember, int $idRecette):array
     {
-        return $this->createQueryBuilder('r')
-            ->where('r.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT r.*, i.fav, note_recette
+        FROM recette r
+        LEFT JOIN interagir i ON r.id = i.recette_id AND i.membre_id = :idMember
+        WHERE r.id = :idRecette;
+        ';
+
+        $result = $conn->executeQuery($sql, [
+            'idMember' => $idMember,
+            'idRecette' => $idRecette]);
+        return $result->fetchAssociative();
     }
 
     public function findAllComponentsByRecipeId(int $id):array
