@@ -3,6 +3,7 @@
 namespace App\Tests\Controller\Login;
 
 use App\Factory\MembreFactory;
+use App\Factory\RecetteFactory;
 use App\Tests\Support\ControllerTester;
 use Codeception\Step\Argument\PasswordArgument;
 
@@ -26,9 +27,12 @@ class LoginCest
             'email' => 'jean.michel@email.com',
             'password' => 'password',
         ]);
+        RecetteFactory::createMany(10);
+
         $I->amOnPage('/login');
         $I->submitForm('#login', ['email' => 'jean.michel@email.com', 'password' => new PasswordArgument('password')]);
-        $I->seeResponseCodeIs(200);
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeCurrentRouteIs('app_home');
     }
 
     public function loggingInByClicking(ControllerTester $I)
@@ -37,10 +41,13 @@ class LoginCest
             'email' => 'jean.michel@email.com',
             'password' => 'password',
         ]);
+        RecetteFactory::createMany(10);
+
         $I->amOnPage('/login');
-        $I->fillField('#login input[name=email]', 'jean.michel@email.com');
-        $I->fillField('#login input[name=password]', new PasswordArgument('password'));
-        $I->click('Se connecter', '#login');
-        $I->seeResponseCodeIs(200);
+        $I->fillField(['id' => 'inputEmail'], 'jean.michel@email.com');
+        $I->fillField(['id' => 'inputPassword'], new PasswordArgument('password'));
+        $I->click('Se connecter');
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeCurrentRouteIs('app_home');
     }
 }
