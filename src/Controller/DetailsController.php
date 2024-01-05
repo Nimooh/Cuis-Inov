@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Membre;
 use App\Repository\InteragirRepository;
 use App\Repository\RecetteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,12 +16,10 @@ class DetailsController extends AbstractController
     #[Route('/details', name: 'app_details')]
     public function index(RecetteRepository $rep, Request $request): Response
     {
-        /** @var \App\Entity\Membre $user */
+        /** @var Membre $user */
         $user = $this->getUser();
         $userId = $user ? $user->getId() : 0; //User par défault id 0
         $idRecipe = $request->get('id');
-
-        dump($idRecipe);
 
         $recipe = $rep->findByRecipeId($userId, $idRecipe);
         $components = $rep->findAllComponentsByRecipeId($idRecipe);
@@ -31,21 +30,49 @@ class DetailsController extends AbstractController
         ]);
     }
 
-    #[Route('/details/update', name: 'app_details_update')]
-    public function updateDBByDetails(
+    #[Route('/details/fav/update', name: 'app_details_fav_update')]
+    public function updateFavByDetails(
         InteragirRepository $repo,
         #[MapQueryParameter(filter: \FILTER_VALIDATE_BOOLEAN)] ?bool $fav,
-        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $idRecette
+        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $idRecipe
     ) {
-        /** @var \App\Entity\Membre $user */
+        /** @var Membre $user */
         $user = $this->getUser();
 
         //Rajoute une nouvelle ligne dans la BD, si aucune interaction avant
         if($fav === null) {
-            $repo->insertDB($user->getId(), $idRecette);
+            $repo->insertDB($user->getId(), $idRecipe);
         } else {
-            $repo->updateDB($fav, $user->getId(), $idRecette);
+            $repo->updateDB($fav, $user->getId(), $idRecipe);
         }
-        return $this->redirectToRoute('app_details', ['id' => $idRecette ]);
+        return $this->redirectToRoute('app_details', ['id' => $idRecipe ]);
+    }
+
+    #[Route('/details/{note}', name: 'app_details_note')]
+    public function showNote($recipe): Response
+    {
+       return $this->render('details/_note.html.twig', ['recipe' => $recipe]);
+    }
+
+    #[Route('/details/note/update', name: 'app_details_note_update')]
+    public function updateNote(
+        InteragirRepository $repo,
+        #[MapQueryParameter(filter: \FILTER_VALIDATE_BOOLEAN)] ?bool $fav,
+        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $idRecipe,
+        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $note,
+    ) {
+        /** @var Membre $user */
+        $user = $this->getUser();
+
+        dump($note);
+
+        //Rajoute une nouvelle ligne dans la BD, si aucune interaction avant
+        if($fav === null) {
+            $repo->insertDB($user->getId(), $idRecipe, $note);
+            $repo->updateDB(true, $user->getId(), $idRecipe);
+        } else {
+            $repo->updateDB($fav, $user->getId(), $idRecipe, $note);
+        }
+        return $this->redirectToRoute('app_details', ['id' => $idRecipe ]);
     }
 }
