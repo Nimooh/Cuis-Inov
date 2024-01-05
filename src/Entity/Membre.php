@@ -74,11 +74,15 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'Membre', targetEntity: Recette::class)]
     private Collection $recettes;
 
+    #[ORM\ManyToMany(targetEntity: Allergene::class, inversedBy: 'membres')]
+    private Collection $allergenes;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
         $this->interagirs = new ArrayCollection();
         $this->recettes = new ArrayCollection();
+        $this->allergenes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -279,6 +283,30 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
                 $recette->setMembre(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Allergene>
+     */
+    public function getAllergenes(): Collection
+    {
+        return $this->allergenes;
+    }
+
+    public function addAllergene(Allergene $allergene): static
+    {
+        if (!$this->allergenes->contains($allergene)) {
+            $this->allergenes->add($allergene);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergene(Allergene $allergene): static
+    {
+        $this->allergenes->removeElement($allergene);
 
         return $this;
     }
