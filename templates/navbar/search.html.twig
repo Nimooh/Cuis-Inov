@@ -78,102 +78,102 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="p-4 md:p-5">
+            <form id="myForm" method="post" class="p-4 md:p-5 ">
                 <div class="grid gap-4 mb-4 grid-cols-2">
 
 
-                    <!-- Ingrédients -->
+                        <!-- Ingrédients -->
 
-                    <div class="col-span-2 relative inline-block	autocomplete" >
-                        <label for="ingredients" class="block mb-2 text-sm font-medium text-white">Ingrédients</label>
-                        <input type="text" name="ingredient" id="ing" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                     <div  class="buttons  flex w-fit"></div>
+                        <div class="col-span-2 relative inline-block	" >
+                            <label for="ingredients" class="block mb-2 text-sm font-medium text-white">Ingrédients</label>
+                            <input type="text" id="ing" class=" autocomplete bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                         <div  class="buttons  flex w-fit"></div>
 
-                </div>
-
-                    <!-- Catégories -->
-                    <div class="col-span-2 relative inline-block 	autocomplete">
-                        <label for="categories" class="block mb-2 text-sm fbg-cuiGray border-solid rounded-lg -medium text-white">Catégories</label>
-                        <div class="bg-cuiGray mr-5 flex flex-wrap text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            {% for categorie in categories %}
-                                <label class=" flex  items-center mb-1">
-                                    <span class="text-sm mr-1 text-white capitalize whitespace-nowrap">{{ categorie.nomCatRecette }}</span>
-                                    <input type="checkbox" name="categorie" value="{{ categorie.id }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
-
-                                </label>
-                            {% endfor %}
-                        </div>
                     </div>
 
-                    <!-- Allèrgenes -->
+                        <!-- Catégories -->
+                        <div class="col-span-2 relative inline-block">
+                            <label for="categories" class="block mb-2 text-sm fbg-cuiGray border-solid rounded-lg -medium text-white">Catégories</label>
+                            <div class="bg-cuiGray mr-5 flex flex-wrap text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                {% for categorie in categories %}
+                                    <label class=" flex  items-center mb-1">
+                                        <span class="text-sm mr-1 text-white capitalize whitespace-nowrap">{{ categorie.nomCatRecette }}</span>
+                                        <input type="checkbox" name="categorie" value="{{ categorie.id }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
 
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="allergenes" class="block mb-2 text-sm font-medium text-white">Allergènes</label>
-                        <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            {% for allergene in allergenes %}
-                                <label class="flex items-center mb-1">
-                                    <input type="checkbox" name="allergene" value="{{ allergene.id }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
-                                    <span class="text-sm text-white capitalize">{{ allergene.nomAller }}</span>
-                                </label>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-
-                    <!-- Difficultés -->
-
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="difficultes" class="block mb-2 text-sm font-medium text-white dark:text-white">Difficultés</label>
-                        <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            {% set  difficultyName = ['Facile', 'Moyen', 'Difficile'] %}
-                                {% for i in range(1, 3) %}
-                                    <label class="flex items-center mb-1">
-                                        <input type="checkbox" name="difficulte" value="{{ i }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
-                                        <span class="text-sm text-white">{{difficultyName[i-1]}}</span>
                                     </label>
                                 {% endfor %}
+                            </div>
                         </div>
 
+                        <!-- Allèrgenes -->
 
-                        <label for="temps" class="block mb-2 text-sm font-medium text-white dark:text-white">Temps</label>
-                        <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            {% set  tempsName = ['20 Minutes', '20-40 Minutes', '40 < Minutes'] %}
-                            {% for i in range(1, 3) %}
-
-                            <label class="flex items-center mb-1">
-                                <input type="checkbox" name="temps" value="{{ i }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
-                                <span class="text-sm text-white">{{tempsName[i-1]}}</span>
-                            </label>
-                            {% endfor %}
-
-                        </div>
-                        <label for="note" class="block mb-2 text-sm font-medium text-white dark:text-white">Note</label>
-                        <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            {% for y in range(1, 5) %}
-
-                            <label class="flex items-center mb-1">
-                                <input type="checkbox" name="note" value="{{ y }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
-                                {% for i in range(1, 5) %}
-                                    {% set starColor = y >= i ? 'text-yellow-300' : 'text-gray-500' %}
-                                    <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                                </svg>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="allergenes" class="block mb-2 text-sm font-medium text-white">Allergènes</label>
+                            <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                {% for allergene in allergenes %}
+                                    <label class="flex items-center mb-1">
+                                        <input type="checkbox" name="allergene" value="{{ allergene.id }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                        <span class="text-sm text-white capitalize">{{ allergene.nomAller }}</span>
+                                    </label>
                                 {% endfor %}
-                            </label>
-
-                            {% endfor %}
+                            </div>
                         </div>
 
 
+                        <!-- Difficultés -->
+
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="difficultes" class="block mb-2 text-sm font-medium text-white dark:text-white">Difficultés</label>
+                            <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                {% set  difficultyName = ['Facile', 'Moyen', 'Difficile'] %}
+                                    {% for i in range(1, 3) %}
+                                        <label class="flex items-center mb-1">
+                                            <input type="checkbox" name="difficulte" value="{{ i }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                            <span class="text-sm text-white">{{difficultyName[i-1]}}</span>
+                                        </label>
+                                    {% endfor %}
+                            </div>
+
+                        <!-- Temps -->
+
+                            <label for="temps" class="block mb-2 text-sm font-medium text-white dark:text-white">Temps</label>
+                            <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                {% set  tempsName = ['Moins de 20 Minutes', 'Entre 20 et 40 Minutes', 'Plus de 40 Minutes'] %}
+                                {% for i in range(1, 3) %}
+
+                                <label class="flex items-center mb-1">
+                                    <input type="checkbox" name="temps" value="{{ i }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                    <span class="text-sm text-white">{{tempsName[i-1]}}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
 
 
+                        <!-- Notes -->
+
+                            <label for="notes" class="block mb-2 text-sm font-medium text-white dark:text-white">Note</label>
+                            <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                {% for y in range(1, 5) %}
+
+                                <label class="flex items-center mb-1">
+                                    <input type="checkbox" name="note" value="{{ y }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                    {% for i in range(1, 5) %}
+                                        {% set starColor = y >= i ? 'text-yellow-300' : 'text-gray-500' %}
+                                        <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                    </svg>
+                                    {% endfor %}
+                                </label>
+
+                                {% endfor %}
+                            </div>
 
 
-                </div>
-                </div>
-                <button type="submit" formmethod="post" class="text-white w-full	place-content-center	 inline-flex items-center bg-cuiOrange hover:bg-cuiOrangeLight focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Rechercher...
-                </button>
+                        </div>
+                    </div>
+                    <button type="button" onclick="submitForm()"  class="text-white w-full	place-content-center	 inline-flex items-center bg-cuiOrange hover:bg-cuiOrangeLight focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Rechercher...
+                    </button>
             </form>
         </div>
     </div>
@@ -182,12 +182,33 @@
 
 <script>
 
+    function submitForm(){
+        const form = document.getElementById("myForm");
+        const buttons = form.querySelectorAll("button[name='ingredient']");
+
+        buttons.forEach(button => {
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "ingredient");
+            input.setAttribute("value",  button.value);
+            form.appendChild(input);
+        });
+        form.submit();
+    }
+
+
+
+
+
+
+
+
 
     var ingredientsList = []
 
 
     {%for ingredient in ingredients %}
-    ingredientsList.push("{{ ingredient.nomIngr }}")
+    ingredientsList.push(["{{ ingredient.id }}","{{ ingredient.nomIngr }}"])
     {% endfor %}
 
 
@@ -212,29 +233,37 @@
             this.parentNode.appendChild(a);
             /*for each item in the array...*/
             for (i = 0; i < arr.length; i++) {
+                const bool = false;
                 /*check if the item starts with the same letters as the text field value:*/
-                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                if (arr[i][1].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                     /*create a DIV element for each matching element:*/
                     b = document.createElement("DIV");
                     /*make the matching letters bold:*/
-                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML = "<strong>" + arr[i][1].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i][1].substr(val.length);
                     /*insert a input field that will hold the current array item's value:*/
-                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.innerHTML += "<input type='hidden' value='" + arr[i][0] + "' name='" + arr[i][1] + "'>";
                     /*execute a function when someone clicks on the item value (DIV element):*/
                     b.addEventListener("click", function(e) {
                         /*insert the value for the autocomplete text field:*/
-                        inp.value = this.getElementsByTagName("input")[0].value;
+                        inp.value = "";
+                        const ingrName = this.getElementsByTagName("input")[0].name;
+                        const ingrValue = this.getElementsByTagName("input")[0].value;
+
                         const place = document.querySelector('.buttons');
                         const button = document.createElement('button');
-                        button.className ='switch_button whitespace-nowrap w-fit bg-cuiGrayLight  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5';
-                        button.innerHTML =inp.value;
+                        button.type = 'button';
+                        button.className ='switch_button whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5';
+                        button.onclick = 'switch()';
+                        button.name = 'ingredient';
+                        button.value = ingrValue;
+                        button.innerHTML = ingrName;
                         place.appendChild(button);
-
-
                         /*close the list of autocompleted values,
                         (or any other open lists of autocompleted values:*/
+
                         closeAllLists();
+
                     });
                     a.appendChild(b);
                 }
@@ -298,10 +327,7 @@
     }
 
 
-
     /*Utilisation du script */
     autocomplete(document.getElementById("ing"), ingredientsList);
-
-
 
 </script>
