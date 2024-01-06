@@ -49,10 +49,12 @@
             </div>
         </div>
 
-        <h1 class="text-white text-2xl font-bold p-5">Les mieux notées :</h1>
+        <div class="h-full w-4/5">
+            <h1 class="top-50 left-2 text-white text-2xl font-bold py-5">Catalogue :</h1>
+        </div>
+
         <div class="left-0 w-4/5" id="bloc_list">
             <ul class="flex flex-wrap justify-around m-1 list-none">
-
                 {% for recette in recettes %}
                     <li class="relative m-1 p-3 bg-cuiGray bg-opacity-100 rounded-2xl">
                         <a class="no-underline text-black" href="{{ path('app_details', { id: recette.id }) }}">

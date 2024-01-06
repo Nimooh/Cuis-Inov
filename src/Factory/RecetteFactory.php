@@ -47,9 +47,10 @@ final class RecetteFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $minutes = self::faker()->numberBetween(1, 60);
         return [
             'nomRecette' => self::faker()->word(),
-            'tempsRecette' => new DateTimeImmutable(self::faker()->time()),
+            'tempsRecette' => new \DateInterval("PT".$minutes."M"),
             'diffRecette' => self::faker()->numberBetween(1,3),
             'instruction' => self::faker()->paragraph(),
             'description' => self::faker()->sentence(),
