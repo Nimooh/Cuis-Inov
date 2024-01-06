@@ -43,9 +43,9 @@ class InteragirRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
-    public function updateDB(?bool $fav = null, int $idMembre, int $idRecette, ?int $noteRecette = null)
+    public function updateDB(int $fav = 3, int $idMembre, int $idRecette, ?int $noteRecette = null)
     {
-        if($fav !== null) {
+        if($fav !== 3) {
             // Inversion de $fav pour mettre à jour la nouvelle valeur
             $fav = $fav ? 0 : 1;
 
@@ -64,11 +64,13 @@ class InteragirRepository extends ServiceEntityRepository
             $this->createQueryBuilder('i')
                 ->update('App\Entity\Interagir', 'i')
                 ->set('i.noteRecette', ':noteRecette')
+                ->set('i.noteRecette', ':note')
                 ->where('i.membre = :idMembre')
                 ->andWhere('i.recette = :idRecette')
                 ->setParameter('noteRecette', $noteRecette)
                 ->setParameter('idMembre', $idMembre)
                 ->setParameter('idRecette', $idRecette)
+                ->setParameter('note', $noteRecette)
                 ->getQuery()
                 ->execute()
             ;
@@ -76,17 +78,18 @@ class InteragirRepository extends ServiceEntityRepository
 
     }
 
-    public function insertDB(int $idMembre, int $idRecette, ?int $noteRecette = null)
+    public function insertDB(int $idMembre, int $idRecette, ?int $fav, ?int $noteRecette = null)
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
             INSERT INTO interagir (fav, membre_id, recette_id, note_recette)
-            VALUES (1, :idMembre, :idRecette, :noteRecette)
+            VALUES (:fav, :idMembre, :idRecette, :noteRecette)
             ';
 
-        $conn->executeQuery($sql, ['idMembre' => $idMembre,
-                                                'idRecette' => $idRecette,
-                                                'noteRecette' => $noteRecette]);
+        $conn->executeQuery($sql, ['fav' => $fav,
+                                    'idMembre' => $idMembre,
+                                    'idRecette' => $idRecette,
+                                    'noteRecette' => $noteRecette]);
     }
 }

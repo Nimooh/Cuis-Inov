@@ -94,7 +94,7 @@
                         {% if is_granted('IS_AUTHENTICATED') %}
                         <a id="container" class="absolute top-4 right-4 m-2" href="{{ path('app_recette_update', {'fav': recette.fav, 'idRecette': recette.id}) }}">
                             <button id="button">
-                                {% if recette.fav %}
+                                {% if recette.fav == 1 %}
                                     <svg id="hearth" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 21 19">
                                         <path id="outline" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
                                     </svg>
