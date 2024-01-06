@@ -34,17 +34,19 @@ class DetailsController extends AbstractController
     public function updateFavByDetails(
         InteragirRepository $repo,
         #[MapQueryParameter(filter: \FILTER_VALIDATE_BOOLEAN)] ?bool $fav,
-        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $idRecipe
+        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $idRecipe,
+        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] ?int $note
     ) {
         /** @var Membre $user */
         $user = $this->getUser();
 
         //Rajoute une nouvelle ligne dans la BD, si aucune interaction avant
         if($fav === null) {
-            $repo->insertDB($user->getId(), $idRecipe);
+            $repo->insertDB($user->getId(), $idRecipe, 1);
         } else {
-            $repo->updateDB($fav, $user->getId(), $idRecipe);
+            $repo->updateDB($fav, $user->getId(), $idRecipe, $note);
         }
+
         return $this->redirectToRoute('app_details', ['id' => $idRecipe ]);
     }
 
@@ -59,19 +61,16 @@ class DetailsController extends AbstractController
         InteragirRepository $repo,
         #[MapQueryParameter(filter: \FILTER_VALIDATE_BOOLEAN)] ?bool $fav,
         #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $idRecipe,
-        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $note,
+        #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $note
     ) {
         /** @var Membre $user */
         $user = $this->getUser();
 
-        dump($note);
-
         //Rajoute une nouvelle ligne dans la BD, si aucune interaction avant
         if($fav === null) {
-            $repo->insertDB($user->getId(), $idRecipe, $note);
-            $repo->updateDB(true, $user->getId(), $idRecipe);
+            $repo->insertDB($user->getId(), $idRecipe, 0, $note);
         } else {
-            $repo->updateDB($fav, $user->getId(), $idRecipe, $note);
+            $repo->updateDB(3, $user->getId(), $idRecipe, $note);
         }
         return $this->redirectToRoute('app_details', ['id' => $idRecipe ]);
     }

@@ -12,7 +12,7 @@
             </button>
             <img class="grow w-1/2 lg:max-w-screen-lg" src="{{ asset('img/recettes/' ~ recipe.id ~ '.png') }}" alt="foodImg">
             {% if is_granted('IS_AUTHENTICATED') %}
-                <button onclick="document.location.href='{{ path('app_details_fav_update', {'fav': recipe.fav, 'idRecette': recipe.id }) }}" class="text-cuiBlack bg-cuiGrayLight h-full font-medium rounded-lg text-sm p-2.5 inline-flex items-center hover:bg-cuiOrange lg:w-20 lg:h-20">
+                <a id="fav" onclick="document.location.href='{{ path('app_details_fav_update', {'fav': recipe.fav, 'idRecipe': recipe.id, 'note': recipe.note_recette }) }}'" class="text-cuiBlack bg-cuiGrayLight h-full font-medium rounded-lg text-sm p-2.5 inline-flex items-center hover:bg-cuiOrange lg:w-20 lg:h-20">
                     {% if recipe.fav %}
                         <svg id="hearth" class="w-6 h-6 text-cuiBlack dark:text-white lg:w-16 lg:h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 21 19">
                             <path id="outline" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
@@ -22,7 +22,7 @@
                             <path id="outline" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
                         </svg>
                     {% endif %}
-                </button>
+                </a>
                 <script>
                     let buttonFav = document.querySelector('#fav');
 

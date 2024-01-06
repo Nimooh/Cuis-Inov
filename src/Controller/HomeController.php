@@ -25,7 +25,7 @@ class HomeController extends AbstractController
         } else {
             $recettes = $repo->findAllOrderedWithoutMostTrending(0, $userId);
         }
-        dump($recettes);
+        //dump($recettes);
         return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending]);
     }
 
@@ -35,8 +35,6 @@ class HomeController extends AbstractController
     {
         /** @var \App\Entity\Membre $user */
         $user = $this->getUser();
-
-        dump($fav);
 
         //Redirection vers la page de connexion, si l'utilisateur non-connecté se retrouve sur cette page
         if($user === null)
