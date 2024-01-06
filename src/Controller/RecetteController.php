@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Membre;
 use App\Entity\Recette;
 use App\Form\RecetteType;
 use App\Repository\RecetteRepository;
@@ -17,7 +18,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class RecetteController extends AbstractController
 {
     #[Route('/details', name: 'app_details')]
-    public function index(RecetteRepository $rep, Request $request): Response
+    public function details(RecetteRepository $rep, Request $request): Response
     {
         $id = $request->get('id');
         $recipe = $rep->find($id);
@@ -30,7 +31,20 @@ class RecetteController extends AbstractController
     }
 
     #[IsGranted('IS_AUTHENTICATED')]
-    #[Route('/recette/create', name: 'app_recette_create')]
+    #[Route('/mes_recettes', name: 'app_crud_mes_recettes')]
+    public function index(RecetteRepository $rep, Request $request): Response
+    {
+        /** @var Membre $user */
+        $user = $this->getUser();
+        $myRecipes = $user->getRecettes();
+
+        return $this->render('recette/mes_recettes.html.twig', [
+            'recipes' => $myRecipes,
+        ]);
+    }
+
+    #[IsGranted('IS_AUTHENTICATED')]
+    #[Route('/recette/create', name: 'app_crud_recette_create')]
     public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
         $recipe = new Recette();
@@ -52,7 +66,7 @@ class RecetteController extends AbstractController
     }
 
     #[IsGranted('IS_AUTHENTICATED')]
-    #[Route('/recette/{id}/update', name: 'app_recette_update', requirements: ['id' => Requirement::DIGITS])]
+    #[Route('/recette/{id}/update', name: 'app_crud_recette_update', requirements: ['id' => Requirement::DIGITS])]
     public function update(EntityManagerInterface $entityManager, Recette $recipe, Request $request): Response
     {
         $form = $this->createForm(RecetteType::class, $recipe);
@@ -73,7 +87,7 @@ class RecetteController extends AbstractController
     }
 
     #[IsGranted('IS_AUTHENTICATED')]
-    #[Route('/recette/{id}/delete', name: 'app_recette_delete', requirements: ['id' => Requirement::DIGITS])]
+    #[Route('/recette/{id}/delete', name: 'app_crud_recette_delete', requirements: ['id' => Requirement::DIGITS])]
     public function delete(EntityManagerInterface $entityManager, Recette $recipe, Request $request): Response
     {
         $form = $this->createFormBuilder($recipe)
