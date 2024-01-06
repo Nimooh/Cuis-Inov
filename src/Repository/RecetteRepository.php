@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Recette;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,74 +22,91 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    //    /**
-    //     * @return Recette[] Returns an array of Recette objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Recette
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-
     public function findMostTrending(): ?Recette
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->where('r.noteMoyenne = (SELECT MAX(r2.noteMoyenne) FROM App\Entity\Recette r2)')
+            ->getQuery();
+
+        //Affichage alternative si la base de données est vide
+        $result = null;
+        try {
+            $result = $qb->getResult()[0];
+        } finally {
+            return $result;
+        }
+    }
+
+    /**
+     * @return Recette[]
+     */
+    public function findAllOrderedWithoutMostTrending(int $trendingId, int $userId): array
+    {
+        /* Requete pour recuperer toutes les recettes mise en favoris par l'utilisateur */
+        $userFav = $this->createQueryBuilder('r')
+            ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne')
+            ->leftJoin('r.interagirs', 'i')
+            ->addSelect('i.fav')
+            ->where('r.id <> :trending')
+            ->andWhere('i.membre = :userId')
+            ->setParameter('trending', $trendingId)
+            ->setParameter('userId', $userId)
+            ->addOrderBy('r.noteMoyenne', 'DESC')
+            ->addOrderBy('r.nomRecette', 'ASC')
+            ->getQuery()
+            ->getResult();
+        //dump($userFav);
+
+        if(!empty($userFav)) {
+            /* Creation de la liste des id, Requete pour recuperer toutes les recettes sauf celle dans la precedente */
+            $userFavIds = array_map(fn($recipe) => $recipe['id'], $userFav);
+            $qb = $this->createQueryBuilder('r')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+                ->where('r.id <> :trending')
+                ->andWhere('r.id NOT IN (:userFavIds)')
+                ->setParameter('trending', $trendingId)
+                ->setParameter('userFavIds', $userFavIds)
+                ->addOrderBy('r.noteMoyenne', 'DESC')
+                ->addOrderBy('r.nomRecette', 'ASC')
+                ->getQuery()
+                ->getResult();
+            //dump($qb);
+            /* Fusion des deux requetes pour avoir toutes les recettes du site affichés triées */
+            $mergedResult = array_merge($userFav, $qb);
+            usort($mergedResult, function ($a, $b) {
+                if ($a['noteMoyenne'] !== $b['noteMoyenne'])
+                    return ($a['noteMoyenne'] > $b['noteMoyenne']) ? -1 : 1;
+
+                return strcmp($a['nomRecette'], $b['nomRecette']);
+            });
+            return $mergedResult;
+        } else {
+            return $this->createQueryBuilder('r')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+                ->where('r.id <> :trending')
+                ->setParameter('trending', $trendingId)
+                ->addOrderBy('r.noteMoyenne', 'DESC')
+                ->addOrderBy('r.nomRecette', 'ASC')
+                ->getQuery()
+                ->getResult();
+        }
+    }
+
+    public function findByRecipeId(int $idMember, int $idRecette):array
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-        SELECT *
-        FROM recette
-        WHERE note_moyenne = (SELECT MAX(note_moyenne)
-                             FROM recette)
+        SELECT r.*, i.fav, note_recette
+        FROM recette r
+        LEFT JOIN interagir i ON r.id = i.recette_id AND i.membre_id = :idMember
+        WHERE r.id = :idRecette;
         ';
-        $result = $conn->executeQuery($sql);
 
-        $data = $result->fetchAllAssociative();
-
-        $entityManager = $this->getEntityManager();
-        return $entityManager->getRepository(Recette::class)->find($data[0]['id']);
-    }
-
-    public function findAllOrderedWithoutMostTrending($trendingId): array
-    {
-        return $this->createQueryBuilder('r')
-            ->leftJoin('r.interagirs','i')
-            ->addSelect('i.fav')
-            ->andWhere('r.id <> :trendingId')
-            ->setParameter('trendingId', $trendingId)
-            ->orderBy('r.noteMoyenne', 'DESC')
-            ->addOrderBy('r.nomRecette', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * @param int $id
-     * @return Recette[]
-     */
-    public function findByRecipeId(int $id):array
-    {
-        return $this->createQueryBuilder('r')
-            ->where('r.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
+        $result = $conn->executeQuery($sql, [
+            'idMember' => $idMember,
+            'idRecette' => $idRecette]);
+        return $result->fetchAssociative();
     }
 
     public function findAllComponentsByRecipeId(int $id):array
@@ -105,5 +123,36 @@ class RecetteRepository extends ServiceEntityRepository
 
         $result = $conn->executeQuery($sql, ['id' => $id]);
         return $result->fetchAllAssociative();
+    }
+
+    public function updateAverageNote(int $idRecipe)
+    {
+        $notes = $this->createQueryBuilder('r')
+            ->select('i.noteRecette')
+            ->leftJoin('r.interagirs', 'i')
+            ->where('r.id = :idRecipe')
+            ->setParameter('idRecipe', $idRecipe)
+            ->getQuery()
+            ->getResult();
+
+        $tot = 0;
+
+        dump($notes);
+
+        foreach ($notes as $note)
+        {
+            $tot += $note["noteRecette"];
+        }
+
+        $avg = $tot / count($notes);
+
+        $this->createQueryBuilder('r2')
+            ->update('App:Recette', 'r2')
+            ->set('r2.noteMoyenne', ':avg')
+            ->where('r2.id = :idRecipe')
+            ->setParameter('idRecipe', $idRecipe)
+            ->setParameter('avg', $avg)
+            ->getQuery()
+            ->execute();
     }
 }
