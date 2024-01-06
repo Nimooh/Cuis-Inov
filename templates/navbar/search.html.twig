@@ -81,17 +81,28 @@
             <form class="p-4 md:p-5">
                 <div class="grid gap-4 mb-4 grid-cols-2">
 
-                    <!-- Catégories -->
-                    <div class="col-span-2 relative inline-block 	autocomplete">
-                        <label for="categories" class="block mb-2 text-sm font-medium text-white">Catégories</label>
-                        <input type="text" name="categorie" id="cat" class="bg-cuiGray  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                    </div>
 
                     <!-- Ingrédients -->
 
                     <div class="col-span-2 relative inline-block	autocomplete" >
                         <label for="ingredients" class="block mb-2 text-sm font-medium text-white">Ingrédients</label>
                         <input type="text" name="ingredient" id="ing" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                     <div  class="buttons  flex w-fit"></div>
+
+                </div>
+
+                    <!-- Catégories -->
+                    <div class="col-span-2 relative inline-block 	autocomplete">
+                        <label for="categories" class="block mb-2 text-sm fbg-cuiGray border-solid rounded-lg -medium text-white">Catégories</label>
+                        <div class="bg-cuiGray mr-5 flex flex-wrap text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            {% for categorie in categories %}
+                                <label class=" flex  items-center mb-1">
+                                    <span class="text-sm mr-1 text-white capitalize whitespace-nowrap">{{ categorie.nomCatRecette }}</span>
+                                    <input type="checkbox" name="categorie" value="{{ categorie.id }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+
+                                </label>
+                            {% endfor %}
+                        </div>
                     </div>
 
                     <!-- Allèrgenes -->
@@ -101,7 +112,7 @@
                         <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                             {% for allergene in allergenes %}
                                 <label class="flex items-center mb-1">
-                                    <input type="checkbox" name="allergene" value="{{ allergene.nomAller }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                    <input type="checkbox" name="allergene" value="{{ allergene.id }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
                                     <span class="text-sm text-white capitalize">{{ allergene.nomAller }}</span>
                                 </label>
                             {% endfor %}
@@ -179,16 +190,12 @@
 
 
     var ingredientsList = []
-    var categoriesList = []
 
 
     {%for ingredient in ingredients %}
     ingredientsList.push("{{ ingredient.nomIngr }}")
     {% endfor %}
 
-    {%for categorie in categories %}
-    categoriesList.push("{{ categorie.nomCatRecette }}")
-    {% endfor %}
 
 
 
@@ -224,6 +231,13 @@
                     b.addEventListener("click", function(e) {
                         /*insert the value for the autocomplete text field:*/
                         inp.value = this.getElementsByTagName("input")[0].value;
+                        const place = document.querySelector('.buttons');
+                        const button = document.createElement('button');
+                        button.className ='switch_button whitespace-nowrap w-fit bg-cuiGrayLight  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5';
+                        button.innerHTML =inp.value;
+                        place.appendChild(button);
+
+
                         /*close the list of autocompleted values,
                         (or any other open lists of autocompleted values:*/
                         closeAllLists();
