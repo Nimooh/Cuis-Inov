@@ -53,15 +53,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prnmMembre = null;
 
-    #[ORM\Column(length: 6, nullable: true)]
-    private ?string $CPMembre = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $adrMembre = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $villeMembre = null;
-
     #[Assert\NotBlank]
     #[Assert\Length(max: 20)]
     #[Assert\Regex(pattern: '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4})$/', message: 'Format de téléphone invalide')]
