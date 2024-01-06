@@ -61,7 +61,7 @@ class RecetteRepository extends ServiceEntityRepository
             /* Creation de la liste des id, Requete pour recuperer toutes les recettes sauf celle dans la precedente */
             $userFavIds = array_map(fn($recipe) => $recipe['id'], $userFav);
             $qb = $this->createQueryBuilder('r')
-                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 3 AS fav')
                 ->where('r.id <> :trending')
                 ->andWhere('r.id NOT IN (:userFavIds)')
                 ->setParameter('trending', $trendingId)
