@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Recette;
 use App\Repository\RecetteRepository;
+use DateTimeImmutable;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -46,10 +47,14 @@ final class RecetteFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $minutes = self::faker()->numberBetween(1, 60);
         return [
-            'diffRecette' => self::faker()->randomNumber(),
-            'nomRecette' => self::faker()->text(255),
-            'noteMoyenne' => self::faker()->randomFloat(),
+            'nomRecette' => self::faker()->word(),
+            'tempsRecette' => new \DateInterval("PT".$minutes."M"),
+            'diffRecette' => self::faker()->numberBetween(1,3),
+            'instruction' => self::faker()->paragraph(),
+            'description' => self::faker()->sentence(),
+            'noteMoyenne' => self::faker()->randomFloat(1, 1, 5),
         ];
     }
 

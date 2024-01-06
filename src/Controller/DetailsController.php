@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Membre;
+use App\Repository\InteragirRepository;
 use App\Repository\RecetteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Annotation\Route;
 
 <?php

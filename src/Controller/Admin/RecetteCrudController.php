@@ -2,20 +2,20 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\DateIntervalField;
 use App\Entity\CategorieRecette;
 use App\Entity\Ingredient;
 use App\Entity\Recette;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 
 class RecetteCrudController extends AbstractCrudController
 {
@@ -29,7 +29,7 @@ class RecetteCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('nomRecette', 'Nom'),
-            TimeField::new('tempsRecette', 'Durée')->setFormat('HH:mm:ss'),
+            DateIntervalField::new('tempsRecette', 'Durée'),
             IntegerField::new('diffRecette', 'Difficulté'),
             NumberField::new('noteMoyenne', 'Note Moyenne'),
             TextField::new('description', 'Description'),
