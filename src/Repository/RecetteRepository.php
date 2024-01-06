@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Recette;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -43,31 +44,54 @@ class RecetteRepository extends ServiceEntityRepository
     {
         /* Requete pour recuperer toutes les recettes mise en favoris par l'utilisateur */
         $userFav = $this->createQueryBuilder('r')
-                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne')
-                ->leftJoin('r.interagirs', 'i')
-                ->addSelect('i.fav')
-                ->where('r.id <> :trending')
-                ->andWhere('i.membre = :userId')
-                ->setParameter('trending', $trendingId)
-                ->setParameter('userId', $userId)
-                ->getQuery()
-                ->getResult();
-        //dump($userFav);
-
-        /* Creation de la liste des id, Requete pour recuperer toutes les recettes sauf celle dans la precedente */
-        $userFavIds = array_map(fn($recipe) => $recipe['id'], $userFav);
-        $qb = $this->createQueryBuilder('r')
-            ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+            ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne')
+            ->leftJoin('r.interagirs', 'i')
+            ->addSelect('i.fav')
             ->where('r.id <> :trending')
-            ->andWhere('r.id NOT IN (:userFavIds)')
+            ->andWhere('i.membre = :userId')
             ->setParameter('trending', $trendingId)
-            ->setParameter('userFavIds', $userFavIds)
+            ->setParameter('userId', $userId)
+            ->addOrderBy('r.noteMoyenne', 'DESC')
+            ->addOrderBy('r.nomRecette', 'ASC')
             ->getQuery()
             ->getResult();
-        //dump($qb);
-        /* Fusion des deux requetes pour avoir toutes les recettes du site affichés */
-        return array_merge($userFav, $qb);
+        //dump($userFav);
+
+        if(!empty($userFav)) {
+            /* Creation de la liste des id, Requete pour recuperer toutes les recettes sauf celle dans la precedente */
+            $userFavIds = array_map(fn($recipe) => $recipe['id'], $userFav);
+            $qb = $this->createQueryBuilder('r')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+                ->where('r.id <> :trending')
+                ->andWhere('r.id NOT IN (:userFavIds)')
+                ->setParameter('trending', $trendingId)
+                ->setParameter('userFavIds', $userFavIds)
+                ->addOrderBy('r.noteMoyenne', 'DESC')
+                ->addOrderBy('r.nomRecette', 'ASC')
+                ->getQuery()
+                ->getResult();
+            //dump($qb);
+            /* Fusion des deux requetes pour avoir toutes les recettes du site affichés triées */
+            $mergedResult = array_merge($userFav, $qb);
+            usort($mergedResult, function ($a, $b) {
+                if ($a['noteMoyenne'] !== $b['noteMoyenne'])
+                    return ($a['noteMoyenne'] > $b['noteMoyenne']) ? -1 : 1;
+
+                return strcmp($a['nomRecette'], $b['nomRecette']);
+            });
+            return $mergedResult;
+        } else {
+            return $this->createQueryBuilder('r')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+                ->where('r.id <> :trending')
+                ->setParameter('trending', $trendingId)
+                ->addOrderBy('r.noteMoyenne', 'DESC')
+                ->addOrderBy('r.nomRecette', 'ASC')
+                ->getQuery()
+                ->getResult();
+        }
     }
+
 
     /**
      * @param int $id
