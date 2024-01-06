@@ -124,4 +124,35 @@ class RecetteRepository extends ServiceEntityRepository
         $result = $conn->executeQuery($sql, ['id' => $id]);
         return $result->fetchAllAssociative();
     }
+
+    public function updateAverageNote(int $idRecipe)
+    {
+        $notes = $this->createQueryBuilder('r')
+            ->select('i.noteRecette')
+            ->leftJoin('r.interagirs', 'i')
+            ->where('r.id = :idRecipe')
+            ->setParameter('idRecipe', $idRecipe)
+            ->getQuery()
+            ->getResult();
+
+        $tot = 0;
+
+        dump($notes);
+
+        foreach ($notes as $note)
+        {
+            $tot += $note["noteRecette"];
+        }
+
+        $avg = $tot / count($notes);
+
+        $this->createQueryBuilder('r2')
+            ->update('App:Recette', 'r2')
+            ->set('r2.noteMoyenne', ':avg')
+            ->where('r2.id = :idRecipe')
+            ->setParameter('idRecipe', $idRecipe)
+            ->setParameter('avg', $avg)
+            ->getQuery()
+            ->execute();
+    }
 }

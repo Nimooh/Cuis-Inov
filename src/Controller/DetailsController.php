@@ -11,6 +11,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Annotation\Route;
 
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Membre;
+use App\Repository\InteragirRepository;
+use App\Repository\RecetteRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\Routing\Annotation\Route;
+
 class DetailsController extends AbstractController
 {
     #[Route('/details', name: 'app_details')]
@@ -53,12 +66,13 @@ class DetailsController extends AbstractController
     #[Route('/details/{note}', name: 'app_details_note')]
     public function showNote($recipe): Response
     {
-       return $this->render('details/_note.html.twig', ['recipe' => $recipe]);
+        return $this->render('details/_note.html.twig', ['recipe' => $recipe]);
     }
 
     #[Route('/details/note/update', name: 'app_details_note_update')]
     public function updateNote(
         InteragirRepository $repo,
+        RecetteRepository $repoRecipe,
         #[MapQueryParameter(filter: \FILTER_VALIDATE_BOOLEAN)] ?bool $fav,
         #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $idRecipe,
         #[MapQueryParameter(filter: \FILTER_VALIDATE_INT)] int $note
@@ -72,6 +86,8 @@ class DetailsController extends AbstractController
         } else {
             $repo->updateDB(3, $user->getId(), $idRecipe, $note);
         }
+        $repoRecipe->updateAverageNote($idRecipe);
         return $this->redirectToRoute('app_details', ['id' => $idRecipe ]);
     }
 }
+
