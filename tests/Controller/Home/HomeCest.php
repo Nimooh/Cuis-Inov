@@ -58,28 +58,28 @@ class HomeCest
         RecetteFactory::createSequence(
             [
                 ['nomRecette' => 'Chocolat',
-                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'tempsRecette' => new \DateInterval("PT26M"),
                     'diffRecette' => 3,
                     'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
                     'description' => 'Une recette test',
                     'noteMoyenne' => 5,
                 ],
                 ['nomRecette' => 'Tarte',
-                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'tempsRecette' => new \DateInterval("PT36M"),
                     'diffRecette' => 3,
                     'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
                     'description' => 'Une recette test',
                     'noteMoyenne' => 2.16,
                 ],
                 ['nomRecette' => 'Flanc',
-                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'tempsRecette' => new \DateInterval("PT36M"),
                     'diffRecette' => 3,
                     'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
                     'description' => 'Une recette test',
                     'noteMoyenne' => 3.1415,
                 ],
                 ['nomRecette' => 'Gauffre',
-                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'tempsRecette' => new \DateInterval("PT36M"),
                     'diffRecette' => 3,
                     'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
                     'description' => 'Une recette test',
@@ -99,14 +99,14 @@ class HomeCest
         RecetteFactory::createSequence(
             [
                 ['nomRecette' => 'Chocolat',
-                    'tempsRecette' => new \DateTime('02:36:00'),
+                    'tempsRecette' => new \DateInterval("PT26M"),
                     'diffRecette' => 3,
                     'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
                     'description' => 'Une recette test',
                     'noteMoyenne' => 5,
                 ],
                 ['nomRecette' => 'Lasagne',
-                'tempsRecette' => new \DateTime('02:36:00'),
+                'tempsRecette' => new \DateInterval("PT36M"),
                 'diffRecette' => 3,
                 'instruction' => 'Le Lorem Ipsum est un texte employé dans la composition et la mise en page.',
                 'description' => 'Le plat préféré de Garfield',
@@ -121,7 +121,7 @@ class HomeCest
         $I->see('Lasagne', ['css' => 'div#bloc_list > ul > li > a > div > span:first-of-type']);
 
         //Test pour le temps de la recette
-        $I->see('156 minutes', ['css' => 'div#misc > div > span']);
+        $I->see('36 minutes', ['css' => 'div#misc > div > span']);
 
         //Test pour la difficulté de la recette
         $difficulty = $I->grabAttributeFrom('div#misc > span:last-of-type > div', 'title');
