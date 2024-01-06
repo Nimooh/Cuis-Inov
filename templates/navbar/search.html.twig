@@ -11,6 +11,7 @@
         />
     </svg>
 </div>
+
 <input
         type="text" id="search-navbar"
         class="block w-full p-2 ps-10 text-sm text-black border rounded-lg bg-gray-700 border-gray-600 placeholder-gray-400"
@@ -36,7 +37,7 @@
         border: 1px solid #d4d4d4;
         border-bottom: none;
         border-top: none;
-        z-index: 99;
+        z-index: 60;
         /*position the autocomplete items to be the same width as the container:*/
         top: 100%;
         left: 0;
@@ -57,6 +58,7 @@
         background-color: DodgerBlue !important;
         color: #ffffff;
     }
+
 </style>
 
 
@@ -81,44 +83,90 @@
 
                     <!-- Catégories -->
                     <div class="col-span-2 relative inline-block 	autocomplete">
-                        <label for="category" class="block mb-2 text-sm font-medium text-white">Catégories</label>
-                        <input type="text" name="name" id="categories" class="bg-cuiGray  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <label for="categories" class="block mb-2 text-sm font-medium text-white">Catégories</label>
+                        <input type="text" name="categorie" id="cat" class="bg-cuiGray  text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
 
                     <!-- Ingrédients -->
 
                     <div class="col-span-2 relative inline-block	autocomplete" >
-                        <label for="ingredient" class="block mb-2 text-sm font-medium text-white">Ingrédients</label>
-                        <input type="text" name="name" id="ingredients" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <label for="ingredients" class="block mb-2 text-sm font-medium text-white">Ingrédients</label>
+                        <input type="text" name="ingredient" id="ing" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
 
                     <!-- Allèrgenes -->
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="Allergènes" class="block mb-2 text-sm font-medium text-white">Allèrgenes</label>
-                        <select id="allergenes" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            <option>------</option>
-                             {% for allergene in allergenes %}
-                                <option>{{ allergene.nomAller }}</option>
+                        <label for="allergenes" class="block mb-2 text-sm font-medium text-white">Allergènes</label>
+                        <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            {% for allergene in allergenes %}
+                                <label class="flex items-center mb-1">
+                                    <input type="checkbox" name="allergene" value="{{ allergene.nomAller }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                    <span class="text-sm text-white capitalize">{{ allergene.nomAller }}</span>
+                                </label>
                             {% endfor %}
-                        </select>
+                        </div>
                     </div>
+
 
                     <!-- Difficultés -->
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="Difficultés" class="block mb-2 text-sm font-medium text-white dark:text-white">Difficultés</label>
-                        <select id="difficultes" class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                            <option>------</option>
-                            <option>Facile</option>
-                            <option>Moyen</option>
-                            <option>Difficile</option>
+                        <label for="difficultes" class="block mb-2 text-sm font-medium text-white dark:text-white">Difficultés</label>
+                        <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                <label class="flex items-center mb-1">
+                                    <input type="checkbox" name="difficulte" value="1" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                    <span class="text-sm text-white">Facile</span>
+                                </label>
+                            <label class="flex items-center mb-1">
+                                <input type="checkbox" name="difficulte" value="2" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                <span class="text-sm text-white">Moyen</span>
+                            </label>
+                            <label class="flex items-center mb-1">
+                                <input type="checkbox" name="difficulte" value="3" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                <span class="text-sm text-white">Difficile</span>
+                            </label>
+                        </div>
+                        <label for="temps" class="block mb-2 text-sm font-medium text-white dark:text-white">Temps</label>
+                        <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <label class="flex items-center mb-1">
+                                <input type="checkbox" name="temps" value="1" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                <span class="text-sm text-white">< 20 Minutes</span>
+                            </label>
+                            <label class="flex items-center mb-1">
+                                <input type="checkbox" name="temps" value="2" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                <span class="text-sm text-white">20-40 Minutes</span>
+                            </label>
+                            <label class="flex items-center mb-1">
+                                <input type="checkbox" name="temps" value="3" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                <span class="text-sm text-white">40 < Minutes</span>
+                            </label>
+                        </div>
+                        <label for="note" class="block mb-2 text-sm font-medium text-white dark:text-white">Note</label>
+                        <div class="bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            {% for y in range(1, 5) %}
 
-                        </select>
-                    </div>
+                            <label class="flex items-center mb-1">
+                                <input type="checkbox" name="note" value="{{ y }}" class="rounded text-primary-600 focus:ring-primary-600 focus:border-primary-600 mr-2">
+                                {% for i in range(1, 5) %}
+                                    {% set starColor = y >= i ? 'text-yellow-300' : 'text-gray-500' %}
+                                    <svg class="w-4 h-4 me-1 {{ starColor }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+                                {% endfor %}
+                            </label>
+
+                            {% endfor %}
+                        </div>
+
+
+
+
+
 
                 </div>
-                <button type="submit" class="text-white inline-flex items-center bg-cuiOrange hover:bg-cuiOrangeLight focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                </div>
+                <button type="submit" formmethod="post" class="text-white w-full	place-content-center	 inline-flex items-center bg-cuiOrange hover:bg-cuiOrangeLight focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Rechercher...
                 </button>
             </form>
@@ -129,8 +177,11 @@
 
 <script>
 
+
     var ingredientsList = []
     var categoriesList = []
+
+
     {%for ingredient in ingredients %}
     ingredientsList.push("{{ ingredient.nomIngr }}")
     {% endfor %}
@@ -138,6 +189,7 @@
     {%for categorie in categories %}
     categoriesList.push("{{ categorie.nomCatRecette }}")
     {% endfor %}
+
 
 
     function autocomplete(inp, arr) {
@@ -240,8 +292,8 @@
 
 
     /*Utilisation du script */
-    autocomplete(document.getElementById("categories"), categoriesList);
-    autocomplete(document.getElementById("ingredients"), ingredientsList);
+    autocomplete(document.getElementById("cat"), categoriesList);
+    autocomplete(document.getElementById("ing"), ingredientsList);
 
 
 
