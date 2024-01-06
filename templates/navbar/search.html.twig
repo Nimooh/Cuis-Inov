@@ -189,14 +189,33 @@
         buttons.forEach(button => {
             const input = document.createElement("input");
             input.setAttribute("type", "hidden");
-            input.setAttribute("name", "ingredient");
+            if (button.className==='button_on whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5')
+            {
+                input.setAttribute("name", "ingredient_oui");
+            }
+            else{
+                input.setAttribute("name", "ingredient_non");
+            }
             input.setAttribute("value",  button.value);
             form.appendChild(input);
         });
         form.submit();
     }
 
+    function switchColor(button)
+    {
+        if (button.className==='button_on whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
+        )
+        {
+            button.className='button_off whitespace-nowrap w-fit bg-red-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
+        }
+        else
+        {
+            button.className='button_on whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
+        }
 
+
+    }
 
 
 
@@ -249,19 +268,28 @@
                         inp.value = "";
                         const ingrName = this.getElementsByTagName("input")[0].name;
                         const ingrValue = this.getElementsByTagName("input")[0].value;
-
+                        ingredientsList.splice(i, 1);
                         const place = document.querySelector('.buttons');
                         const button = document.createElement('button');
                         button.type = 'button';
-                        button.className ='switch_button whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5';
-                        button.onclick = 'switch()';
+                        button.setAttribute("onclick", 'switchColor(this);');
+                        button.className ='button_on whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5';
                         button.name = 'ingredient';
                         button.value = ingrValue;
                         button.innerHTML = ingrName;
                         place.appendChild(button);
-                        /*close the list of autocompleted values,
-                        (or any other open lists of autocompleted values:*/
 
+                        const index = ingredientsList.findIndex(item => item[0] === ingrValue);
+
+                        if (index > -1) {
+                            // Remove the clicked ingredient from the ingredientsList
+                            ingredientsList.splice(index, 1);
+                        }
+
+                        // Creating and appending the button remains the same
+
+                        // Remove the clicked item from the autocomplete dropdown
+                        this.parentNode.removeChild(this);
                         closeAllLists();
 
                     });
