@@ -19,8 +19,8 @@ class Recette
     #[ORM\Column(length: 255)]
     private ?string $nomRecette = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $tempsRecette = null;
+    #[ORM\Column(type: Types::DATEINTERVAL, nullable: true)]
+    private ?\DateInterval $tempsRecette = null;
 
     #[ORM\Column]
     private ?int $diffRecette = null;
@@ -42,6 +42,9 @@ class Recette
 
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class)]
     private Collection $composers;
+
+    #[ORM\ManyToOne(inversedBy: 'recettes')]
+    private ?Membre $Membre = null;
 
     public function __construct()
     {
@@ -67,12 +70,12 @@ class Recette
         return $this;
     }
 
-    public function getTempsRecette(): ?\DateTimeInterface
+    public function getTempsRecette(): ?\DateInterval
     {
         return $this->tempsRecette;
     }
 
-    public function setTempsRecette(?\DateTimeInterface $tempsRecette): static
+    public function setTempsRecette(?\DateInterval $tempsRecette): static
     {
         $this->tempsRecette = $tempsRecette;
 
@@ -207,6 +210,18 @@ class Recette
                 $composer->setRecette(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->Membre;
+    }
+
+    public function setMembre(?Membre $Membre): static
+    {
+        $this->Membre = $Membre;
 
         return $this;
     }

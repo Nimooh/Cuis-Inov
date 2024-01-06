@@ -47,7 +47,7 @@ final class CategorieRecetteFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'nomCatRecette' => self::faker()->text(255),
+            'nomCatRecette' => self::faker()->word(),
         ];
     }
 

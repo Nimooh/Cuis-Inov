@@ -21,74 +21,52 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    //    /**
-    //     * @return Recette[] Returns an array of Recette objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Recette
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-
-    public function findImgFromId($id)
+    public function findMostTrending(): ?Recette
     {
-        $conn = $this->getEntityManager()->getConnection();
+        $qb = $this->createQueryBuilder('r')
+            ->where('r.noteMoyenne = (SELECT MAX(r2.noteMoyenne) FROM App\Entity\Recette r2)')
+            ->getQuery();
 
-        $sql = '
-        SELECT img_recette
-        FROM recette
-        WHERE id = :id
-        ';
-        $result = $conn->executeQuery($sql, ['id' => $id]);
-
-        return $result->fetchAllAssociative();
+        //Affichage alternative si la base de données est vide
+        $result = null;
+        try {
+            $result = $qb->getResult()[0];
+        } finally {
+            return $result;
+        }
     }
 
-    public function findMostTrending()
+    /**
+     * @return Recette[]
+     */
+    public function findAllOrderedWithoutMostTrending(int $trendingId, int $userId): array
     {
-        $conn = $this->getEntityManager()->getConnection();
+        /* Requete pour recuperer toutes les recettes mise en favoris par l'utilisateur */
+        $userFav = $this->createQueryBuilder('r')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne')
+                ->leftJoin('r.interagirs', 'i')
+                ->addSelect('i.fav')
+                ->where('r.id <> :trending')
+                ->andWhere('i.membre = :userId')
+                ->setParameter('trending', $trendingId)
+                ->setParameter('userId', $userId)
+                ->getQuery()
+                ->getResult();
+        //dump($userFav);
 
-        $sql = '
-        SELECT *
-        FROM recette
-        WHERE note_moyenne = (SELECT MAX(note_moyenne)
-                             FROM recette)
-        ';
-        $result = $conn->executeQuery($sql);
-
-        return $result->fetchAllAssociative();
-    }
-
-    public function findAllOrderedWithoutMostTrending()
-    {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-        SELECT *
-        FROM recette
-        WHERE note_moyenne != (SELECT MAX(note_moyenne)
-                             FROM recette)
-        ORDER BY note_moyenne DESC, nom_recette
-        ';
-        $result = $conn->executeQuery($sql);
-
-        return $result->fetchAllAssociative();
+        /* Creation de la liste des id, Requete pour recuperer toutes les recettes sauf celle dans la precedente */
+        $userFavIds = array_map(fn($recipe) => $recipe['id'], $userFav);
+        $qb = $this->createQueryBuilder('r')
+            ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+            ->where('r.id <> :trending')
+            ->andWhere('r.id NOT IN (:userFavIds)')
+            ->setParameter('trending', $trendingId)
+            ->setParameter('userFavIds', $userFavIds)
+            ->getQuery()
+            ->getResult();
+        //dump($qb);
+        /* Fusion des deux requetes pour avoir toutes les recettes du site affichés */
+        return array_merge($userFav, $qb);
     }
 
     /**
@@ -108,8 +86,8 @@ class RecetteRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = ' 
-        SELECT qte, nom_unit, nom_ingr, ingredient_id
+        $sql = '
+        SELECT i.id, qte, nom_unit, i.nom_ingr
         FROM composer c LEFT JOIN unite u ON (c.unite_id = u.id)
         LEFT JOIN ingredient i ON (c.ingredient_id = i.id)
         WHERE c.recette_id = :id

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231209134506 extends AbstractMigration
+final class Version20240103203516 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,14 +20,12 @@ final class Version20231209134506 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE membre DROP img_profil_membre');
-        $this->addSql('ALTER TABLE recette DROP img_recette, CHANGE instruction instruction LONGTEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE recette CHANGE temps_recette temps_recette VARCHAR(255) DEFAULT NULL COMMENT \'(DC2Type:dateinterval)\'');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE membre ADD img_profil_membre LONGBLOB DEFAULT NULL');
-        $this->addSql('ALTER TABLE recette ADD img_recette LONGBLOB DEFAULT NULL, CHANGE instruction instruction VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE recette CHANGE temps_recette temps_recette TIME DEFAULT NULL');
     }
 }
