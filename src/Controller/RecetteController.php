@@ -17,26 +17,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class RecetteController extends AbstractController
 {
-    #[Route('/details', name: 'app_details')]
-    public function details(RecetteRepository $rep, Request $request): Response
-    {
-        $id = $request->get('id');
-        $recipe = $rep->find($id);
-        $components = $rep->findAllComponentsByRecipeId($id);
-
-        return $this->render('details/index.html.twig', [
-            'recipe' => $recipe,
-            'components' => $components,
-        ]);
-    }
-
     #[IsGranted('IS_AUTHENTICATED')]
     #[Route('/mes_recettes', name: 'app_crud_mes_recettes')]
     public function index(RecetteRepository $rep, Request $request): Response
     {
-        /** @var Membre $user */
-        $user = $this->getUser();
-        $myRecipes = $user->getRecettes();
+        $myRecipes = $this->getUser()->getRecettes();
+
+        //dump($myRecipes);
 
         return $this->render('recette/mes_recettes.html.twig', [
             'recipes' => $myRecipes,
@@ -53,22 +40,31 @@ class RecetteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setNoteMoyenne(0);
+
+            $this->getUser()->addRecette($recipe);
+
             $entityManager->persist($recipe);
             $entityManager->flush();
 
-            return $this->redirect('app_details?id='.$recipe->getId());
+            return $this->redirect($this->generateUrl('app_details').'?id='.$recipe->getId());
         }
 
         return $this->render('recette/create.html.twig', [
             'form' => $form,
         ]);
-
     }
 
     #[IsGranted('IS_AUTHENTICATED')]
     #[Route('/recette/{id}/update', name: 'app_crud_recette_update', requirements: ['id' => Requirement::DIGITS])]
     public function update(EntityManagerInterface $entityManager, Recette $recipe, Request $request): Response
     {
+        $myRecipes = $this->getUser()->getRecettes();
+
+        if (!$myRecipes->contains($recipe)) {
+            return new Response('Unauthorized', 403);
+        }
+
         $form = $this->createForm(RecetteType::class, $recipe);
 
         $form->handleRequest($request);
@@ -76,20 +72,25 @@ class RecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirect('app_details?id='.$recipe->getId());
+            return $this->redirect($this->generateUrl('app_details').'?id='.$recipe->getId());
         }
 
         return $this->render('recette/update.html.twig', [
             'recipe' => $recipe,
             'form' => $form,
         ]);
-
     }
 
     #[IsGranted('IS_AUTHENTICATED')]
     #[Route('/recette/{id}/delete', name: 'app_crud_recette_delete', requirements: ['id' => Requirement::DIGITS])]
     public function delete(EntityManagerInterface $entityManager, Recette $recipe, Request $request): Response
     {
+        $myRecipes = $this->getUser()->getRecettes();
+
+        if (!$myRecipes->contains($recipe)) {
+            return new Response('Unauthorized', 403);
+        }
+
         $form = $this->createFormBuilder($recipe)
             ->add('delete', SubmitType::class)
             ->add('cancel', SubmitType::class)
@@ -105,7 +106,7 @@ class RecetteController extends AbstractController
 
                 return $this->redirectToRoute('app_home');
             } else {
-                return $this->redirect('app_details?id='.$recipe->getId());
+                return $this->redirect($this->generateUrl('app_details').'?id='.$recipe->getId());
             }
         }
 
