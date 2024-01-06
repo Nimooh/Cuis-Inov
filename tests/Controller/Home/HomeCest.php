@@ -29,7 +29,7 @@ class HomeCest
 
         $I->amOnPage('/');
         $I->seeElement('#trending');
-        $I->see('Les mieux notées :', 'h1');
+        $I->see('Catalogue :', 'h1');
         $I->seeElement('#bloc_list');
     }
 
