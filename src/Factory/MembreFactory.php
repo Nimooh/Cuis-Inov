@@ -62,7 +62,6 @@ final class MembreFactory extends ModelFactory
             'password' => 'test',
             'nomMembre' => $nom_membre,
             'prnmMembre' => $prnm_membre,
-            'cpmembre' => str_replace(' ', '', self::faker()->postcode()),
             'tel_membre' => '0'.self::faker()->randomDigitNotNull().self::faker()->randomNumber(8, true),
         ];
     }
