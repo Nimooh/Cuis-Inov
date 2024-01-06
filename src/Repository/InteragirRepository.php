@@ -28,19 +28,16 @@ class InteragirRepository extends ServiceEntityRepository
      */
     public function findWithMembre(int $id): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-            SELECT r.id, r.nom_recette, r.temps_recette, r.note_moyenne, r.diff_recette, r.description, i.fav
-            FROM recette r
-                inner join interagir i ON (r.id = i.recette_id)
-            WHERE i.fav IS TRUE
-                AND i.membre_id = :id
-            ';
-
-        $resultSet = $conn->executeQuery($sql, ['id' => $id]);
-
-        return $resultSet->fetchAllAssociative();
+        return $this->createQueryBuilder('i')
+            ->select('i.fav')
+            ->leftJoin('i.recette', 'r')
+            ->addSelect('r.id, r.nomRecette, r.tempsRecette, r.noteMoyenne, r.diffRecette, r.description')
+            ->where('i.fav = TRUE')
+            ->andWhere('i.membre = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     public function updateDB(int $fav = 3, int $idMembre, int $idRecette, ?int $noteRecette = null)
