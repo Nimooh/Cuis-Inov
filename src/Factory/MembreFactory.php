@@ -63,8 +63,6 @@ final class MembreFactory extends ModelFactory
             'nomMembre' => $nom_membre,
             'prnmMembre' => $prnm_membre,
             'cpmembre' => str_replace(' ', '', self::faker()->postcode()),
-            'adr_membre' => self::faker()->buildingNumber().' '.self::faker()->streetName(),
-            'ville_membre' => self::faker()->city(),
             'tel_membre' => '0'.self::faker()->randomDigitNotNull().self::faker()->randomNumber(8, true),
         ];
     }

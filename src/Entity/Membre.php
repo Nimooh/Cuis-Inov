@@ -179,42 +179,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCPMembre(): ?string
-    {
-        return $this->CPMembre;
-    }
-
-    public function setCPMembre(?string $CPMembre): static
-    {
-        $this->CPMembre = $CPMembre;
-
-        return $this;
-    }
-
-    public function getAdrMembre(): ?string
-    {
-        return $this->adrMembre;
-    }
-
-    public function setAdrMembre(?string $adrMembre): static
-    {
-        $this->adrMembre = $adrMembre;
-
-        return $this;
-    }
-
-    public function getVilleMembre(): ?string
-    {
-        return $this->villeMembre;
-    }
-
-    public function setVilleMembre(?string $villeMembre): static
-    {
-        $this->villeMembre = $villeMembre;
-
-        return $this;
-    }
-
     public function getTelMembre(): ?string
     {
         return $this->telMembre;
