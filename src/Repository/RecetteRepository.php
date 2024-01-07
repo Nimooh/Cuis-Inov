@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Recette;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,7 +28,7 @@ class RecetteRepository extends ServiceEntityRepository
             ->where('r.noteMoyenne = (SELECT MAX(r2.noteMoyenne) FROM App\Entity\Recette r2)')
             ->getQuery();
 
-        // Affichage alternative si la base de données est vide
+        //Affichage alternative si la base de données est vide
         $result = null;
         try {
             $result = $qb->getResult()[0];
@@ -39,10 +40,10 @@ class RecetteRepository extends ServiceEntityRepository
     /**
      * @return Recette[]
      */
-    public function findAllOrderedWithoutMostTrending(int $trendingId, int $userId, $rece = '', $diff, $temp, $note, $ing_oui, $ing_non, $cate, $alle): array
+    public function findAllOrderedWithoutMostTrending(int $trendingId, int $userId): array
     {
         /* Requete pour recuperer toutes les recettes mise en favoris par l'utilisateur */
-        $req = $this->createQueryBuilder('r')
+        $userFav = $this->createQueryBuilder('r')
             ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne')
             ->leftJoin('r.interagirs', 'i')
             ->addSelect('i.fav')
@@ -50,123 +51,65 @@ class RecetteRepository extends ServiceEntityRepository
             ->andWhere('i.membre = :userId')
             ->setParameter('trending', $trendingId)
             ->setParameter('userId', $userId)
-        ->join('r.categoriesRecette', 'ca')->join('r.composers', 'co')->join('co.ingredient', 'in')->join('in.allergenes', 'al')
-        ->andWhere('r.nomRecette LIKE :rece')
-        ->setParameter('rece', '%'.$rece.'%');
+            ->addOrderBy('r.noteMoyenne', 'DESC')
+            ->addOrderBy('r.nomRecette', 'ASC')
+            ->getQuery()
+            ->getResult();
+        //dump($userFav);
 
-        $userFav = $req->addOrderBy('r.noteMoyenne', 'DESC')
-         ->addOrderBy('r.nomRecette', 'ASC')
-         ->getQuery()
-         ->getResult();
-        // dump($userFav);
-
-        if (!empty($userFav)) {
+        if(!empty($userFav)) {
             /* Creation de la liste des id, Requete pour recuperer toutes les recettes sauf celle dans la precedente */
-            $userFavIds = array_map(fn ($recipe) => $recipe['id'], $userFav);
-            $req = $this->createQueryBuilder('r')
-                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+            $userFavIds = array_map(fn($recipe) => $recipe['id'], $userFav);
+            $qb = $this->createQueryBuilder('r')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 3 AS fav')
                 ->where('r.id <> :trending')
                 ->andWhere('r.id NOT IN (:userFavIds)')
                 ->setParameter('trending', $trendingId)
                 ->setParameter('userFavIds', $userFavIds)
-
-                ->join('r.categoriesRecette', 'ca')->join('r.composers', 'co')->join('co.ingredient', 'ing')->join('ing.allergenes', 'al')
-                ->andWhere('r.nomRecette LIKE :rece')
-                ->setParameter('rece', '%'.$rece.'%');
-            if ($diff) {
-                $req->andWhere($req->expr()->in('r.diffRecette ', ' :diff'))
-                    ->setParameter('diff', $diff);
-            } elseif ($temp) {
-                $req->andWhere($req->expr()->in('r.tempsRecette ', ' :temp'))
-                    ->setParameter('temp', $temp);
-            } elseif ($note) {
-                $req->andWhere($req->expr()->in('r.noteMoyenne ', ' :note'))
-                    ->setParameter('note', $note);
-            } elseif ($ing_oui) {
-                $req->andWhere($req->expr()->in('ing.id ', ':ing_oui'))
-                    ->setParameter('ing_oui', $ing_oui);
-            } elseif ($ing_non) {
-                $ing_non = array_map(fn ($ing) => $ing, $ing_non);
-                $req->andWhere('ing.id NOT IN (:ing_non)')
-                    ->setParameter('ing_non', $ing_non);
-            } elseif ($cate) {
-                $req->andWhere($req->expr()->in('ca.id ', ' :cate'))
-                    ->setParameter('cate', $cate);
-            } elseif ($alle) {
-                $alle = array_map(fn ($all) => $all['id'], $alle);
-                $req->andWhere('al.id NOT IN (:alle)')
-                    ->setParameter('alle', $alle);
-            }
-
-            $req->addOrderBy('r.noteMoyenne', 'DESC')
+                ->addOrderBy('r.noteMoyenne', 'DESC')
                 ->addOrderBy('r.nomRecette', 'ASC')
                 ->getQuery()
                 ->getResult();
-            // dump($qb);
+            //dump($qb);
             /* Fusion des deux requetes pour avoir toutes les recettes du site affichés triées */
-            $mergedResult = array_merge($userFav, $req);
+            $mergedResult = array_merge($userFav, $qb);
             usort($mergedResult, function ($a, $b) {
-                if ($a['noteMoyenne'] !== $b['noteMoyenne']) {
+                if ($a['noteMoyenne'] !== $b['noteMoyenne'])
                     return ($a['noteMoyenne'] > $b['noteMoyenne']) ? -1 : 1;
-                }
 
                 return strcmp($a['nomRecette'], $b['nomRecette']);
             });
-
             return $mergedResult;
         } else {
-            $req = $this->createQueryBuilder('r')
-                ->select('Distinct r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+            return $this->createQueryBuilder('r')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
                 ->where('r.id <> :trending')
                 ->setParameter('trending', $trendingId)
-                ->join('r.categoriesRecette', 'ca')->join('r.composers', 'co')->join('co.ingredient', 'ing')->join('ing.allergenes', 'al')
-                ->andWhere('r.nomRecette LIKE :rece')
-                ->setParameter('rece', '%'.$rece.'%');
-            if ($diff) {
-                $req->andWhere($req->expr()->in('r.diffRecette ', ' :diff'))
-                    ->setParameter('diff', $diff);
-            } elseif ($temp) {
-                $req->andWhere($req->expr()->in('r.tempsRecette ', ' :temp'))
-                    ->setParameter('temp', $temp);
-            } elseif ($note) {
-                $req->andWhere($req->expr()->in('r.noteMoyenne ', ' :note'))
-                    ->setParameter('note', $note);
-            } elseif ($ing_oui) {
-                $req->andWhere($req->expr()->in('ing.id ', ':ing_oui'))
-                    ->setParameter('ing_oui', $ing_oui);
-            } elseif ($ing_non) {
-                $ing_non = array_map(fn ($ing) => $ing, $ing_non);
-                $req->andWhere('ing.id NOT IN (:ing_non)')
-                    ->setParameter('ing_non', $ing_non);
-            } elseif ($cate) {
-                $req->andWhere($req->expr()->in('ca.id ', ' :cate'))
-                    ->setParameter('cate', $cate);
-            } elseif ($alle) {
-                $alle = array_map(fn ($all) => $all['id'], $alle);
-                $req->andWhere('al.id NOT IN (:alle)')
-                    ->setParameter('alle', $alle);
-            }
-
-            return $req->addOrderBy('r.noteMoyenne', 'DESC')
-            ->addOrderBy('r.nomRecette', 'ASC')
-            ->getQuery()
-            ->getResult();
+                ->addOrderBy('r.noteMoyenne', 'DESC')
+                ->addOrderBy('r.nomRecette', 'ASC')
+                ->getQuery()
+                ->getResult();
         }
     }
 
-    /**
-     * @return Recette[]
-     */
-    public function findByRecipeId(int $id): array
+    public function findByRecipeId(int $idMember, int $idRecette):array
     {
-        return $this->createQueryBuilder('r')
-            ->where('r.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT r.*, i.fav, note_recette
+        FROM recette r
+        LEFT JOIN interagir i ON r.id = i.recette_id AND i.membre_id = :idMember
+        WHERE r.id = :idRecette;
+        ';
+
+        $result = $conn->executeQuery($sql, [
+            'idMember' => $idMember,
+            'idRecette' => $idRecette]);
+        return $result->fetchAssociative();
     }
 
-    public function findAllComponentsByRecipeId(int $id): array
+    public function findAllComponentsByRecipeId(int $id):array
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -179,7 +122,37 @@ class RecetteRepository extends ServiceEntityRepository
         ';
 
         $result = $conn->executeQuery($sql, ['id' => $id]);
-
         return $result->fetchAllAssociative();
+    }
+
+    public function updateAverageNote(int $idRecipe)
+    {
+        $notes = $this->createQueryBuilder('r')
+            ->select('i.noteRecette')
+            ->leftJoin('r.interagirs', 'i')
+            ->where('r.id = :idRecipe')
+            ->setParameter('idRecipe', $idRecipe)
+            ->getQuery()
+            ->getResult();
+
+        $tot = 0;
+
+        dump($notes);
+
+        foreach ($notes as $note)
+        {
+            $tot += $note["noteRecette"];
+        }
+
+        $avg = $tot / count($notes);
+
+        $this->createQueryBuilder('r2')
+            ->update('App:Recette', 'r2')
+            ->set('r2.noteMoyenne', ':avg')
+            ->where('r2.id = :idRecipe')
+            ->setParameter('idRecipe', $idRecipe)
+            ->setParameter('avg', $avg)
+            ->getQuery()
+            ->execute();
     }
 }

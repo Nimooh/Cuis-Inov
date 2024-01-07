@@ -28,24 +28,21 @@ class InteragirRepository extends ServiceEntityRepository
      */
     public function findWithMembre(int $id): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-            SELECT r.id, r.nom_recette, r.temps_recette, r.note_moyenne, r.diff_recette, r.description, i.fav
-            FROM recette r
-                inner join interagir i ON (r.id = i.recette_id)
-            WHERE i.fav IS TRUE
-                AND i.membre_id = :id
-            ';
-
-        $resultSet = $conn->executeQuery($sql, ['id' => $id]);
-
-        return $resultSet->fetchAllAssociative();
+        return $this->createQueryBuilder('i')
+            ->select('i.fav')
+            ->leftJoin('i.recette', 'r')
+            ->addSelect('r.id, r.nomRecette, r.tempsRecette, r.noteMoyenne, r.diffRecette, r.description')
+            ->where('i.fav = TRUE')
+            ->andWhere('i.membre = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
-    public function updateDB(?bool $fav = null, int $idMembre, int $idRecette, ?int $noteRecette = null)
+    public function updateDB(int $fav = 3, int $idMembre, int $idRecette, ?int $noteRecette = null)
     {
-        if($fav !== null) {
+        if($fav !== 3) {
             // Inversion de $fav pour mettre à jour la nouvelle valeur
             $fav = $fav ? 0 : 1;
 
@@ -64,11 +61,13 @@ class InteragirRepository extends ServiceEntityRepository
             $this->createQueryBuilder('i')
                 ->update('App\Entity\Interagir', 'i')
                 ->set('i.noteRecette', ':noteRecette')
+                ->set('i.noteRecette', ':note')
                 ->where('i.membre = :idMembre')
                 ->andWhere('i.recette = :idRecette')
                 ->setParameter('noteRecette', $noteRecette)
                 ->setParameter('idMembre', $idMembre)
                 ->setParameter('idRecette', $idRecette)
+                ->setParameter('note', $noteRecette)
                 ->getQuery()
                 ->execute()
             ;
@@ -76,17 +75,18 @@ class InteragirRepository extends ServiceEntityRepository
 
     }
 
-    public function insertDB(int $idMembre, int $idRecette, ?int $noteRecette = null)
+    public function insertDB(int $idMembre, int $idRecette, ?int $fav, ?int $noteRecette = null)
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
             INSERT INTO interagir (fav, membre_id, recette_id, note_recette)
-            VALUES (1, :idMembre, :idRecette, :noteRecette)
+            VALUES (:fav, :idMembre, :idRecette, :noteRecette)
             ';
 
-        $conn->executeQuery($sql, ['idMembre' => $idMembre,
-                                                'idRecette' => $idRecette,
-                                                'noteRecette' => $noteRecette]);
+        $conn->executeQuery($sql, ['fav' => $fav,
+                                    'idMembre' => $idMembre,
+                                    'idRecette' => $idRecette,
+                                    'noteRecette' => $noteRecette]);
     }
 }
