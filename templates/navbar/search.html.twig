@@ -87,7 +87,7 @@
                         <div class="col-span-2 relative inline-block	" >
                             <label for="ingredients" class="block mb-2 text-sm font-medium text-white">Ingrédients</label>
                             <input type="text" id="ing" class=" autocomplete bg-cuiGray text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                         <div  class="buttons  flex w-fit"></div>
+                         <div  class="buttons flex flex-wrap "></div>
 
                     </div>
 
@@ -182,6 +182,17 @@
 
 <script>
 
+    var ingredientsList = []
+
+
+    {%for ingredient in ingredients %}
+    ingredientsList.push(["{{ ingredient.id }}","{{ ingredient.nomIngr }}"])
+    {% endfor %}
+
+
+
+
+
     function submitForm(){
         const form = document.getElementById("myForm");
         const buttons = form.querySelectorAll("button[name='ingredient']");
@@ -189,7 +200,7 @@
         buttons.forEach(button => {
             const input = document.createElement("input");
             input.setAttribute("type", "hidden");
-            if (button.className==='button_on whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5')
+            if (button.className==='button_on mr-2 whitespace-nowrap text-black text-sm')
             {
                 input.setAttribute("name", "ingredient_oui");
             }
@@ -204,32 +215,29 @@
 
     function switchColor(button)
     {
-        if (button.className==='button_on whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
+        if (button.className==='button_on mr-2 whitespace-nowrap text-black text-sm'
         )
         {
-            button.className='button_off whitespace-nowrap w-fit bg-red-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
+            button.parentNode.className = 'flex mt-2 mr-2 bg-red-500 w-fit rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5'
+            button.className='button_off mr-2 whitespace-nowrap text-black text-sm'
         }
         else
         {
-            button.className='button_on whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
+            button.parentNode.className = 'flex mt-2 mr-2 bg-green-400 w-fit rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5'
+            button.className='button_on mr-2 whitespace-nowrap text-black text-sm'
         }
 
 
     }
 
+    function removeButton(button)
+    {
+
+        ingredientsList.push([button.parentNode.querySelector("button[name='ingredient']").value,button.parentNode.querySelector("button[name='ingredient']").innerHTML]);
+        button.parentNode.remove();
 
 
-
-
-
-
-    var ingredientsList = []
-
-
-    {%for ingredient in ingredients %}
-    ingredientsList.push(["{{ ingredient.id }}","{{ ingredient.nomIngr }}"])
-    {% endfor %}
-
+    }
 
 
 
@@ -270,14 +278,29 @@
                         const ingrValue = this.getElementsByTagName("input")[0].value;
                         ingredientsList.splice(i, 1);
                         const place = document.querySelector('.buttons');
+
+
+                        const ingredient = document.createElement('div');
+                        ingredient.className = 'flex mt-2 mr-2 bg-green-400 w-fit rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5';
+
+
                         const button = document.createElement('button');
                         button.type = 'button';
                         button.setAttribute("onclick", 'switchColor(this);');
-                        button.className ='button_on whitespace-nowrap w-fit bg-green-500 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5';
+                        button.className ='button_on mr-2 whitespace-nowrap text-black text-sm';
                         button.name = 'ingredient';
                         button.value = ingrValue;
                         button.innerHTML = ingrName;
-                        place.appendChild(button);
+
+                        const close = document.createElement('button');
+                        close.type = 'button';
+                        close.setAttribute("onclick", 'removeButton(this);');
+                        close.innerHTML = "<svg class=\'w-3 h-3 text-gray-800 dark:text-white\' aria-hidden=\'true\' xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 14 14\'> <path stroke=\'currentColor\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6\'/> </svg>";
+
+                        ingredient.appendChild(button);
+                        ingredient.appendChild(close);
+                        place.appendChild(ingredient);
+
 
                         const index = ingredientsList.findIndex(item => item[0] === ingrValue);
 
