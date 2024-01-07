@@ -54,7 +54,6 @@ class RecetteRepository extends ServiceEntityRepository
         ->andWhere('r.nomRecette LIKE :rece')
         ->setParameter('rece', '%'.$rece.'%');
 
-
         $userFav = $req->addOrderBy('r.noteMoyenne', 'DESC')
          ->addOrderBy('r.nomRecette', 'ASC')
          ->getQuery()
@@ -75,25 +74,27 @@ class RecetteRepository extends ServiceEntityRepository
                 ->andWhere('r.nomRecette LIKE :rece')
                 ->setParameter('rece', '%'.$rece.'%');
             if ($diff) {
-                $req->andWhere($req->expr()->in('r.diffRecette ',' :diff'))
+                $req->andWhere($req->expr()->in('r.diffRecette ', ' :diff'))
                     ->setParameter('diff', $diff);
             } elseif ($temp) {
-                $req->andWhere($req->expr()->in('r.tempsRecette ',' :temp'))
+                $req->andWhere($req->expr()->in('r.tempsRecette ', ' :temp'))
                     ->setParameter('temp', $temp);
             } elseif ($note) {
-                $req->andWhere($req->expr()->in('r.noteMoyenne ',' :note'))
+                $req->andWhere($req->expr()->in('r.noteMoyenne ', ' :note'))
                     ->setParameter('note', $note);
             } elseif ($ing_oui) {
-                $req->andWhere($req->expr()->in('ing.id ',':ingr_oui'))
-                    ->setParameter('ingr_oui', $ing_oui);
+                $req->andWhere($req->expr()->in('ing.id ', ':ing_oui'))
+                    ->setParameter('ing_oui', $ing_oui);
             } elseif ($ing_non) {
-                $req->andWhere($req->expr()->notIn('ing.id ',':ingr_non'))
-                    ->setParameter('ingr_non', $ing_non);
+                $ing_non = array_map(fn ($ing) => $ing, $ing_non);
+                $req->andWhere('ing.id NOT IN (:ing_non)')
+                    ->setParameter('ing_non', $ing_non);
             } elseif ($cate) {
-                $req->andWhere($req->expr()->in('ca.id ',' :cate'))
+                $req->andWhere($req->expr()->in('ca.id ', ' :cate'))
                     ->setParameter('cate', $cate);
             } elseif ($alle) {
-                $req->andWhere($req->expr()->notIn('al.id',':alle'))
+                $alle = array_map(fn ($all) => $all['id'], $alle);
+                $req->andWhere('al.id NOT IN (:alle)')
                     ->setParameter('alle', $alle);
             }
 
@@ -122,35 +123,34 @@ class RecetteRepository extends ServiceEntityRepository
                 ->andWhere('r.nomRecette LIKE :rece')
                 ->setParameter('rece', '%'.$rece.'%');
             if ($diff) {
-                $req->andWhere($req->expr()->in('r.diffRecette ',' :diff'))
+                $req->andWhere($req->expr()->in('r.diffRecette ', ' :diff'))
                     ->setParameter('diff', $diff);
             } elseif ($temp) {
-                $req->andWhere($req->expr()->in('r.tempsRecette ',' :temp'))
+                $req->andWhere($req->expr()->in('r.tempsRecette ', ' :temp'))
                     ->setParameter('temp', $temp);
             } elseif ($note) {
-                $req->andWhere($req->expr()->in('r.noteMoyenne ',' :note'))
+                $req->andWhere($req->expr()->in('r.noteMoyenne ', ' :note'))
                     ->setParameter('note', $note);
             } elseif ($ing_oui) {
-                $req->andWhere($req->expr()->in('ing.id ',':ingr_oui'))
-                    ->setParameter('ingr_oui', $ing_oui);
-
+                $req->andWhere($req->expr()->in('ing.id ', ':ing_oui'))
+                    ->setParameter('ing_oui', $ing_oui);
             } elseif ($ing_non) {
-                $req->andWhere($req->expr()->notIn('ing.id ',':ingr_non'))
-                    ->setParameter('ingr_non', $ing_non);
+                $ing_non = array_map(fn ($ing) => $ing, $ing_non);
+                $req->andWhere('ing.id NOT IN (:ing_non)')
+                    ->setParameter('ing_non', $ing_non);
             } elseif ($cate) {
-                $req->andWhere($req->expr()->in('ca.id ',' :cate'))
+                $req->andWhere($req->expr()->in('ca.id ', ' :cate'))
                     ->setParameter('cate', $cate);
             } elseif ($alle) {
-                $req->andWhere($req->expr()->notIn('al.id',':alle'))
+                $alle = array_map(fn ($all) => $all['id'], $alle);
+                $req->andWhere('al.id NOT IN (:alle)')
                     ->setParameter('alle', $alle);
             }
 
-            return  $req->addOrderBy('r.noteMoyenne', 'DESC')
+            return $req->addOrderBy('r.noteMoyenne', 'DESC')
             ->addOrderBy('r.nomRecette', 'ASC')
             ->getQuery()
             ->getResult();
-
-
         }
     }
 
@@ -182,7 +182,4 @@ class RecetteRepository extends ServiceEntityRepository
 
         return $result->fetchAllAssociative();
     }
-
-
-
 }
