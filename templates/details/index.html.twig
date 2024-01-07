@@ -5,14 +5,14 @@
 {% block body %}
     <div id="content" class="flex flex-col w-5/6 h-full text-white md:text-2xl lg:text-3xl justify-between gap-12 text-base">
         <section id="top"  class="flex flex-row w-fit lg:justify-between lg:w-full mt-10">
-            <button id="retour" onclick="document.location.href='{{ path('app_home') }}'" class="text-cuiBlack bg-cuiGrayLight h-full font-medium rounded-lg text-sm p-2.5 inline-flex items-center hover:bg-cuiOrange lg:w-20 lg:h-20">
+            <a id="retour" type="button" href="{{ path('app_home') }}" class="text-cuiBlack bg-cuiGrayLight h-full font-medium rounded-lg text-sm p-2.5 inline-flex items-center hover:bg-cuiOrange lg:w-20 lg:h-20">
                 <svg class="w-6 h-6 text-cuiBlack dark:text-white lg:w-16 lg:h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
                 </svg>
-            </button>
+            </a>
             <img class="grow w-1/2 lg:max-w-screen-lg" src="{{ asset('img/recettes/' ~ recipe.id ~ '.png') }}" alt="foodImg">
             {% if is_granted('IS_AUTHENTICATED') %}
-                <a id="fav" onclick="document.location.href='{{ path('app_details_fav_update', {'fav': recipe.fav, 'idRecipe': recipe.id, 'note': recipe.note_recette }) }}'" class="text-cuiBlack bg-cuiGrayLight h-full font-medium rounded-lg text-sm p-2.5 inline-flex items-center hover:bg-cuiOrange lg:w-20 lg:h-20">
+                <a id="fav" type="button" href="{{ path('app_details_fav_update', {'fav': recipe.fav, 'idRecipe': recipe.id, 'note': recipe.note_recette }) }}" class="text-cuiBlack bg-cuiGrayLight h-full font-medium rounded-lg text-sm p-2.5 inline-flex items-center hover:bg-cuiOrange lg:w-20 lg:h-20">
                     {% if recipe.fav %}
                         <svg id="hearth" class="w-6 h-6 text-cuiBlack dark:text-white lg:w-16 lg:h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 21 19">
                             <path id="outline" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>

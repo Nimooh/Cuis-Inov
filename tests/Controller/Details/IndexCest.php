@@ -7,6 +7,7 @@ use App\Entity\Ingredient;
 use App\Entity\Unite;
 use App\Factory\ComposerFactory;
 use App\Factory\IngredientFactory;
+use App\Factory\MembreFactory;
 use App\Factory\RecetteFactory;
 use App\Factory\UniteFactory;
 use App\Tests\Support\ControllerTester;
@@ -14,21 +15,21 @@ use DateTimeImmutable;
 
 class IndexCest
 {
-    public $backButton = "#top:first-child";
-    public $favButton = "#top:last-child";
-    public $compButton = "#button_comp";
-    public $recipeButton = "#button_reci";
     public function _before(ControllerTester $I)
     {
         RecetteFactory::createOne([
             'nomRecette' => 'test',
-            'tempsRecette' => new DateTimeImmutable('00:30:00'),
+            'tempsRecette' => new \DateInterval("PT30M"),
             'diffRecette' => 3,
             'instruction' => 'test
 inst',
             'description' => 'test desc',
             'noteMoyenne' => 3.5
         ]);
+
+        $membre = MembreFactory::createOne()->object();
+        $I->amLoggedInAs($membre);
+
         //tests basiques
         $I->amOnPage('/details?id=1');
         $I->seeResponseCodeIsSuccessful();
@@ -37,17 +38,19 @@ inst',
 
     public function areButtonCorrect(ControllerTester $I)
     {
-        $I->click($this->backButton);
-        $I->seeCurrentTemplateIs('home/index.html.twig');
+        $I->click('#retour');
+        $I->seeResponseCodeIsSuccessful();
         $I->seeInCurrentRoute('app_home');
+        $I->seeCurrentTemplateIs('home/index.html.twig');
+
+        //boutons accessibles seulement par un membre
         $I->amOnPage('/details?id=1');
-        $I->click($this->favButton);
-        $I->click($this->compButton);
-        $myClass = $I->grabAttributeFrom('#components', 'class');
-        $I->assertEquals('grid grid-cols-3 md:grid-cols-5 gap-4', $myClass);
-        $I->click($this->recipeButton);
-        $myClass = $I->grabAttributeFrom('#instruction', 'class');
-        $I->assertEquals('flex flex-col gap-2 lg:gap-5 ml-2 mr-2 lg:ml-5 lg:mr-5', $myClass);
+        $I->click('#fav');
+        $color = $I->grabAttributeFrom('#hearth', 'fill');
+        $I->assertEquals('red', $color);
+        $I->click('//*[@id="characteristics"]/div[2]');
+        $class = $I->grabAttributeFrom('body', 'class');
+        $I->assertEquals('font-cuiInter overflow-hidden', $class);
     }
 
     public function isDataInRightPlace(ControllerTester $I)
