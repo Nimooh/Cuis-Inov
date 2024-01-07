@@ -13,7 +13,7 @@
 </div>
 
 <input
-        type="text" id="search-navbar"
+        type="text" id="search-navbar" name="search"
         class="block w-full p-2 ps-10 text-sm text-black border rounded-lg bg-gray-700 border-gray-600 placeholder-gray-400"
         placeholder="Rechercher..."
 >
@@ -71,7 +71,7 @@
                 <h3 class="text-lg font-semibold text-white">
                     Filtres
                 </h3>
-                <button type="button" class="text-cuiGrayDark bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="crud-modal">
+                <button type="button" class="text-cuiGrayLight bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="crud-modal">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -171,8 +171,8 @@
 
                         </div>
                     </div>
-                    <button type="button" onclick="submitForm()"  class="text-white w-full	place-content-center	 inline-flex items-center bg-cuiOrange hover:bg-cuiOrangeLight focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Rechercher...
+                    <button type="button" onclick="saveForm()"  data-modal-hide="crud-modal" class=" text-white w-full	place-content-center	 inline-flex items-center bg-cuiOrange hover:bg-cuiOrangeLight focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Sauvegarde des filtres
                     </button>
             </form>
         </div>
@@ -193,7 +193,7 @@
 
 
 
-    function submitForm(){
+    function saveForm(){
         const form = document.getElementById("myForm");
         const buttons = form.querySelectorAll("button[name='ingredient']");
 
@@ -210,7 +210,6 @@
             input.setAttribute("value",  button.value);
             form.appendChild(input);
         });
-        form.submit();
     }
 
     function switchColor(button)
@@ -378,7 +377,32 @@
     }
 
 
-    /*Utilisation du script */
+    /*Utilisation du script  d'autocomplétion*/
     autocomplete(document.getElementById("ing"), ingredientsList);
+
+
+    /*Utilisation du script  d'autocomplétion*/
+
+    var search = document.getElementById("search-navbar");
+    const form = document.getElementById("myForm");
+
+    // Execute a function when the user presses a key on the keyboard
+    search.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "search");
+            input.setAttribute("value",  search.value);
+            form.appendChild(input);
+            form.submit();
+
+
+
+        }
+    });
 
 </script>
