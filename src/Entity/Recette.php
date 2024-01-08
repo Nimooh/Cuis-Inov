@@ -46,6 +46,9 @@ class Recette
     #[ORM\ManyToOne(inversedBy: 'recettes')]
     private ?Membre $Membre = null;
 
+    #[ORM\Column]
+    private ?int $nbPers = null;
+
     public function __construct()
     {
         $this->categoriesRecette = new ArrayCollection();
@@ -222,6 +225,18 @@ class Recette
     public function setMembre(?Membre $Membre): static
     {
         $this->Membre = $Membre;
+
+        return $this;
+    }
+
+    public function getNbPers(): ?int
+    {
+        return $this->nbPers;
+    }
+
+    public function setNbPers(int $nbPers): static
+    {
+        $this->nbPers = $nbPers;
 
         return $this;
     }
