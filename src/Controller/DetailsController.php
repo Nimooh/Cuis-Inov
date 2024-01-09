@@ -28,7 +28,10 @@ class DetailsController extends AbstractController
 
         //dump($recipe);
 
-        $avatarFilename = $user->getAvatarFileName();
+        $avatarFilename = null;
+        if ($user) {
+            $avatarFilename = $user->getAvatarFileName();
+        }
 
         return $this->render('details/index.html.twig', [
             'recipe' => $recipe,

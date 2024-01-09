@@ -13,10 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProfileController extends AbstractController
 {
+    #[IsGranted('IS_AUTHENTICATED')]
     #[Route('/profile', name: 'app_profile')]
     public function show(AllergeneRepository $repository): Response
     {
@@ -31,6 +33,7 @@ class ProfileController extends AbstractController
         ]);
     }
 
+    #[IsGranted('IS_AUTHENTICATED')]
     #[Route('/profile/update', name: 'app_profile_update')]
     public function update(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger): Response
     {
@@ -76,6 +79,7 @@ class ProfileController extends AbstractController
         ]);
     }
 
+    #[IsGranted('IS_AUTHENTICATED')]
     #[Route('/profile/delete', name: 'app_profile_delete')]
     public function delete(EntityManagerInterface $entityManager, Request $request): Response
     {

@@ -21,7 +21,13 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $avatarFilename = $this->getUser()->getAvatarFileName();
+        /** @var \App\Entity\Membre $user */
+        $user = $this->getUser();
+
+        $avatarFilename = null;
+        if ($user) {
+            $avatarFilename = $user->getAvatarFileName();
+        }
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'membre_avatarFilename' => $avatarFilename]);
     }
 

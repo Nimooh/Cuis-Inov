@@ -15,7 +15,10 @@ class FavorisController extends AbstractController
     {
         /** @var \App\Entity\Membre $user */
         $user = $this->getUser();
-        $avatarFilename = $user->getAvatarFileName();
+        $avatarFilename = null;
+        if ($user) {
+            $avatarFilename = $user->getAvatarFileName();
+        }
 
         //Redirection vers la page de connexion, si l'utilisateur non-connecté se retrouve sur cette page
         if($user === null)
