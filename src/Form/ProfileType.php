@@ -53,7 +53,7 @@ class ProfileType extends AbstractType
                 'required' => false,
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Modifier',
+                'label' => 'Valider',
             ])
         ;
     }
