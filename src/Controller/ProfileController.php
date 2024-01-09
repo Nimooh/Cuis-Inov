@@ -6,6 +6,7 @@ use App\Form\ProfileType;
 use App\Repository\AllergeneRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,10 +50,33 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/delete', name: 'app_profile_delete')]
-    public function delete(): Response
+    public function delete(EntityManagerInterface $entityManager, Request $request): Response
     {
-        $memberId = $this->getUser()->getId();
+        $membre = $this->getUser();
 
-        return $this->render('profile/delete.html.twig', ['memberId' => $memberId]);
+        $form = $this->createFormBuilder($membre)
+            ->add('supprimer', SubmitType::class)
+            ->add('annuler', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->getClickedButton() && 'supprimer' === $form->getClickedButton()->getName()) {
+                $entityManager->remove($membre);
+
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_home');
+            } else {
+                return $this->redirectToRoute('app_profile_update');
+            }
+        }
+
+        return $this->render('profile/delete.html.twig', [
+            'membre' => $membre,
+            'form' => $form,
+        ]);
     }
+
 }

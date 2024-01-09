@@ -1,10 +1,33 @@
 {% extends 'base.html.twig' %}
 
+{% set membre_lastName = membre.getNomMembre() %}
+{% set membre_firstName = membre.getPrnmMembre() %}
+
+{% block title %}Suppression de {{ membre_firstName|capitalize }} {{ membre_lastName|capitalize }}{% endblock %}
+
 {% block body %}
 
-{% endblock %}
+    <section id="Verification" class="flex flex-col bg-cuiGray rounded-lg p-6 shadow-lg w-4/5 max-w-4xl">
 
-{% block title %}
+        {{ form_start(form) }}
+
+        <div class="flex md:flex-row flex-col text-xl md:text-2xl text-white font-bold leading-tight tracking-tight pb-6 text-center">
+            <p id="Message">
+                Etes-vous sûr de vouloir supprimer le profil de &nbsp
+            </p>
+            <div class="flex flex-row justify-center">
+                <div class="text-red-500">{{ membre_firstName }} {{ membre_lastName|capitalize }} &nbsp</div>
+                <p> ?</p>
+            </div>
+        </div>
+        <div class="flex md:flex-row flex-col-reverse gap-5">
+            {{ form_widget(form.supprimer, {'attr': {'class': 'flex text-white h-10 bg-red-600 hover:bg-red-600/90 font-bold rounded-lg text-sm px-5 py-2.5 justify-center md:max-w-fit'}}) }}
+            {{ form_widget(form.annuler, {'attr': {'class': 'flex text-white h-10 bg-cuiGrayLight hover:bg-cuiGrayLight/90 font-bold rounded-lg text-sm px-5 py-2.5 justify-center w-full'}}) }}
+        </div>
+
+        {{ form_end(form) }}
+
+    </section>
 
 {% endblock %}
 
