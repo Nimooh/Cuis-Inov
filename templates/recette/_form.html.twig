@@ -1,0 +1,279 @@
+{{ form_start(form, {'attr': {'id': 'form_crud_recette', 'class': 'space-y-4 md:space-y-6'}}) }}
+
+<div class="text-sm text-red-500">
+    {{ form_errors(form) }}
+</div>
+
+<div>
+    {{ form_label(
+        form.nomRecette,
+        'Nom de la recette',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.nomRecette.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.nomRecette,
+        {
+            'attr': {
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.nomRecette.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.nomRecette) }}
+    </div>
+</div>
+
+<div class="flex gap-5">
+    <div class="w-full">
+        {{ form_label(
+            form.tempsRecette,
+            'Durée (minutes)',
+            {
+                'label_attr': {
+                'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.tempsRecette.vars.valid ? '' : ' text-red-500'),
+            },
+            }
+        ) }}
+        {# {{ form_widget(
+            form.tempsRecette,
+            {
+                'attr': {
+                'class': 'text-gray-900 sm:text-sm block w-full p-2.5' ~ (form.tempsRecette.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                'placeholder': '',
+            },
+            }
+        ) }} #}
+        <input
+                type="number" id="{{ form.tempsRecette.minutes.vars.id }}"
+                name="{{ form.tempsRecette.minutes.vars.full_name }}" {{ form.tempsRecette.minutes.vars.required ? 'required="required"' }}
+                value="{{ form.tempsRecette.minutes.vars.value }}"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+        >
+        <div class="mt-2 text-sm text-red-500">
+            {{ form_errors(form.tempsRecette) }}
+        </div>
+    </div>
+
+    <div class="w-full">
+        {{ form_label(
+            form.diffRecette,
+            'Difficulté',
+            {
+                'label_attr': {
+                'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.diffRecette.vars.valid ? '' : ' text-red-500'),
+            },
+            }
+        ) }}
+        {{ form_widget(
+            form.diffRecette,
+            {
+                'attr': {
+                'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.diffRecette.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                'placeholder': '',
+            },
+            }
+        ) }}
+        <div class="mt-2 text-sm text-red-500">
+            {{ form_errors(form.diffRecette) }}
+        </div>
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.description,
+        'Description',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.description.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.description,
+        {
+            'attr': {
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.description.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.description) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.instruction,
+        'Instructions',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.instruction.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {{ form_widget(
+        form.instruction,
+        {
+            'attr': {
+            'class': 'h-60 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.instruction.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }}
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.instruction) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.categoriesRecette,
+        'Catégories',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.categoriesRecette.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {#    {{ form_widget(
+        form.categoriesRecette,
+        {
+            'attr': {
+                'class': 'flex flex-col text-gray-50 sm:text-sm w-full p-2.5',
+                'placeholder': '',
+            },
+        }
+    ) }} #}
+    <ul class="flex flex-col w-full text-gray-50 sm:text-sm rounded-lg p-2.5 gap-2">
+        {% for id, choice in form.categoriesRecette.vars.choices %}
+            <li class="flex items-center gap-3">
+                {% set input_id = form.categoriesRecette.vars.id ~ '_' ~ id %}
+                <input
+                        type="checkbox" id="{{ input_id }}" name="{{ form.categoriesRecette.vars.full_name }}[]"
+                        value="{{ id }}"
+                        class="w-4 h-4 text-cuiOrange bg-gray-100 border-gray-300 rounded focus:ring-0 focus:ring-offset-0"
+                        {{ form.categoriesRecette[id].vars.checked ? 'checked="checked"' }}
+                >
+                <label for="{{ input_id }}" class="text-sm">{{ choice.label }}</label>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.categoriesRecette) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(
+        form.composers,
+        'Ingrédients',
+        {
+            'label_attr': {
+            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.composers.vars.valid ? '' : ' text-red-500'),
+        },
+        }
+    ) }}
+    {# {{ form_widget(
+        form.composers,
+        {
+            'attr': {
+            'class': 'text-gray-900 sm:text-sm block w-full p-2.5' ~ (form.composers.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+            'placeholder': '',
+        },
+        }
+    ) }} #}
+    <ul
+            class="composersCollection flex flex-col gap-3 items-center"
+            data-index="{{ form.composers|length > 0 ? form.composers|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(form.composers.vars.prototype)|e('html_attr') }}"
+    >
+        {% for ingrGroup in form.composers %}
+            {{ form_widget(ingrGroup, { 'attr': { 'class': 'flex w-full' } }) }}
+        {% endfor %}
+    </ul>
+
+    <button
+            type="button"
+            id="addIngredientBtn"
+            class="w-full mt-2 text-sm text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-lg px-5 py-2.5 text-center"
+            data-collection-holder-class="composersCollection"
+    >
+        Ajouter un ingrédient
+    </button>
+
+    <div class="mt-2 text-sm text-red-500">
+        {{ form_errors(form.composers) }}
+    </div>
+</div>
+
+<button
+        type="submit"
+        class="w-full text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+>{{ submit_label }}</button>
+
+{# prevents those from rendering a 2nd time #}
+{% do form.tempsRecette.setRendered() %}
+{% do form.categoriesRecette.setRendered() %}
+{% do form.composers.setRendered() %}
+
+{{ form_end(form) }}
+
+<script>
+    const addDeleteBtn = (item) => {
+        const removeButton = document.createElement('button');
+
+        removeButton.type = "button";
+        removeButton.classList = "ml-3 text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center";
+        removeButton.innerHTML = `
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
+            </svg>
+        `;
+
+        removeButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            item.remove();
+        });
+
+        item.append(removeButton);
+    }
+
+    document
+        .querySelectorAll('ul.composersCollection > div')
+        .forEach((ingr) => {
+            addDeleteBtn(ingr)
+        })
+
+    document
+        .querySelector('#addIngredientBtn')
+        .addEventListener("click", (e) => {
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            const template = document.createElement('template');
+
+            template.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.index
+                );
+
+            const item = template.content.firstChild;
+
+            item.classList = "flex w-full";
+
+            addDeleteBtn(item);
+
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index++;
+        })
+</script>

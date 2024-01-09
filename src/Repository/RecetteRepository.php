@@ -294,8 +294,13 @@ class RecetteRepository extends ServiceEntityRepository
 
             return $mergedResult;
         } else {
+<<<<<<< src/Repository/RecetteRepository.php
             $req = $this->createQueryBuilder('r')
-                ->select('distinct r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+                ->select('distinct r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 3 AS fav')
+=======
+            return $this->createQueryBuilder('r')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 3 AS fav')
+>>>>>>> src/Repository/RecetteRepository.php
                 ->where('r.id <> :trending')
                 ->setParameter('trending', $trendingId)
                 ->leftjoin('r.categoriesRecette', 'ca')
@@ -408,6 +413,7 @@ class RecetteRepository extends ServiceEntityRepository
         }
     }
 
+<<<<<<< src/Repository/RecetteRepository.php
     public function findByRecipeId(int $idMember, int $idRecette): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -424,6 +430,18 @@ class RecetteRepository extends ServiceEntityRepository
             'idRecette' => $idRecette]);
 
         return $result->fetchAssociative();
+=======
+    public function findByRecipeId(int $idMember, int $idRecette)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, r.instruction, r.nbPers, i.fav, i.noteRecette')
+            ->leftJoin('r.interagirs', 'i', 'WITH', 'i.membre = :idMember')
+            ->where('r.id = :idRecette')
+            ->setParameter('idRecette', $idRecette)
+            ->setParameter('idMember', $idMember)
+            ->getQuery()
+            ->getSingleResult();
+>>>>>>> src/Repository/RecetteRepository.php
     }
 
     public function updateAverageNote(int $idRecipe)

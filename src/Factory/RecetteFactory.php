@@ -55,6 +55,7 @@ final class RecetteFactory extends ModelFactory
             'instruction' => self::faker()->paragraph(),
             'description' => self::faker()->sentence(),
             'noteMoyenne' => self::faker()->randomFloat(1, 1, 5),
+            'nbPers' => self::faker()->randomNumber(),
         ];
     }
 
