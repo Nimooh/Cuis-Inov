@@ -42,7 +42,7 @@ class CreateCest
             'recette[diffRecette]' => '1',
             'recette[description]' => '',
             'recette[instruction]' => '',
-            'recette[categoriesRecette][]' => '5',
+            'recette[categoriesRecette]' => ['5'],
             'recette[composers][0][qte]' => '1',
             'recette[composers][0][ingredient]' => '60',
             'recette[composers][0][unite]' => '',
