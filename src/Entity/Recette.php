@@ -241,4 +241,8 @@ class Recette
         return $this;
     }
 
+    public function getPicturePath(): string
+    {
+        return "{$this->getId()}.png";
+    }
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class IngredientCrudController extends AbstractCrudController
@@ -40,7 +41,11 @@ class IngredientCrudController extends AbstractCrudController
                         return $entityRepository->createQueryBuilder('r')
                             ->orderBy('r.nomRecette', 'ASC');
                     },
-                ]),
+                ])
+            ->hideOnForm(),
+            ImageField::new('picturePath', 'Illustration')
+                ->setBasePath('img/ingredients/')
+                ->setUploadDir('public/img/ingredients/'),
         ];
     }
 }

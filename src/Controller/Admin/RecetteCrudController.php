@@ -4,14 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Admin\Field\DateIntervalField;
 use App\Entity\CategorieRecette;
-use App\Entity\Ingredient;
 use App\Entity\Recette;
+use App\Form\ComposerType;
 use Doctrine\ORM\EntityRepository;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -43,15 +43,16 @@ class RecetteCrudController extends AbstractCrudController
                             ->orderBy('c.nomCatRecette', 'ASC');
                     },
                 ]),
-            AssociationField::new('composers', 'Ingrédients')
+            CollectionField::new('composers', 'Ingrédients')
+                ->setEntryType(ComposerType::class)
                 ->setFormTypeOptions([
-                    'class' => Ingredient::class,
-                    'choice_label' => 'nomIngr',
-                    'query_builder' => function (EntityRepository $entityRepository) {
-                        return $entityRepository->createQueryBuilder('i')
-                            ->orderBy('i.nomIngr', 'ASC');
-                    },
-                ]),
+                    'by_reference' => false,
+                ])
+                ->allowAdd(true)
+                ->allowDelete(true),
+            ImageField::new('picturePath', 'Illustration')
+                ->setBasePath('img/recettes/')
+                ->setUploadDir('public/img/recettes/'),
         ];
     }
 }
