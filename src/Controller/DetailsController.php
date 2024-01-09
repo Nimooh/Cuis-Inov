@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Membre;
+use App\Repository\ComposerRepository;
 use App\Repository\InteragirRepository;
 use App\Repository\RecetteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,15 +15,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class DetailsController extends AbstractController
 {
     #[Route('/details', name: 'app_details')]
-    public function index(RecetteRepository $rep, Request $request): Response
+    public function index(RecetteRepository $repRecipe, ComposerRepository $repComp, Request $request): Response
     {
         /** @var Membre $user */
         $user = $this->getUser();
         $userId = $user ? $user->getId() : 0; //User par défault id 0
         $idRecipe = $request->get('id');
 
-        $recipe = $rep->findByRecipeId($userId, $idRecipe);
-        $components = $rep->findAllComponentsByRecipeId($idRecipe);
+        $recipe = $repRecipe->findByRecipeId($userId, $idRecipe);
+        $components = $repComp->findAllComponentsByRecipeId($idRecipe);
+
+        dump($recipe);
 
         return $this->render('details/index.html.twig', [
             'recipe' => $recipe,

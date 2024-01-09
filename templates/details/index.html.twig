@@ -12,7 +12,7 @@
             </button>
             <img class="grow w-1/2 lg:max-w-screen-lg" src="{{ asset('img/recettes/' ~ recipe.id ~ '.png') }}" alt="foodImg">
             {% if is_granted('IS_AUTHENTICATED') %}
-                <a id="fav" onclick="document.location.href='{{ path('app_details_fav_update', {'fav': recipe.fav, 'idRecipe': recipe.id, 'note': recipe.note_recette }) }}'" class="text-cuiBlack bg-cuiGrayLight h-full font-medium rounded-lg text-sm p-2.5 inline-flex items-center hover:bg-cuiOrange lg:w-20 lg:h-20">
+                <a id="fav" onclick="document.location.href='{{ path('app_details_fav_update', {'fav': recipe.fav, 'idRecipe': recipe.id, 'note': recipe.noteRecette }) }}'" class="text-cuiBlack bg-cuiGrayLight h-full font-medium rounded-lg text-sm p-2.5 inline-flex items-center hover:bg-cuiOrange lg:w-20 lg:h-20">
                     {% if recipe.fav %}
                         <svg id="hearth" class="w-6 h-6 text-cuiBlack dark:text-white lg:w-16 lg:h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 21 19">
                             <path id="outline" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
@@ -50,24 +50,24 @@
             {% endif %}
         </section>
         <section id="details" class="flex flex-col items-center bg-cuiGray rounded-lg gap-8 pt-10 pb-10">
-            <p class="text-3xl pl-2 pr-2 text-center md:text-5xl lg:pl-5 lg:pr-5">{{ recipe.nom_recette | capitalize }}</p>
+            <p class="text-3xl pl-2 pr-2 text-center md:text-5xl lg:pl-5 lg:pr-5">{{ recipe.nomRecette | capitalize }}</p>
             <p class="text-xl pl-2 pr-2 md:text-3xl lg:pl-5 lg:pr-5">{{ recipe.description | capitalize }}</p>
             <section id="characteristics" class="flex flex-row w-[calc(80%-2rem)] justify-around">
                 <div class="flex flex-col items-center mr-2">
                     <svg class="w-6 h-6 text-cuiOrange dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
                     </svg>
-                    <span class="text-white">{#  {{ recipe.temps_recette|date('%i') }} #}minutes</span>
+                    <span class="text-white">{{ recipe.tempsRecette|date('%i') }} minutes</span>
                     <p class="text-cuiGrayLight mt-2">Préparation</p>
                 </div>
                 <div class="flex flex-col items-center ml-2 mr-2">
                     {% if is_granted('IS_AUTHENTICATED') %}
-                        {{ include('details/_note.html.twig', {note: recipe.note_recette}) }}
+                        {{ include('details/_note.html.twig', {note: recipe.noteRecette}) }}
                     {% else %}
                         <svg class="w-6 h-6 text-cuiOrange dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                             <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                         </svg>
-                        <p id="note">{{ recipe.note_moyenne }}</p>
+                        <p id="note">{{ recipe.noteMoyenne }}</p>
                         <p class="text-cuiGrayLight mt-2">Notation</p>
                     {% endif %}
                 </div>
@@ -75,9 +75,9 @@
                     <svg class="w-6 h-6 text-cuiOrange dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 20">
                         <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
                     </svg>
-                    {% if recipe.diff_recette == 1 %}
+                    {% if recipe.diffRecette == 1 %}
                         <p id="diff">FACILE</p>
-                    {% elseif recipe.diff_recette == 2%}
+                    {% elseif recipe.diffRecette == 2%}
                         <p id="diff">MOYEN</p>
                     {% else %}
                         <p id="diff">DIFFICILE</p>
@@ -114,8 +114,8 @@
                             <img class="lg:h-60 lg:w-60 rounded-lg" src="{{ asset('img/ingredients/' ~ elmt.id ~ '.png') }}" alt="">
                         </div>
                         <div class="flex flex-col gap-2 items-center text-center">
-                            {{ elmt.nom_ingr | capitalize }}
-                            <span class="font-bold">{{ elmt.qte }} {{ elmt.nom_unit }}</span>
+                            {{ elmt.nomIngr | capitalize }}
+                            <span class="font-bold">{{ elmt.qte }} {{ elmt.nomUnit }}</span>
                         </div>
                     </div>
                 {% endfor %}

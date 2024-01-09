@@ -40,11 +40,14 @@ class Recette
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Interagir::class)]
     private Collection $interagirs;
 
-    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class)]
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class, cascade: ['persist'])]
     private Collection $composers;
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]
     private ?Membre $Membre = null;
+
+    #[ORM\Column]
+    private ?int $nbPers = null;
 
     public function __construct()
     {
@@ -222,6 +225,18 @@ class Recette
     public function setMembre(?Membre $Membre): static
     {
         $this->Membre = $Membre;
+
+        return $this;
+    }
+
+    public function getNbPers(): ?int
+    {
+        return $this->nbPers;
+    }
+
+    public function setNbPers(int $nbPers): static
+    {
+        $this->nbPers = $nbPers;
 
         return $this;
     }

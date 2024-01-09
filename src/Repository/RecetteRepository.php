@@ -92,37 +92,16 @@ class RecetteRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByRecipeId(int $idMember, int $idRecette):array
+    public function findByRecipeId(int $idMember, int $idRecette)
     {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-        SELECT r.*, i.fav, note_recette
-        FROM recette r
-        LEFT JOIN interagir i ON r.id = i.recette_id AND i.membre_id = :idMember
-        WHERE r.id = :idRecette;
-        ';
-
-        $result = $conn->executeQuery($sql, [
-            'idMember' => $idMember,
-            'idRecette' => $idRecette]);
-        return $result->fetchAssociative();
-    }
-
-    public function findAllComponentsByRecipeId(int $id):array
-    {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-        SELECT i.id, qte, nom_unit, i.nom_ingr
-        FROM composer c LEFT JOIN unite u ON (c.unite_id = u.id)
-        LEFT JOIN ingredient i ON (c.ingredient_id = i.id)
-        WHERE c.recette_id = :id
-        ORDER BY i.nom_ingr ASC;
-        ';
-
-        $result = $conn->executeQuery($sql, ['id' => $id]);
-        return $result->fetchAllAssociative();
+        return $this->createQueryBuilder('r')
+            ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, r.instruction, r.nbPers, i.fav, i.noteRecette')
+            ->leftJoin('r.interagirs', 'i', 'WITH', 'i.membre = :idMember')
+            ->where('r.id = :idRecette')
+            ->setParameter('idRecette', $idRecette)
+            ->setParameter('idMember', $idMember)
+            ->getQuery()
+            ->getSingleResult();
     }
 
     public function updateAverageNote(int $idRecipe)
