@@ -65,7 +65,10 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            unlink($pathAvatarMembre);
+            if ($pathAvatarMembre) {
+                unlink($pathAvatarMembre);
+            }
+
             $avatarFile = $form->get('avatar')->getData();
 
             if ($avatarFile) {
