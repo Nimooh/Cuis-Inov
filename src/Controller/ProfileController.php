@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,58 +22,35 @@ class ProfileController extends AbstractController
     {
         $membre = $this->getUser();
         $membreID = $membre->getId();
-        $pathAvatarMembre = null;
-
-        if (is_file('img/avatars/'.$membreID.'.png')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.png';
-        } elseif (is_file('img/avatars/'.$membreID.'.jpg')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpg';
-        } elseif (is_file('img/avatars/'.$membreID.'.jpeg')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpeg';
-        }
-
         $allergenes = $repository->findWithMembre($membreID);
 
         return $this->render('profile/index.html.twig', [
             'membre' => $membre,
             'membre_id' => $membreID,
             'allergenes' => $allergenes,
-            'pathAvatarMembre' => $pathAvatarMembre,
         ]);
     }
 
     #[Route('/profile/update', name: 'app_profile_update')]
-    public function update(EntityManagerInterface $entityManager, Request $request): Response
+    public function update(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger): Response
     {
         $membre = $this->getUser();
-        $membreID = 0;
-        if ($membre)
-            $membreID = $membre->getId();
-        $pathAvatarMembre = null;
-
-        if (is_file('img/avatars/'.$membreID.'.png')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.png';
-        } elseif (is_file('img/avatars/'.$membreID.'.jpg')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpg';
-        } elseif (is_file('img/avatars/'.$membreID.'.jpeg')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpeg';
-        }
 
         $form = $this->createForm(ProfileType::class, $membre);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            if ($pathAvatarMembre) {
-                unlink($pathAvatarMembre);
-            }
 
             $avatarFile = $form->get('avatar')->getData();
 
             if ($avatarFile) {
-                $newFilename = $membre->getId().'.'.$avatarFile->guessExtension();
+                if ($membre->getAvatarFilename()) {
+                    unlink($this->getParameter('avatars_directory').'/'.$membre->getAvatarFilename());
+                }
+                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$avatarFile->guessExtension();
 
                 try {
                     $avatarFile->move(
@@ -82,7 +60,12 @@ class ProfileController extends AbstractController
                 } catch (FileException $e) {
 
                 }
+
+                $membre->setAvatarFilename($newFilename);
+
             }
+
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_profile');
         }
@@ -90,7 +73,6 @@ class ProfileController extends AbstractController
         return $this->render('profile/update.html.twig', [
             'membre' => $membre,
             'form' => $form,
-            'pathAvatarMembre' => $pathAvatarMembre,
         ]);
     }
 
@@ -98,17 +80,6 @@ class ProfileController extends AbstractController
     public function delete(EntityManagerInterface $entityManager, Request $request): Response
     {
         $membre = $this->getUser();
-
-        $membreID = $membre->getId();
-        $pathAvatarMembre = null;
-
-        if (is_file('img/avatars/'.$membreID.'.png')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.png';
-        } elseif (is_file('img/avatars/'.$membreID.'.jpg')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpg';
-        } elseif (is_file('img/avatars/'.$membreID.'.jpeg')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpeg';
-        }
 
         $form = $this->createFormBuilder($membre)
             ->add('supprimer', SubmitType::class)
@@ -119,10 +90,9 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->getClickedButton() && 'supprimer' === $form->getClickedButton()->getName()) {
-                if ($pathAvatarMembre) {
-                    unlink($pathAvatarMembre);
+                if ($membre->getAvatarFilename()) {
+                    unlink($this->getParameter('avatars_directory').'/'.$membre->getAvatarFilename());
                 }
-
                 $entityManager->remove($membre);
 
                 $entityManager->flush();
@@ -136,7 +106,6 @@ class ProfileController extends AbstractController
         return $this->render('profile/delete.html.twig', [
             'membre' => $membre,
             'form' => $form,
-            'pathAvatarMembre' => $pathAvatarMembre,
         ]);
     }
 
