@@ -36,7 +36,7 @@
                             </svg>
                         </a>
                     </div>
-                    <a class="flex grow items-center gap-5" href="#">
+                    <a class="flex grow items-center gap-5" href="{{ path('app_details', { id: recipe.id }) }}">
                         <div class="flex flex-col grow items-center gap-5 max-[900px]:z-10" id="attributes">
                             <span class="text-3xl w-64 text-center">{{ recipe.nomRecette | capitalize }}</span>
                             <span> {# Bloc svg pour afficher les notes #}
