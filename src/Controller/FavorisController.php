@@ -15,27 +15,14 @@ class FavorisController extends AbstractController
     {
         /** @var \App\Entity\Membre $user */
         $user = $this->getUser();
-
-        $membreID = 0;
-        if ($user) {
-            $membreID = $user->getId();
-        }
-        $pathAvatarMembre = null;
-
-        if (is_file('img/avatars/'.$membreID.'.png')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.png';
-        } elseif (is_file('img/avatars/'.$membreID.'.jpg')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpg';
-        } elseif (is_file('img/avatars/'.$membreID.'.jpeg')) {
-            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpeg';
-        }
+        $avatarFilename = $user->getAvatarFileName();
 
         //Redirection vers la page de connexion, si l'utilisateur non-connecté se retrouve sur cette page
         if($user === null)
             return $this->redirectToRoute('app_login', [], 303);
 
         $favoris = $repo->findWithMembre($user->getId());
-        return $this->render('favoris/index.html.twig', ['favoris' => $favoris, 'pathAvatarMembre' => $pathAvatarMembre]);
+        return $this->render('favoris/index.html.twig', ['favoris' => $favoris, 'membre_avatarFilename' => $avatarFilename]);
     }
 
     #[Route('/favoris/update', name: 'app_favoris_update')]

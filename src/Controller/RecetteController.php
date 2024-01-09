@@ -21,12 +21,15 @@ class RecetteController extends AbstractController
     #[Route('/mes_recettes', name: 'app_crud_mes_recettes')]
     public function index(RecetteRepository $rep, Request $request): Response
     {
-        $myRecipes = $this->getUser()->getRecettes();
+        $user = $this->getUser();
+        $myRecipes = $user->getRecettes();
+        $avatarFilename = $user->getAvatarFileName();
 
         //dump($myRecipes);
 
         return $this->render('recette/mes_recettes.html.twig', [
             'recipes' => $myRecipes,
+            'membre_avatarFilename' => $avatarFilename,
         ]);
     }
 
@@ -34,6 +37,9 @@ class RecetteController extends AbstractController
     #[Route('/recette/create', name: 'app_crud_recette_create')]
     public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
+        $user = $this->getUser();
+        $avatarFilename = $user->getAvatarFileName();
+
         $recipe = new Recette();
         $form = $this->createForm(RecetteType::class, $recipe);
 
@@ -42,7 +48,7 @@ class RecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe->setNoteMoyenne(0);
 
-            $this->getUser()->addRecette($recipe);
+            $user->addRecette($recipe);
 
             $entityManager->persist($recipe);
             $entityManager->flush();
@@ -52,6 +58,7 @@ class RecetteController extends AbstractController
 
         return $this->render('recette/create.html.twig', [
             'form' => $form,
+            'membre_avatarFilename' => $avatarFilename,
         ]);
     }
 
@@ -59,7 +66,10 @@ class RecetteController extends AbstractController
     #[Route('/recette/{id}/update', name: 'app_crud_recette_update', requirements: ['id' => Requirement::DIGITS])]
     public function update(EntityManagerInterface $entityManager, Recette $recipe, Request $request): Response
     {
-        $myRecipes = $this->getUser()->getRecettes();
+        $user = $this->getUser();
+        $avatarFilename = $user->getAvatarFileName();
+
+        $myRecipes = $user->getRecettes();
 
         if (!$myRecipes->contains($recipe)) {
             return new Response('Unauthorized', 403);
@@ -78,6 +88,7 @@ class RecetteController extends AbstractController
         return $this->render('recette/update.html.twig', [
             'recipe' => $recipe,
             'form' => $form,
+            'membre_avatarFilename' => $avatarFilename,
         ]);
     }
 
@@ -85,7 +96,10 @@ class RecetteController extends AbstractController
     #[Route('/recette/{id}/delete', name: 'app_crud_recette_delete', requirements: ['id' => Requirement::DIGITS])]
     public function delete(EntityManagerInterface $entityManager, Recette $recipe, Request $request): Response
     {
-        $myRecipes = $this->getUser()->getRecettes();
+        $user = $this->getUser();
+        $avatarFilename = $user->getAvatarFileName();
+
+        $myRecipes = $user->getRecettes();
 
         if (!$myRecipes->contains($recipe)) {
             return new Response('Unauthorized', 403);
@@ -113,6 +127,7 @@ class RecetteController extends AbstractController
         return $this->render('recette/delete.html.twig', [
             'recipe' => $recipe,
             'form' => $form,
+            'membre_avatarFilename' => $avatarFilename,
         ]);
     }
 }
