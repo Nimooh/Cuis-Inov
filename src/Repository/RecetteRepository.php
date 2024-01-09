@@ -82,7 +82,7 @@ class RecetteRepository extends ServiceEntityRepository
             return $mergedResult;
         } else {
             return $this->createQueryBuilder('r')
-                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 3 AS fav')
                 ->where('r.id <> :trending')
                 ->setParameter('trending', $trendingId)
                 ->addOrderBy('r.noteMoyenne', 'DESC')
