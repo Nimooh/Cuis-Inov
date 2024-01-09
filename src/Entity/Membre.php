@@ -68,6 +68,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Allergene::class, inversedBy: 'membres', cascade: ['remove'])]
     private Collection $allergenes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatarFilename = null;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -262,6 +265,18 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeAllergene(Allergene $allergene): static
     {
         $this->allergenes->removeElement($allergene);
+
+        return $this;
+    }
+
+    public function getAvatarFilename(): ?string
+    {
+        return $this->avatarFilename;
+    }
+
+    public function setAvatarFilename(?string $avatarFilename): static
+    {
+        $this->avatarFilename = $avatarFilename;
 
         return $this;
     }
