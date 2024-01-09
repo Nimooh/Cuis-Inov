@@ -49,7 +49,7 @@
 
                 {% if is_granted('IS_AUTHENTICATED') %}
                     <a
-                            href="#"
+                            href="{{ path('app_profile') }}"
                             class="flex items-center md:ml-3 text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
                     >
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
