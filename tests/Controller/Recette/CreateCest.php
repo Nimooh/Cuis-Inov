@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Tests\Controller\Recette;
 
 use App\Factory\MembreFactory;
-use App\Factory\RecetteFactory;
 use App\Tests\Support\ControllerTester;
 
 class CreateCest
@@ -36,9 +34,11 @@ class CreateCest
         $I->amLoggedInAs($user);
         $I->amOnRoute('app_crud_recette_create');
 
+        $token = $I->grabValueFrom('#recette__token');
+
         $I->submitForm('#form_crud_recette', [
             'recette[nomRecette]' => 'Test',
-            'recette[tempsRecette]' => '10',
+            'recette[tempsRecette][minutes]' => '10',
             'recette[diffRecette]' => '1',
             'recette[description]' => '',
             'recette[instruction]' => '',
@@ -46,6 +46,7 @@ class CreateCest
             'recette[composers][0][qte]' => '1',
             'recette[composers][0][ingredient]' => '60',
             'recette[composers][0][unite]' => '',
+            'recette[_token]' => $token,
         ]);
         $I->seeResponseCodeIsSuccessful();
         $I->seeCurrentRouteIs('app_details');
