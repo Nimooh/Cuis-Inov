@@ -63,7 +63,7 @@ class RecetteRepository extends ServiceEntityRepository
             ->select(' distinct r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne')
             ->leftJoin('r.interagirs', 'i')
             ->addSelect('i.fav')
-            ->where('r.id <> :trending')
+            ->andwhere('r.id <> :trending')
             ->andWhere('i.membre = :userId')
             ->setParameter('trending', $trendingId)
             ->setParameter('userId', $userId)
@@ -77,8 +77,92 @@ class RecetteRepository extends ServiceEntityRepository
             $req->andWhere('r.diffRecette IN (:diff)')
                 ->setParameter('diff', $diff);
         } elseif ($temp) {
-            $req->andWhere('r.diffRecette IN (:temp)')
-                ->setParameter('temp', $temp);
+            $hour = $req->expr()->substring('r.tempsRecette', 13, 2);
+            $minute = $req->expr()->substring('r.tempsRecette', 16, 2);
+
+            $expr = $req->expr()->orX();
+            if (in_array(1, $temp)) {
+                $condition = $req->expr()->lte($hour.'*60 +'.$minute, 19);
+                $expr->add($condition);
+            }
+            if (in_array(2, $temp)) {
+                $expr2 = $req->expr()->andX();
+                $condition = $req->expr()->gte($hour.'*60 +'.$minute, 20);
+                $expr2->add($condition);
+                $condition = $req->expr()->lte($hour.'*60 +'.$minute, 40);
+                $expr2->add($condition);
+                $expr->add($expr2);
+
+            }
+            if (in_array(3, $temp)) {
+                $condition = $req->expr()->gte($hour.'*60 +'.$minute, 41);
+                $expr->add($condition);
+
+            }
+
+
+            $req->andWhere($expr);
+        } elseif ($note) {
+            $expr = $req->expr()->orX();
+
+            if (in_array(1, $note)) {
+                $expr2 = $req->expr()->andX();
+                $condition = $req->expr()->gte('r.noteMoyenne', 1);
+                $expr2->add($condition);
+                $condition = $req->expr()->lte('r.noteMoyenne', 2);
+                $expr2->add($condition);
+                $expr->add($expr2);
+
+            }
+            if (in_array(2, $note)) {
+                $expr2 = $req->expr()->andX();
+                $condition = $req->expr()->gte('r.noteMoyenne', 2);
+                $expr2->add($condition);
+                $condition = $req->expr()->lte('r.noteMoyenne', 3);
+                $expr2->add($condition);
+                $expr->add($expr2);
+
+            }
+
+            if (in_array(3, $note)) {
+                $expr2 = $req->expr()->andX();
+                $condition = $req->expr()->gte('r.noteMoyenne', 3);
+                $expr2->add($condition);
+                $condition = $req->expr()->lte('r.noteMoyenne', 4);
+                $expr2->add($condition);
+                $expr->add($expr2);
+
+            }
+            if (in_array(4, $note)) {
+                $expr2 = $req->expr()->andX();
+                $condition = $req->expr()->gte('r.noteMoyenne', 4);
+                $expr2->add($condition);
+                $condition = $req->expr()->lte('r.noteMoyenne', 5);
+                $expr2->add($condition);
+                $expr->add($expr2);
+
+            }
+            if (in_array(5, $note)) {
+                $condition = $req->expr()->eq('r.noteMoyenne', 5);
+                $expr->add($condition);
+
+            }
+
+            $req->andWhere($expr);
+
+
+        } elseif ($ing_oui) {
+            $req->andWhere('ing.id IN (:ing_oui)')
+                ->setParameter('ing_oui', $ing_oui);
+        } elseif ($cate) {
+            $req->andWhere('ca.id IN (:cate)')
+                ->setParameter('cate', $cate);
+        } elseif ($ing_non || $alle) {
+
+            if($req_res){
+                $req->andWhere('r.id NOT IN (:req)')
+                    ->setParameter('req', $req_res);
+            }
         }
 
         $userFav = $req->addOrderBy('r.noteMoyenne', 'DESC')
@@ -106,12 +190,81 @@ class RecetteRepository extends ServiceEntityRepository
             if ($diff) {
                 $req->andWhere('r.diffRecette IN (:diff)')
                     ->setParameter('diff', $diff);
-            } elseif ($temp) {
-                $req->andWhere('r.tempsRecette IN (:temp)')
-                    ->setParameter('temp', $temp);
+            }  elseif ($temp) {
+                $hour = $req->expr()->substring('r.tempsRecette', 13, 2);
+                $minute = $req->expr()->substring('r.tempsRecette', 16, 2);
+
+                $expr = $req->expr()->orX();
+                if (in_array(1, $temp)) {
+                    $condition = $req->expr()->lte($hour.'*60 +'.$minute, 19);
+                    $expr->add($condition);
+                }
+                if (in_array(2, $temp)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte($hour.'*60 +'.$minute, 20);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte($hour.'*60 +'.$minute, 40);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+                if (in_array(3, $temp)) {
+                    $condition = $req->expr()->gte($hour.'*60 +'.$minute, 41);
+                    $expr->add($condition);
+
+                }
+
+
+                $req->andWhere($expr);
             } elseif ($note) {
-                $req->andWhere('r.noteMoyenne IN (:note)')
-                    ->setParameter('note', $note);
+                $expr = $req->expr()->orX();
+
+                if (in_array(1, $note)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte('r.noteMoyenne', 1);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte('r.noteMoyenne', 2);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+                if (in_array(2, $note)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte('r.noteMoyenne', 2);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte('r.noteMoyenne', 3);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+
+                if (in_array(3, $note)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte('r.noteMoyenne', 3);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte('r.noteMoyenne', 4);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+                if (in_array(4, $note)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte('r.noteMoyenne', 4);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte('r.noteMoyenne', 5);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+                if (in_array(5, $note)) {
+                    $condition = $req->expr()->eq('r.noteMoyenne', 5);
+                    $expr->add($condition);
+
+                }
+
+                $req->andWhere($expr);
+
+
             } elseif ($ing_oui) {
                 $req->andWhere('ing.id IN (:ing_oui)')
                     ->setParameter('ing_oui', $ing_oui);
@@ -157,12 +310,84 @@ class RecetteRepository extends ServiceEntityRepository
             if ($diff) {
                 $req->andWhere('r.diffRecette IN (:diff)')
                     ->setParameter('diff', $diff);
-            } elseif ($temp) {
-                $req->andWhere('r.tempsRecette IN (:temp)')
-                    ->setParameter('temp', $temp);
-            } elseif ($note) {
-                $req->andWhere('r.noteMoyenne IN (:note)')
-                    ->setParameter('note', $note);
+            }  elseif ($temp) {
+                $hour = $req->expr()->substring('r.tempsRecette', 13, 2);
+                $minute = $req->expr()->substring('r.tempsRecette', 16, 2);
+
+                $expr = $req->expr()->orX();
+                if (in_array(1, $temp)) {
+                    $condition = $req->expr()->lte($hour.'*60 +'.$minute, 19);
+                    $expr->add($condition);
+                }
+                if (in_array(2, $temp)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte($hour.'*60 +'.$minute, 20);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte($hour.'*60 +'.$minute, 40);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+                if (in_array(3, $temp)) {
+                    $condition = $req->expr()->gte($hour.'*60 +'.$minute, 41);
+                    $expr->add($condition);
+
+                }
+
+
+                $req->andWhere($expr);
+
+
+
+        }elseif ($note) {
+                $expr = $req->expr()->orX();
+
+                if (in_array(1, $note)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte('r.noteMoyenne', 1);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte('r.noteMoyenne', 2);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+                if (in_array(2, $note)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte('r.noteMoyenne', 2);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte('r.noteMoyenne', 3);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+
+                if (in_array(3, $note)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte('r.noteMoyenne', 3);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte('r.noteMoyenne', 4);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+                if (in_array(4, $note)) {
+                    $expr2 = $req->expr()->andX();
+                    $condition = $req->expr()->gte('r.noteMoyenne', 4);
+                    $expr2->add($condition);
+                    $condition = $req->expr()->lte('r.noteMoyenne', 5);
+                    $expr2->add($condition);
+                    $expr->add($expr2);
+
+                }
+                if (in_array(5, $note)) {
+                    $condition = $req->expr()->eq('r.noteMoyenne', 5);
+                    $expr->add($condition);
+
+                }
+
+                $req->andWhere($expr);
+
+
             } elseif ($ing_oui) {
                 $req->andWhere('ing.id IN (:ing_oui)')
                     ->setParameter('ing_oui', $ing_oui);
