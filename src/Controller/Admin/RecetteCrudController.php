@@ -29,6 +29,7 @@ class RecetteCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('nomRecette', 'Nom'),
+            IntegerField::new('nbPers', 'Nombre de personnes'),
             DateIntervalField::new('tempsRecette', 'Durée'),
             IntegerField::new('diffRecette', 'Difficulté'),
             NumberField::new('noteMoyenne', 'Note Moyenne'),
