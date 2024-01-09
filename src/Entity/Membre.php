@@ -53,15 +53,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prnmMembre = null;
 
-    #[ORM\Column(length: 6, nullable: true)]
-    private ?string $CPMembre = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $adrMembre = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $villeMembre = null;
-
     #[Assert\NotBlank]
     #[Assert\Length(max: 20)]
     #[Assert\Regex(pattern: '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4})$/', message: 'Format de téléphone invalide')]
@@ -74,11 +65,15 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'Membre', targetEntity: Recette::class)]
     private Collection $recettes;
 
+    #[ORM\ManyToMany(targetEntity: Allergene::class, inversedBy: 'membres')]
+    private Collection $allergenes;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
         $this->interagirs = new ArrayCollection();
         $this->recettes = new ArrayCollection();
+        $this->allergenes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,42 +170,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCPMembre(): ?string
-    {
-        return $this->CPMembre;
-    }
-
-    public function setCPMembre(?string $CPMembre): static
-    {
-        $this->CPMembre = $CPMembre;
-
-        return $this;
-    }
-
-    public function getAdrMembre(): ?string
-    {
-        return $this->adrMembre;
-    }
-
-    public function setAdrMembre(?string $adrMembre): static
-    {
-        $this->adrMembre = $adrMembre;
-
-        return $this;
-    }
-
-    public function getVilleMembre(): ?string
-    {
-        return $this->villeMembre;
-    }
-
-    public function setVilleMembre(?string $villeMembre): static
-    {
-        $this->villeMembre = $villeMembre;
-
-        return $this;
-    }
-
     public function getTelMembre(): ?string
     {
         return $this->telMembre;
@@ -279,6 +238,30 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
                 $recette->setMembre(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Allergene>
+     */
+    public function getAllergenes(): Collection
+    {
+        return $this->allergenes;
+    }
+
+    public function addAllergene(Allergene $allergene): static
+    {
+        if (!$this->allergenes->contains($allergene)) {
+            $this->allergenes->add($allergene);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergene(Allergene $allergene): static
+    {
+        $this->allergenes->removeElement($allergene);
 
         return $this;
     }

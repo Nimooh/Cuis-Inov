@@ -61,7 +61,7 @@ class RecetteRepository extends ServiceEntityRepository
             /* Creation de la liste des id, Requete pour recuperer toutes les recettes sauf celle dans la precedente */
             $userFavIds = array_map(fn($recipe) => $recipe['id'], $userFav);
             $qb = $this->createQueryBuilder('r')
-                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 0 AS fav')
+                ->select('r.id, r.nomRecette, r.tempsRecette, r.diffRecette, r.description, r.noteMoyenne, 3 AS fav')
                 ->where('r.id <> :trending')
                 ->andWhere('r.id NOT IN (:userFavIds)')
                 ->setParameter('trending', $trendingId)
@@ -92,18 +92,21 @@ class RecetteRepository extends ServiceEntityRepository
         }
     }
 
-
-    /**
-     * @param int $id
-     * @return Recette[]
-     */
-    public function findByRecipeId(int $id):array
+    public function findByRecipeId(int $idMember, int $idRecette):array
     {
-        return $this->createQueryBuilder('r')
-            ->where('r.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT r.*, i.fav, note_recette
+        FROM recette r
+        LEFT JOIN interagir i ON r.id = i.recette_id AND i.membre_id = :idMember
+        WHERE r.id = :idRecette;
+        ';
+
+        $result = $conn->executeQuery($sql, [
+            'idMember' => $idMember,
+            'idRecette' => $idRecette]);
+        return $result->fetchAssociative();
     }
 
     public function findAllComponentsByRecipeId(int $id):array
@@ -120,5 +123,36 @@ class RecetteRepository extends ServiceEntityRepository
 
         $result = $conn->executeQuery($sql, ['id' => $id]);
         return $result->fetchAllAssociative();
+    }
+
+    public function updateAverageNote(int $idRecipe)
+    {
+        $notes = $this->createQueryBuilder('r')
+            ->select('i.noteRecette')
+            ->leftJoin('r.interagirs', 'i')
+            ->where('r.id = :idRecipe')
+            ->setParameter('idRecipe', $idRecipe)
+            ->getQuery()
+            ->getResult();
+
+        $tot = 0;
+
+        dump($notes);
+
+        foreach ($notes as $note)
+        {
+            $tot += $note["noteRecette"];
+        }
+
+        $avg = $tot / count($notes);
+
+        $this->createQueryBuilder('r2')
+            ->update('App:Recette', 'r2')
+            ->set('r2.noteMoyenne', ':avg')
+            ->where('r2.id = :idRecipe')
+            ->setParameter('idRecipe', $idRecipe)
+            ->setParameter('avg', $avg)
+            ->getQuery()
+            ->execute();
     }
 }
