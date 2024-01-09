@@ -25,7 +25,7 @@ class DetailsController extends AbstractController
         $recipe = $repRecipe->findByRecipeId($userId, $idRecipe);
         $components = $repComp->findAllComponentsByRecipeId($idRecipe);
 
-        dump($recipe);
+        //dump($recipe);
 
         return $this->render('details/index.html.twig', [
             'recipe' => $recipe,
