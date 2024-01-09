@@ -21,29 +21,25 @@ class AllergeneRepository extends ServiceEntityRepository
         parent::__construct($registry, Allergene::class);
     }
 
-    //    /**
-    //     * @return Allergene[] Returns an array of Allergene objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @param int $id Identifiant de l'utilisateur courant
+     * @return Allergene[]
+     */
+    public function findWithMembre(int $id): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
 
-    //    public function findOneBySomeField($value): ?Allergene
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $sql = '
+            SELECT a.id, a.nom_aller
+            FROM allergene a, membre_allergene ma, membre m
+            WHERE a.id = ma.allergene_id
+              AND ma.membre_id = m.id
+              AND m.id = :id
+            ';
 
+        $resultSet = $conn->executeQuery($sql, ['id' => $id]);
+
+        return $resultSet->fetchAllAssociative();
+    }
 }
+
