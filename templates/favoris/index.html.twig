@@ -2,6 +2,22 @@
 
 {% block title %}Vos Favoris!{% endblock %}
 
+{% block nav_avatar %}
+    {% if pathAvatarMembre %}
+        class="flex items-center md:ml-3 cursor-pointer"
+        >
+        <img class="rounded-full w-[38px] aspect-square" src="{{ asset(pathAvatarMembre) }}" id="img">
+        </a>
+    {% else %}
+        class="flex items-center md:ml-3 text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
+        >
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+        </svg>
+        </a>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
     {% if favoris is not empty %}
         <div class="grow items-center min-h-screen flex flex-col p-2.5" id="main">
