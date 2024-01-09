@@ -33,10 +33,13 @@ class ProfileController extends AbstractController
 
         $allergenes = $repository->findWithMembre($membre_id);
 
+        $form = $this->createForm(ProfileType::class, $membre);
+
         return $this->render('profile/update.html.twig', [
             'membre' => $membre,
             'membre_id' => $membre_id,
             'allergenes' => $allergenes,
+            'form' => $form,
         ]);
     }
 
