@@ -55,7 +55,6 @@ class ProfileType extends AbstractType
                 'required' => false,
             ])
             ->add('avatar', FileType::class, [
-                'label' => 'Image de profil (PNG|JPG|JPEG)',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -65,9 +64,9 @@ class ProfileType extends AbstractType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Merci de transmettre une image au format PNG ou JPEG/JPG',
-                    ]),
-                ],
+                        'mimeTypesMessage' => 'Merci de transmettre une image au format PNG ou JPEG/JPG'
+                    ])
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Valider',
