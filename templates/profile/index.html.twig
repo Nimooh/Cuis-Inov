@@ -1,9 +1,56 @@
-{% block title %}Hello ProfileController!{% endblock %}
+{% extends 'base.html.twig' %}
+
+{% set member_id = member.getId() %}
+{% set member_email = member.getEmail() %}
+{% set member_role = member.getRoles()[0] %}
+{% set member_lastName = member.getNomMembre() %}
+{% set member_firstName = member.getPrnmMembre() %}
+{% set member_phone = member.getTelMembre() %}
+
+{% block title %}{{ member_firstName }} {{ member_lastName }}{% endblock %}
 
 {% block body %}
 
-    {% set member_id = member.id %}
+    <div id="content" class="flex flex-col text-white w-4/5">
 
-    <h1>Hello {{ member_id }}! ✅</h1>
+        <section id="top" class="flex grow flex-col p-5">
+            <a class="flex justify-center text-cuiGray p-2">
+                <div class="flex bg-cuiOrange rounded-full px-5 py-5">
+                    <svg class="w-20 h-20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+                    </svg>
+                </div>
+            </a>
+            <a href="{{ path('app_profile_update') }}" class="flex justify-center font-bold underline underline-offset-4">
+                Editer Profil
+            </a>
+        </section>
+
+        <section id="details" class="flex grow bg-cuiGray rounded-lg p-5">
+            <dl>
+                <dt class="font-bold">Nom</dt>
+                <dd class="indent-4 text-cuiGrayLight">{{ member_lastName|capitalize }}</dd>
+
+                <dt class="font-bold">Prénom</dt>
+                <dd class="indent-4 text-cuiGrayLight">{{ member_firstName|capitalize }}</dd>
+
+                <dt class="font-bold">Email</dt>
+                <dd class="indent-4 text-cuiGrayLight">{{ member_email }}</dd>
+
+                <dt class="font-bold">Téléphone</dt>
+                <dd class="indent-4 text-cuiGrayLight">{{ member_phone }}</dd>
+
+                <dt class="font-bold">Rôle</dt>
+                <dd class="indent-4 text-cuiGrayLight">
+                    {% if member_role == "ROLE_USER" %}
+                        Utilisateur
+                    {% else %}
+                        Administrateur
+                    {% endif %}
+                </dd>
+            </dl>
+        </section>
+
+    </div>
 
 {% endblock %}
