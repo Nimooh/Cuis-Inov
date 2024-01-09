@@ -14,8 +14,13 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(RecetteRepository $repo): Response
     {
-        /** @var \App\Entity\Membre $user */
-        $user = $this->getUser();
+        try {
+            /** @var \App\Entity\Membre $user */
+            $user = $this->getUser();
+        } catch (\InvalidArgumentException) {
+            $user = null;
+        }
+
         $userId = $user ? $user->getId() : 0; //User par défault id 0
 
         if (!isset($_POST['search'])) {
