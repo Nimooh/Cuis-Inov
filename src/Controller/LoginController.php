@@ -21,7 +21,21 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $membre = $this->getUser();
+        $membreID = 0;
+        if ($membre)
+            $membreID = $membre->getId();
+        $pathAvatarMembre = null;
+
+        if (is_file('img/avatars/'.$membreID.'.png')) {
+            $pathAvatarMembre = 'img/avatars/'.$membreID.'.png';
+        } elseif (is_file('img/avatars/'.$membreID.'.jpg')) {
+            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpg';
+        } elseif (is_file('img/avatars/'.$membreID.'.jpeg')) {
+            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpeg';
+        }
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'pathAvatarMembre' => $pathAvatarMembre]);
     }
 
     #[Route(path: '/logout', name: 'app_logout')]

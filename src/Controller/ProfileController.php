@@ -45,7 +45,9 @@ class ProfileController extends AbstractController
     public function update(EntityManagerInterface $entityManager, Request $request): Response
     {
         $membre = $this->getUser();
-        $membreID = $membre->getId();
+        $membreID = 0;
+        if ($membre)
+            $membreID = $membre->getId();
         $pathAvatarMembre = null;
 
         if (is_file('img/avatars/'.$membreID.'.png')) {
@@ -94,6 +96,17 @@ class ProfileController extends AbstractController
     {
         $membre = $this->getUser();
 
+        $membreID = $membre->getId();
+        $pathAvatarMembre = null;
+
+        if (is_file('img/avatars/'.$membreID.'.png')) {
+            $pathAvatarMembre = 'img/avatars/'.$membreID.'.png';
+        } elseif (is_file('img/avatars/'.$membreID.'.jpg')) {
+            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpg';
+        } elseif (is_file('img/avatars/'.$membreID.'.jpeg')) {
+            $pathAvatarMembre = 'img/avatars/'.$membreID.'.jpeg';
+        }
+
         $form = $this->createFormBuilder($membre)
             ->add('supprimer', SubmitType::class)
             ->add('annuler', SubmitType::class)
@@ -116,6 +129,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/delete.html.twig', [
             'membre' => $membre,
             'form' => $form,
+            'pathAvatarMembre' => $pathAvatarMembre,
         ]);
     }
 

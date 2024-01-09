@@ -23,6 +23,16 @@ class HomeController extends AbstractController
 
         $userId = $user ? $user->getId() : 0; //User par défault id 0
 
+        $pathAvatarMembre = null;
+
+        if (is_file('img/avatars/'.$userId.'.png')) {
+            $pathAvatarMembre = 'img/avatars/'.$userId.'.png';
+        } elseif (is_file('img/avatars/'.$userId.'.jpg')) {
+            $pathAvatarMembre = 'img/avatars/'.$userId.'.jpg';
+        } elseif (is_file('img/avatars/'.$userId.'.jpeg')) {
+            $pathAvatarMembre = 'img/avatars/'.$userId.'.jpeg';
+        }
+
         if (!isset($_POST['search'])) {
             $_POST['search'] = null;
         }
@@ -56,7 +66,7 @@ class HomeController extends AbstractController
             $recettes = $repo->findAllOrderedWithoutMostTrending(0, $userId, $_POST['search'], $_POST['difficulte'], $_POST['temps'], $_POST['note'], $_POST['ingredient_oui'], $_POST['ingredient_non'], $_POST['categorie'], $_POST['allergene']);
         }
         //dump($recettes);
-        return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending]);
+        return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending, 'pathAvatarMembre' => $pathAvatarMembre]);
     }
 
     #[Route('/update', name: 'app_recette_update')]

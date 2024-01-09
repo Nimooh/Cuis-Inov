@@ -20,6 +20,17 @@ class DetailsController extends AbstractController
         /** @var Membre $user */
         $user = $this->getUser();
         $userId = $user ? $user->getId() : 0; //User par défault id 0
+
+        $pathAvatarMembre = null;
+
+        if (is_file('img/avatars/'.$userId.'.png')) {
+            $pathAvatarMembre = 'img/avatars/'.$userId.'.png';
+        } elseif (is_file('img/avatars/'.$userId.'.jpg')) {
+            $pathAvatarMembre = 'img/avatars/'.$userId.'.jpg';
+        } elseif (is_file('img/avatars/'.$userId.'.jpeg')) {
+            $pathAvatarMembre = 'img/avatars/'.$userId.'.jpeg';
+        }
+
         $idRecipe = $request->get('id');
 
         $recipe = $repRecipe->findByRecipeId($userId, $idRecipe);
@@ -29,7 +40,8 @@ class DetailsController extends AbstractController
 
         return $this->render('details/index.html.twig', [
             'recipe' => $recipe,
-            'components' => $components
+            'components' => $components,
+            'pathAvatarMembre' => $pathAvatarMembre,
         ]);
     }
 
