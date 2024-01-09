@@ -119,6 +119,10 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->getClickedButton() && 'supprimer' === $form->getClickedButton()->getName()) {
+                if ($pathAvatarMembre) {
+                    unlink($pathAvatarMembre);
+                }
+
                 $entityManager->remove($membre);
 
                 $entityManager->flush();
