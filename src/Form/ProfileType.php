@@ -8,12 +8,14 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProfileType extends AbstractType
 {
@@ -51,6 +53,21 @@ class ProfileType extends AbstractType
                 },
                 'choice_label' => 'nomAller',
                 'required' => false,
+            ])
+            ->add('avatar', FileType::class, [
+                'label' => 'Image de profil (PNG|JPG|JPEG)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Merci de transmettre une image au format PNG ou JPEG/JPG',
+                    ]),
+                ],
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Valider',
