@@ -5,14 +5,15 @@
 {% set membre_lastName = membre.getNomMembre() %}
 {% set membre_firstName = membre.getPrnmMembre() %}
 {% set membre_phone = membre.getTelMembre() %}
+{% set membre_avatarFilename = membre.getAvatarFilename() %}
 
 {% block title %}{{ membre_firstName|capitalize }} {{ membre_lastName|capitalize }}{% endblock %}
 
 {% block nav_avatar %}
-    {% if pathAvatarMembre %}
+    {% if membre_avatarFilename %}
         class="flex items-center md:ml-3 cursor-pointer"
         >
-        <img class="rounded-full w-[38px] aspect-square" src="{{ asset(pathAvatarMembre) }}" id="img">
+        <img class="rounded-full w-[38px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img">
         </a>
     {% else %}
         class="flex items-center md:ml-3 text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
@@ -62,8 +63,8 @@
             </div>
             <div id="container_detailsAvatar" class="flex flex-col grow content-center justify-around p-8 gap-8 w-fit">
                 <div id="avatar" class="flex justify-center">
-                    {% if pathAvatarMembre %}
-                        <img class="rounded-full w-[200px] aspect-square" src="{{ asset(pathAvatarMembre) }}" id="img">
+                    {% if membre_avatarFilename %}
+                        <img class="rounded-full w-[200px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img">
                     {% else %}
                         <div class=" bg-cuiOrange rounded-full px-9 py-9 max-w-fit shadow-lg text-cuiGray">
                             <svg class="w-20 h-20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">

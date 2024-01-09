@@ -3,10 +3,10 @@
 {% block title %}Connexion{% endblock %}
 
 {% block nav_avatar %}
-    {% if pathAvatarMembre %}
+    {% if membre_avatarFilename %}
         class="flex items-center md:ml-3 cursor-pointer"
         >
-        <img class="rounded-full w-[38px] aspect-square" src="{{ asset(pathAvatarMembre) }}" id="img">
+        <img class="rounded-full w-[38px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img">
         </a>
     {% else %}
         class="flex items-center md:ml-3 text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
