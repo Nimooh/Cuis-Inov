@@ -24,6 +24,9 @@ class RecetteType extends AbstractType
                     'empty_data' => '',
                 ]
             )
+            ->add('nbPers', IntegerType::class, [
+                'empty_data' => '',
+            ])
             ->add('tempsRecette', DateIntervalType::class, [
                     'widget' => 'integer',
                     'with_years' => false,
