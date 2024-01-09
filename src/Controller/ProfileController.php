@@ -13,24 +13,31 @@ class ProfileController extends AbstractController
     #[Route('/profile', name: 'app_profile')]
     public function show(AllergeneRepository $repository): Response
     {
-        $member = $this->getUser();
-        $member_id = $member->getId();
+        $membre = $this->getUser();
+        $membre_id = $membre->getId();
 
-        $allergenes = $repository->findWithMembre($member_id);
+        $allergenes = $repository->findWithMembre($membre_id);
 
         return $this->render('profile/index.html.twig', [
-            'member' => $member,
-            'member_id' => $member_id,
+            'membre' => $membre,
+            'membre_id' => $membre_id,
             'allergenes' => $allergenes,
         ]);
     }
 
     #[Route('/profile/update', name: 'app_profile_update')]
-    public function update(): Response
+    public function update(AllergeneRepository $repository): Response
     {
-        $member = $this->getUser();
+        $membre = $this->getUser();
+        $membre_id = $membre->getId();
 
-        return $this->render('profile/update.html.twig', ['member' => $member]);
+        $allergenes = $repository->findWithMembre($membre_id);
+
+        return $this->render('profile/update.html.twig', [
+            'membre' => $membre,
+            'membre_id' => $membre_id,
+            'allergenes' => $allergenes,
+        ]);
     }
 
     #[Route('/profile/delete', name: 'app_profile_delete')]

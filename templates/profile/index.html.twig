@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% set member_email = member.getEmail() %}
-{% set member_role = member.getRoles()[0] %}
-{% set member_lastName = member.getNomMembre() %}
-{% set member_firstName = member.getPrnmMembre() %}
-{% set member_phone = member.getTelMembre() %}
+{% set membre_email = membre.getEmail() %}
+{% set membre_role = membre.getRoles()[0] %}
+{% set membre_lastName = membre.getNomMembre() %}
+{% set membre_firstName = membre.getPrnmMembre() %}
+{% set membre_phone = membre.getTelMembre() %}
 
-{% block title %}{{ member_firstName }} {{ member_lastName }}{% endblock %}
+{% block title %}{{ membre_firstName }} {{ membre_lastName }}{% endblock %}
 
 {% block body %}
 
@@ -18,29 +18,29 @@
                 <table id="detailsInfo" class="flex flex-col pl-4 pr-4 border-separate border-spacing-1">
                     <tr>
                         <th class="text-lg text-cuiOrange font-medium text-start align-top">Nom</th>
-                        <td class="text-cuiGrayLight break-all align-middle">{{ member_lastName|capitalize }}</td>
+                        <td class="text-cuiGrayLight break-all align-middle">{{ membre_lastName|capitalize }}</td>
                     </tr>
                     <tr>
                         <th class="text-lg text-cuiOrange font-medium text-start align-top">Prénom</th>
-                        <td class="text-cuiGrayLight break-all align-middle">{{ member_firstName|capitalize }}</td>
+                        <td class="text-cuiGrayLight break-all align-middle">{{ membre_firstName|capitalize }}</td>
                     </tr>
                     <tr>
                         <th class="text-lg text-cuiOrange font-medium text-start align-top">Email</th>
-                        <td class="text-cuiGrayLight break-all align-middle">{{ member_email }}</td>
+                        <td class="text-cuiGrayLight break-all align-middle">{{ membre_email }}</td>
                     </tr>
                     <tr>
                         <th class="text-lg text-cuiOrange font-medium text-start align-top">Rôle</th>
                         <td class="text-cuiGrayLight break-all align-middle">
-                            {% if member_role == "ROLE_USER" %}
+                            {% if membre_role == "ROLE_USER" %}
                                 Utilisateur
-                            {% elseif member_role == "ROLE_ADMIN"%}
+                            {% elseif membre_role == "ROLE_ADMIN"%}
                                 Administrateur
                             {% endif %}
                         </td>
                     </tr>
                     <tr>
                         <th class="text-lg text-cuiOrange font-medium text-start align-top">Téléphone</th>
-                        <td class="text-cuiGrayLight break-all align-middle">{{ member_phone }}</td>
+                        <td class="text-cuiGrayLight break-all align-middle">{{ membre_phone }}</td>
                     </tr>
                 </table>
             </div>
@@ -89,7 +89,7 @@
         </section>
 
         <section id="logout" class="flex">
-            <div id="button_logout" class="flex text-center justify-center">
+            <div id="button_logout" class="flex text-center justify-center shadow-lg">
                 <a href="{{ path('app_logout') }}" class="text-white bg-red-600 hover:bg-red-600/90 font-bold rounded-lg text-sm px-5 py-2.5 mw-20px">
                     Se Déconnecter
                 </a>
