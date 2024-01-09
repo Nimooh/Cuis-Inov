@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Allergene;
 use App\Entity\Membre;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,15 +16,19 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
             ->add('password')
             ->add('nomMembre')
             ->add('prnmMembre')
             ->add('telMembre')
             ->add('allergenes', EntityType::class, [
                 'class' => Allergene::class,
-                'choice_label' => 'nom_aller',
                 'multiple' => true,
+                'expanded' => true,
+                'query_builder' => function (EntityRepository $entityRepository) {
+                    return $entityRepository->createQueryBuilder('a')
+                        ->orderBy('a.nomAller', 'ASC');
+                },
+                'choice_label' => 'nomAller',
             ])
         ;
     }

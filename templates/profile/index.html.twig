@@ -6,7 +6,7 @@
 {% set membre_firstName = membre.getPrnmMembre() %}
 {% set membre_phone = membre.getTelMembre() %}
 
-{% block title %}{{ membre_firstName }} {{ membre_lastName }}{% endblock %}
+{% block title %}{{ membre_firstName|capitalize }} {{ membre_lastName|capitalize }}{% endblock %}
 
 {% block body %}
 
@@ -80,7 +80,7 @@
             <div id="allergenesContent" class="flex flex-row gap-3 flex-wrap">
                 {% if allergenes %}
                     {% for allergene in allergenes %}
-                        <div class="flex text-cuiGrayLight bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">{{ allergene.getNomAller() }}</div>
+                        <div class="flex text-cuiGrayLight bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">{{ allergene.nom_aller|capitalize }}</div>
                     {% endfor %}
                 {% else %}
                     <div class="flex text-cuiGrayLight bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">Aucun allergène</div>

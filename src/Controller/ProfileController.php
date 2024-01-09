@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ProfileType;
 use App\Repository\AllergeneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,16 +30,10 @@ class ProfileController extends AbstractController
     public function update(AllergeneRepository $repository): Response
     {
         $membre = $this->getUser();
-        $membre_id = $membre->getId();
-
-        $allergenes = $repository->findWithMembre($membre_id);
-
         $form = $this->createForm(ProfileType::class, $membre);
 
         return $this->render('profile/update.html.twig', [
             'membre' => $membre,
-            'membre_id' => $membre_id,
-            'allergenes' => $allergenes,
             'form' => $form,
         ]);
     }
