@@ -51,7 +51,8 @@ class RecetteRepository extends ServiceEntityRepository
         if ($ing_non) {
             $req2->Where('ing.id IN (:ing_non)')
                 ->setParameter('ing_non', $ing_non);
-        } elseif ($alle) {
+        }
+        if ($alle) {
             $req2->orWhere('al.id  IN (:alle)')
                 ->setParameter('alle', $alle);
         }
@@ -76,7 +77,7 @@ class RecetteRepository extends ServiceEntityRepository
         if ($diff) {
             $req->andWhere('r.diffRecette IN (:diff)')
                 ->setParameter('diff', $diff);
-        } elseif ($temp) {
+        } if ($temp) {
             $hour = $req->expr()->substring('r.tempsRecette', 13, 2);
             $minute = $req->expr()->substring('r.tempsRecette', 16, 2);
 
@@ -99,10 +100,8 @@ class RecetteRepository extends ServiceEntityRepository
                 $expr->add($condition);
 
             }
-
-
             $req->andWhere($expr);
-        } elseif ($note) {
+        } if ($note) {
             $expr = $req->expr()->orX();
 
             if (in_array(1, $note)) {
@@ -121,9 +120,7 @@ class RecetteRepository extends ServiceEntityRepository
                 $condition = $req->expr()->lte('r.noteMoyenne', 3);
                 $expr2->add($condition);
                 $expr->add($expr2);
-
             }
-
             if (in_array(3, $note)) {
                 $expr2 = $req->expr()->andX();
                 $condition = $req->expr()->gte('r.noteMoyenne', 3);
@@ -151,13 +148,13 @@ class RecetteRepository extends ServiceEntityRepository
             $req->andWhere($expr);
 
 
-        } elseif ($ing_oui) {
+        } if ($ing_oui) {
             $req->andWhere('ing.id IN (:ing_oui)')
                 ->setParameter('ing_oui', $ing_oui);
-        } elseif ($cate) {
+        } if ($cate) {
             $req->andWhere('ca.id IN (:cate)')
                 ->setParameter('cate', $cate);
-        } elseif ($ing_non || $alle) {
+        } if ($ing_non || $alle) {
 
             if($req_res){
                 $req->andWhere('r.id NOT IN (:req)')
@@ -190,7 +187,7 @@ class RecetteRepository extends ServiceEntityRepository
             if ($diff) {
                 $req->andWhere('r.diffRecette IN (:diff)')
                     ->setParameter('diff', $diff);
-            }  elseif ($temp) {
+            }  if ($temp) {
                 $hour = $req->expr()->substring('r.tempsRecette', 13, 2);
                 $minute = $req->expr()->substring('r.tempsRecette', 16, 2);
 
@@ -216,7 +213,7 @@ class RecetteRepository extends ServiceEntityRepository
 
 
                 $req->andWhere($expr);
-            } elseif ($note) {
+            } if ($note) {
                 $expr = $req->expr()->orX();
 
                 if (in_array(1, $note)) {
@@ -265,13 +262,13 @@ class RecetteRepository extends ServiceEntityRepository
                 $req->andWhere($expr);
 
 
-            } elseif ($ing_oui) {
+            } if ($ing_oui) {
                 $req->andWhere('ing.id IN (:ing_oui)')
                     ->setParameter('ing_oui', $ing_oui);
-            } elseif ($cate) {
+            } if ($cate) {
                 $req->andWhere('ca.id IN (:cate)')
                     ->setParameter('cate', $cate);
-            } elseif ($ing_non || $alle) {
+            } if ($ing_non || $alle) {
 
                 if($req_res){
                 $req->andWhere('r.id NOT IN (:req)')
@@ -310,7 +307,7 @@ class RecetteRepository extends ServiceEntityRepository
             if ($diff) {
                 $req->andWhere('r.diffRecette IN (:diff)')
                     ->setParameter('diff', $diff);
-            }  elseif ($temp) {
+            }  if ($temp) {
                 $hour = $req->expr()->substring('r.tempsRecette', 13, 2);
                 $minute = $req->expr()->substring('r.tempsRecette', 16, 2);
 
@@ -339,7 +336,8 @@ class RecetteRepository extends ServiceEntityRepository
 
 
 
-        }elseif ($note) {
+        }
+            if ($note) {
                 $expr = $req->expr()->orX();
 
                 if (in_array(1, $note)) {
@@ -349,7 +347,6 @@ class RecetteRepository extends ServiceEntityRepository
                     $condition = $req->expr()->lte('r.noteMoyenne', 2);
                     $expr2->add($condition);
                     $expr->add($expr2);
-
                 }
                 if (in_array(2, $note)) {
                     $expr2 = $req->expr()->andX();
@@ -358,9 +355,7 @@ class RecetteRepository extends ServiceEntityRepository
                     $condition = $req->expr()->lte('r.noteMoyenne', 3);
                     $expr2->add($condition);
                     $expr->add($expr2);
-
                 }
-
                 if (in_array(3, $note)) {
                     $expr2 = $req->expr()->andX();
                     $condition = $req->expr()->gte('r.noteMoyenne', 3);
@@ -388,13 +383,13 @@ class RecetteRepository extends ServiceEntityRepository
                 $req->andWhere($expr);
 
 
-            } elseif ($ing_oui) {
+            } if ($ing_oui) {
                 $req->andWhere('ing.id IN (:ing_oui)')
                     ->setParameter('ing_oui', $ing_oui);
-            } elseif ($cate) {
+            } if ($cate) {
                 $req->andWhere('ca.id IN (:cate)')
                     ->setParameter('cate', $cate);
-            } elseif ($ing_non || $alle) {
+            } if ($ing_non || $alle) {
                 $req2 = $this->createQueryBuilder('r')
                     ->select('r.id')
                     ->leftjoin('r.composers', 'co')
@@ -431,23 +426,6 @@ class RecetteRepository extends ServiceEntityRepository
         return $result->fetchAssociative();
     }
 
-    public function findAllComponentsByRecipeId(int $id): array
-    {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-        SELECT i.id, qte, nom_unit, i.nom_ingr
-        FROM composer c LEFT JOIN unite u ON (c.unite_id = u.id)
-        LEFT JOIN ingredient i ON (c.ingredient_id = i.id)
-        WHERE c.recette_id = :id
-        ORDER BY i.nom_ingr ASC;
-        ';
-
-        $result = $conn->executeQuery($sql, ['id' => $id]);
-
-        return $result->fetchAllAssociative();
-    }
-
     public function updateAverageNote(int $idRecipe)
     {
         $notes = $this->createQueryBuilder('r')
@@ -460,7 +438,7 @@ class RecetteRepository extends ServiceEntityRepository
 
         $tot = 0;
 
-        dump($notes);
+        //dump($notes);
 
         foreach ($notes as $note) {
             $tot += $note['noteRecette'];
