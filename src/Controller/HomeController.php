@@ -14,8 +14,12 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(RecetteRepository $repo): Response
     {
-        /** @var \App\Entity\Membre $user */
-        $user = $this->getUser();
+        try {
+            /** @var \App\Entity\Membre $user */
+            $user = $this->getUser();
+        } catch (\InvalidArgumentException) {
+            $user = null;
+        }
 
         $avatarFilename = null;
         if ($user) {
