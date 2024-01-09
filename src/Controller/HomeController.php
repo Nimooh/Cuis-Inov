@@ -18,12 +18,37 @@ class HomeController extends AbstractController
         $user = $this->getUser();
         $userId = $user ? $user->getId() : 0; //User par défault id 0
 
+        if (!isset($_POST['search'])) {
+            $_POST['search'] = null;
+        }
+        if (!isset($_POST['difficulte'])) {
+            $_POST['difficulte'] = null;
+        }
+        if (!isset($_POST['temps'])) {
+            $_POST['temps'] = null;
+        }
+        if (!isset($_POST['note'])) {
+            $_POST['note'] = null;
+        }
+        if (!isset($_POST['ingredient_oui'])) {
+            $_POST['ingredient_oui'] = null;
+        }
+        if (!isset($_POST['ingredient_non'])) {
+            $_POST['ingredient_non'] = null;
+        }
+        if (!isset($_POST['categorie'])) {
+            $_POST['categorie'] = null;
+        }
+        if (!isset($_POST['allergene'])) {
+            $_POST['allergene'] = null;
+        }
+
         $trending = $repo->findMostTrending();
-        if(!empty($trending)) {
+        if (!empty($trending)) {
             $trendingId = $trending->getId();
-            $recettes = $repo->findAllOrderedWithoutMostTrending($trendingId, $userId);
+            $recettes = $repo->findAllOrderedWithoutMostTrending($trendingId, $userId, $_POST['search'], $_POST['difficulte'], $_POST['temps'], $_POST['note'], $_POST['ingredient_oui'], $_POST['ingredient_non'], $_POST['categorie'], $_POST['allergene']);
         } else {
-            $recettes = $repo->findAllOrderedWithoutMostTrending(0, $userId);
+            $recettes = $repo->findAllOrderedWithoutMostTrending(0, $userId, $_POST['search'], $_POST['difficulte'], $_POST['temps'], $_POST['note'], $_POST['ingredient_oui'], $_POST['ingredient_non'], $_POST['categorie'], $_POST['allergene']);
         }
         //dump($recettes);
         return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending]);
