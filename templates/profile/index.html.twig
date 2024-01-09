@@ -14,7 +14,7 @@
 
         <section id="details" class="flex md:flex-row flex-col-reverse justify-between items-center">
             <div id="container_detailsInfo" class="flex flex-col align-start bg-cuiGray rounded-lg p-6 space-y-4 md:p-8 w-full md:max-w-xl shadow-lg h-full">
-                <h1 class="flex text-xl text-white font-bold leading-tight tracking-tight md:text-2xl">Profil</h1>
+                <h1 class="flex text-xl text-white font-bold leading-tight tracking-tight md:text-2xl">Mon Profil</h1>
                 <table id="detailsInfo" class="flex flex-col pl-4 pr-4 border-separate border-spacing-1">
                     <tr>
                         <th class="text-lg text-cuiOrange font-medium text-start align-top">Nom</th>
@@ -76,14 +76,14 @@
         </section>
 
         <section id="allergenes" class="flex flex-col bg-cuiGray rounded-lg p-6 shadow-lg">
-            <h1 id="allergenesTitle" class="flex text-xl text-white font-bold leading-tight tracking-tight pb-6 md:text-2xl">Allergènes</h1>
+            <h1 id="allergenesTitle" class="flex text-xl text-white font-bold leading-tight tracking-tight pb-6 md:text-2xl">Mes Allergènes</h1>
             <div id="allergenesContent" class="flex flex-row gap-3 flex-wrap">
                 {% if allergenes %}
                     {% for allergene in allergenes %}
-                        <div class="flex text-cuiGrayLight bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">{{ allergene.nom_aller|capitalize }}</div>
+                        <div class="flex text-gray-300 font-bold bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">{{ allergene.nom_aller|capitalize }}</div>
                     {% endfor %}
                 {% else %}
-                    <div class="flex text-cuiGrayLight bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">Aucun allergène</div>
+                    <div class="flex text-gray-300 font-bold bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">Aucun allergène</div>
                 {% endif %}
             </div>
         </section>
