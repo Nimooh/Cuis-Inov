@@ -17,27 +17,28 @@ class ComposerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('qte', NumberType::class, [
-                'label' => false,
-                'empty_data' => '',
-                'attr' => [
-                    'size' => '3',
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-s-lg block shrink p-2.5 text-center',
-                ],
-            ])
+
             ->add('ingredient', EntityType::class, [
                 'label' => false,
                 'class' => Ingredient::class,
                 'choice_label' => 'nomIngr',
                 'empty_data' => '',
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm block w-full p-2.5',
+                    'class' => 'rounded-s-lg bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm block w-full p-2.5',
                 ],
                 'placeholder' => '',
                 'query_builder' => function (EntityRepository $entityRepository) {
                     return $entityRepository->createQueryBuilder('i')
                         ->orderBy('i.nomIngr', 'ASC');
                 },
+            ])
+            ->add('qte', NumberType::class, [
+                'label' => false,
+                'empty_data' => '',
+                'attr' => [
+                    'size' => '3',
+                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm  block shrink p-2.5 text-center',
+                ],
             ])
             ->add('unite', EntityType::class, [
                 'label' => false,

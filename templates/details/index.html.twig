@@ -88,11 +88,11 @@
                         <path d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"/>
                     </svg>
                     {% if recipe.diffRecette == 1 %}
-                        <p id="diff">FACILE</p>
+                        <p id="diff">Facile</p>
                     {% elseif recipe.diffRecette == 2%}
-                        <p id="diff">MOYEN</p>
+                        <p id="diff">Moyen</p>
                     {% else %}
-                        <p id="diff">DIFFICILE</p>
+                        <p id="diff">Difficile/p>
                     {% endif %}
                     <p class="text-cuiGrayLight mt-2">Difficulté</p>
                 </div>
@@ -120,17 +120,33 @@
                 {% endfor %}
             </section>
             <section id="components" class="hidden"> {# liste des Ingredients (remplacer grid par hidden pour la balance)#}
+                <div class="flex mb-5 space-x-2 bg-cuiBlack rounded-lg w-fit p-2">
+                    <button id="minus_pers" onclick="changeQte(this)">
+                        <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                        </svg>
+                    </button>
+                    <div class="flex">Pour <div id="nb_pers" class="px-2"> {{ recipe.nbPers }} </div> personnes</div>
+                    <button id="plus_pers" onclick="changeQte(this)">
+                        <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="grid grid-cols-3 md:grid-cols-5 gap-4">
                 {% for elmt in components %}
+
                     <div class="flex flex-col items-center bg-cuiBlack rounded-lg 2xl:w-60">
                         <div class="grow">
                             <img loading="lazy" class="lg:h-60 lg:w-60 rounded-lg" src="{{ asset('img/ingredients/' ~ elmt.id ~ '.png') }}" alt="">
                         </div>
                         <div class="flex flex-col gap-2 items-center text-center">
                             {{ elmt.nomIngr | capitalize }}
-                            <span class="font-bold">{{ elmt.qte }} {{ elmt.nomUnit }}</span>
+                            <span id="dose" class="font-bold flex"><object id="val" name='{{ elmt.qte }}' hidden></object><div id="quantity" class="pr-2">{{ elmt.qte }}</div><div id="unite">{{ elmt.nomUnit }}</div></span>
                         </div>
                     </div>
                 {% endfor %}
+                </div>
             </section>
         </section>
     </div>
@@ -139,8 +155,13 @@
         let buttonRecipe = document.querySelector('#button_reci');
         let buttonComponents = document.querySelector('#button_comp');
         let ShareButton = document.querySelector('#sharing_button');
+        let buttonPlus = document.querySelector('#plus_pers');
+        let buttonMinus = document.querySelector('#minus_pers');
+
         let displayRecipe = document.querySelector('#instruction');
         let displayComponents = document.querySelector('#components');
+        let displayNpPers = document.querySelector('#nb_pers');
+
 
         buttonRecipe.addEventListener('click', () => {
             buttonRecipe.className = "bg-cuiGray text-cuiOrange text-lg lg:text-2xl text-center w-1/2 py-2.5 px-5 font-medium rounded-full";
@@ -154,7 +175,7 @@
             buttonComponents.className = "bg-cuiGray text-cuiOrange text-lg lg:text-2xl text-center w-1/2 py-2.5 px-5 font-medium rounded-full";
             buttonRecipe.className = "bg-cuiBlack text-cuiGray text-lg lg:text-2xl text-center w-1/2 hover:bg-cuiGray hover:text-cuiOrange py-2.5 px-5 font-medium rounded-full";
             displayRecipe.className = "hidden";
-            displayComponents.className = "grid grid-cols-3 md:grid-cols-5 gap-4";
+            displayComponents.className = "";
         })
 
         function clipboard(text) {
@@ -162,5 +183,47 @@
             ShareButton.innerHTML = 'Copié !';
             ShareButton.className = "inline-flex items-center font-medium bg-cuiBlack hover:bg-cuiOrange hover:text-cuiBlack text-cuiOrange h-15 w-fit text-2xl py-2.5 px-5 rounded-full lg:h-20";
         }
+        function round(value, step) {
+            step || (step = 1.0);
+            var inv = 1.0 / step;
+            return Math.round(value * inv) / inv;
+        }
+
+        function changeQte(button){
+            let oldValue = parseInt(displayNpPers.innerHTML);
+            let newValue = parseInt(displayNpPers.innerHTML);
+            if (button==buttonPlus & parseInt(displayNpPers.innerHTML)<50){
+
+            displayNpPers.innerHTML=parseInt(displayNpPers.innerHTML)+1;
+                   newValue = parseInt(displayNpPers.innerHTML);
+            }
+            if (button==buttonMinus & parseInt(displayNpPers.innerHTML)>1){
+                displayNpPers.innerHTML=parseInt(displayNpPers.innerHTML)-1;
+                 newValue = parseInt(displayNpPers.innerHTML);
+            }
+
+
+            var doses = document.querySelectorAll('#dose');
+            doses.forEach(function(dose)
+            {
+                let unites = ['c. à café','c. à soupe','pincée','poignée','verre','tasse']
+                let quantity = dose.querySelector('#quantity');
+                let unite = dose.querySelector('#unite');
+                let val = dose.querySelector('#val');
+                let val_qte = parseFloat(val.name) / oldValue *newValue;
+
+                if(unites.includes(unite.innerHTML)) {
+
+                   val.name = val_qte
+                    quantity.innerHTML =  round(val_qte,1);
+
+                }
+                else{
+                    val.name = val_qte
+                    quantity.innerHTML =  round(val_qte,0.5);
+                }
+            });
+        }
+
     </script>
 {% endblock %}
