@@ -28,7 +28,7 @@ class Recette
     #[Assert\Range(
         min: 1,
         max: 3,
-        notInRangeMessage: 'You must be between {{ min }}cm and {{ max }}cm tall to enter',
+        notInRangeMessage: 'La difficulté doit être entre {{ min }} et {{ max }}',
     )]
     private ?int $diffRecette = null;
 
@@ -47,7 +47,7 @@ class Recette
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Interagir::class)]
     private Collection $interagirs;
 
-    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class, cascade: ['persist','remove'])]
     private Collection $composers;
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]
