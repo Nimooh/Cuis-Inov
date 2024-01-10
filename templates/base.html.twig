@@ -48,23 +48,47 @@
                 </div>
 
                 {% if is_granted('IS_AUTHENTICATED') %}
-                    <a
-                            href="#"
-                            class="flex items-center md:ml-3 text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
-                    >
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
-                        </svg>
-                    </a>
+                    <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                        <button type="button" class="flex items-center md:ml-3" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                            <span class="sr-only">Open user menu</span>
+                            {% block nav_avatar %}{% endblock %}
+                        </button>
+
+                        <div class="z-50 hidden list-none bg-cuiGrayDark divide-y rounded-lg shadow-lg border border-cuiBlack" id="user-dropdown">
+                            <ul class="" aria-labelledby="user-menu-button">
+                                <li>
+                                    <a href="{{ path('app_profile') }}" class="block px-4 py-2 text-sm font-bold text-white rounded-t-lg bg-cuiOrange hover:bg-cuiOrange/80">Mon Profil</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('app_crud_mes_recettes') }}" class="block px-4 py-2 text-sm font-bold text-white hover:bg-cuiBlack">Mes Recettes</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('app_favoris') }}" class="block px-4 py-2 text-sm font-bold text-white hover:bg-cuiBlack">Mes Favoris</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm font-bold text-white rounded-b-lg hover:bg-red-500">Déconnexion</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 {% else %}
-                    <a
-                            href="{{ path('app_login') }}"
-                            class="flex items-center md:ml-3 text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-2 text-center cursor-pointer"
-                    >
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
-                        </svg>
-                    </a>
+                    <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                        <button type="button" class="flex items-center md:ml-3" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                            <span class="sr-only">Open user menu</span>
+                            {{ block('nav_avatar') }}
+                        </button>
+
+                        <div class="z-50 hidden list-none bg-cuiGrayDark divide-y rounded-lg shadow-lg border border-cuiBlack" id="user-dropdown">
+                            <ul class="" aria-labelledby="user-menu-button">
+                                <li>
+                                    <a href="{{ path('app_login') }}" class="block px-4 py-2 text-sm font-bold text-white hover:bg-cuiOrange rounded-t-lg">Se connecter</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('app_register') }}" class="block px-4 py-2 text-sm font-bold text-white hover:bg-cuiOrange rounded-b-lg">S'inscrire</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
 

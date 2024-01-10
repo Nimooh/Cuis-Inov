@@ -47,8 +47,16 @@ class RegistrationController extends AbstractController
             );
         }
 
+        /** @var \App\Entity\Membre $user */
+        $user = $this->getUser();
+        $avatarFilename = null;
+        if ($user) {
+            $avatarFilename = $user->getAvatarFileName();
+        }
+
         return $this->render('registration/register.html.twig', [
             'form' => $form,
+            'membre_avatarFilename' => $avatarFilename,
         ]);
     }
 }

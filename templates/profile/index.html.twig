@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% set membre_email = membre.getEmail() %}
+{% set membre_role = membre.getRoles()[0] %}
+{% set membre_lastName = membre.getNomMembre() %}
+{% set membre_firstName = membre.getPrnmMembre() %}
+{% set membre_phone = membre.getTelMembre() %}
+{% set membre_avatarFilename = membre.getAvatarFilename() %}
+
+{% block title %}{{ membre_firstName|capitalize }} {{ membre_lastName|capitalize }}{% endblock %}
+
+{% block nav_avatar %}
+    {% if membre_avatarFilename %}
+        <img class="rounded-full w-[38px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img" alt="Image de profil personnalisee">
+    {% else %}
+        <div class="text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-[10px] text-center cursor-pointer">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+            </svg>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <div id="content" class="flex flex-col text-white m-6 gap-8 w-4/5 md:w-3/6">
+
+        <section id="details" class="flex md:flex-row flex-col-reverse justify-between items-center">
+            <div id="container_detailsInfo" class="flex flex-col align-start bg-cuiGray rounded-lg p-6 space-y-4 md:p-8 w-full md:max-w-xl shadow-lg h-full">
+                <h1 class="flex text-xl text-white font-bold leading-tight tracking-tight md:text-2xl">Mon Profil</h1>
+                <table id="detailsInfo" class="flex flex-col pl-4 pr-4 border-separate border-spacing-1">
+                    <tr>
+                        <th class="text-lg text-cuiOrange font-medium text-start align-top">Nom</th>
+                        <td class="text-cuiGrayLight break-all align-middle">{{ membre_lastName|capitalize }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-lg text-cuiOrange font-medium text-start align-top">Prénom</th>
+                        <td class="text-cuiGrayLight break-all align-middle">{{ membre_firstName|capitalize }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-lg text-cuiOrange font-medium text-start align-top">Email</th>
+                        <td class="text-cuiGrayLight break-all align-middle">{{ membre_email }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-lg text-cuiOrange font-medium text-start align-top">Rôle</th>
+                        <td class="text-cuiGrayLight break-all align-middle">
+                            {% if membre_role == "ROLE_USER" %}
+                                Utilisateur
+                            {% elseif membre_role == "ROLE_ADMIN"%}
+                                Administrateur
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-lg text-cuiOrange font-medium text-start align-top">Téléphone</th>
+                        <td class="text-cuiGrayLight break-all align-middle">{{ membre_phone }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="container_detailsAvatar" class="flex flex-col grow content-center justify-around p-8 gap-8 w-fit">
+                <div id="avatar" class="flex justify-center">
+                    {% if membre_avatarFilename %}
+                        <img class="rounded-full w-[200px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img">
+                    {% else %}
+                        <div class=" bg-cuiOrange rounded-full px-9 py-9 max-w-fit shadow-lg text-cuiGray">
+                            <svg class="w-20 h-20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+                            </svg>
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="editButton" class="flex text-center justify-center">
+                    <a href="{{ path('app_profile_update') }}" class="text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-bold rounded-lg text-sm px-5 py-2.5 shadow-lg">
+                        Editer Profil
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="recettes-favs" class="flex flex-row bg-cuiGray rounded-lg p-6 sm:p-8 space-around justify-around items-center gap-2 shadow-lg">
+            <div id="button_recettes" class="flex">
+                <a href="{{ path('app_crud_mes_recettes') }}" class="text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-bold rounded-lg text-sm px-5 py-2.5 text-center mw-20px">
+                    Mes Recettes
+                </a>
+            </div>
+            <div id="button_favs" class="flex">
+                <a href="{{ path('app_favoris') }}" class="text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-bold rounded-lg text-sm px-5 py-2.5 text-center mw-20px">
+                    Mes Favoris
+                </a>
+            </div>
+        </section>
+
+        <section id="allergenes" class="flex flex-col bg-cuiGray rounded-lg p-6 shadow-lg">
+            <h1 id="allergenesTitle" class="flex text-xl text-white font-bold leading-tight tracking-tight pb-6 md:text-2xl">Mes Allergènes</h1>
+            <div id="allergenesContent" class="flex flex-row gap-3 flex-wrap">
+                {% if allergenes %}
+                    {% for allergene in allergenes %}
+                        <div class="flex text-gray-300 font-bold bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">{{ allergene.nomAller|capitalize }}</div>
+                    {% endfor %}
+                {% else %}
+                    <div class="flex text-gray-300 font-bold bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">Aucun allergène</div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section id="logout" class="flex">
+            <div id="button_logout" class="flex text-center shadow-lg bg-red-600 hover:bg-red-600/90 rounded-lg">
+                <a href="{{ path('app_logout') }}" class="text-white font-bold text-sm px-4 py-2">
+                    <svg class="w-5 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.9995 15.9995L20.9995 11.9995M20.9995 11.9995L16.9995 7.99951M20.9995 11.9995H8.99951M12.9995 20.9995H6.20029C5.08019 20.9995 4.52014 20.9995 4.09231 20.7815C3.71599 20.5898 3.41003 20.2838 3.21828 19.9075C3.00029 19.4797 3.00029 18.9196 3.00029 17.7995V6.19951C3.00029 5.07941 3.00029 4.51935 3.21828 4.09153C3.41003 3.71521 3.71599 3.40925 4.09231 3.2175C4.52014 2.99951 5.08019 2.99951 6.20029 2.99951L12.9995 2.99951" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}

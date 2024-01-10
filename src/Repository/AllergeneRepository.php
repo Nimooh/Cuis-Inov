@@ -21,29 +21,20 @@ class AllergeneRepository extends ServiceEntityRepository
         parent::__construct($registry, Allergene::class);
     }
 
-    //    /**
-    //     * @return Allergene[] Returns an array of Allergene objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Allergene
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-
+    /**
+     * @param int $id Identifiant de l'utilisateur courant
+     * @return Allergene[]
+     */
+    public function findWithMembre(int $id): array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.nomAller')
+            ->join('a.membres', 'm')
+            ->where('m.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
+

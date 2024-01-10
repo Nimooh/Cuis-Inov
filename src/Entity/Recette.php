@@ -40,7 +40,7 @@ class Recette
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Interagir::class)]
     private Collection $interagirs;
 
-    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class, cascade: ['persist', 'remove'])]
     private Collection $composers;
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]

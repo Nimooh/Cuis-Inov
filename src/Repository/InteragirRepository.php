@@ -55,7 +55,7 @@ class InteragirRepository extends ServiceEntityRepository
                 ->setParameter('idMembre', $idMembre)
                 ->setParameter('idRecette', $idRecette)
                 ->getQuery()
-                ->execute()
+                ->getResult()
             ;
         } elseif($noteRecette !== null) {
             $this->createQueryBuilder('i')
@@ -69,7 +69,7 @@ class InteragirRepository extends ServiceEntityRepository
                 ->setParameter('idRecette', $idRecette)
                 ->setParameter('note', $noteRecette)
                 ->getQuery()
-                ->execute()
+                ->getResult()
             ;
         }
 

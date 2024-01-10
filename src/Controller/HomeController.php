@@ -14,8 +14,18 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(RecetteRepository $repo): Response
     {
-        /** @var \App\Entity\Membre $user */
-        $user = $this->getUser();
+        try {
+            /** @var \App\Entity\Membre $user */
+            $user = $this->getUser();
+        } catch (\InvalidArgumentException) {
+            $user = null;
+        }
+
+        $avatarFilename = null;
+        if ($user) {
+            $avatarFilename = $user->getAvatarFileName();
+        }
+
         $userId = $user ? $user->getId() : 0; //User par défault id 0
 
         if (!isset($_POST['search'])) {
@@ -51,7 +61,7 @@ class HomeController extends AbstractController
             $recettes = $repo->findAllOrderedWithoutMostTrending(0, $userId, $_POST['search'], $_POST['difficulte'], $_POST['temps'], $_POST['note'], $_POST['ingredient_oui'], $_POST['ingredient_non'], $_POST['categorie'], $_POST['allergene']);
         }
         //dump($recettes);
-        return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending]);
+        return $this->render('home/index.html.twig', ['recettes' => $recettes, 'trending' => $trending, 'membre_avatarFilename' => $avatarFilename]);
     }
 
     #[Route('/update', name: 'app_recette_update')]
