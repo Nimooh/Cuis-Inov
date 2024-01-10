@@ -4,7 +4,7 @@
 
 {% block nav_avatar %}
     {% if membre_avatarFilename %}
-        <img class="rounded-full w-[38px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img" alt="Image de profil personnalisee">
+        <img loading="lazy" class="rounded-full w-[38px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img" alt="Image de profil personnalisee">
     {% else %}
         <div class="text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-[10px] text-center cursor-pointer">
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
@@ -53,7 +53,7 @@
                                 </span>
                         </div>
                     </div>
-                    <img class="absolute rounded-2xl w-[70%] top-1/2 left-[65%] transform -translate-x-1/2 -translate-y-1/4 object-cover
+                    <img loading="lazy" class="absolute rounded-2xl w-[70%] top-1/2 left-[65%] transform -translate-x-1/2 -translate-y-1/4 object-cover
                 max-[850px]:w-[100%] max-[850px]:top-[30%] max-[850px]:left-[50%]"
                          src="{{ asset('img/recettes/' ~ trending.id ~ '.png') }}" id="img">
                 </a>
@@ -71,7 +71,7 @@
                     <li class="relative m-1 p-3 bg-cuiGray bg-opacity-100 rounded-2xl">
                         <a class="no-underline text-black" href="{{ path('app_details', { id: recette.id }) }}">
                             <div class="flex flex-col items-center text-white h-full place-content-around">
-                                <img class="object-cover rounded-lg w-64 h-64" title="{{ recette.description }}" src="{{ asset('img/recettes/' ~ recette.id ~ '.png') }}">
+                                <img  loading="lazy" class="object-cover rounded-lg w-64 h-64" title="{{ recette.description }}" src="{{ asset('img/recettes/' ~ recette.id ~ '.png') }}">
                                 <span class="text-xl w-64 text-center">{{ recette.nomRecette | capitalize }}</span>
                                 <span> {# Bloc svg pour afficher les notes #}
                                 <div class="flex items-center" title="{{ recette.noteMoyenne }} / 5">
