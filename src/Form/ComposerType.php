@@ -21,7 +21,8 @@ class ComposerType extends AbstractType
                 'label' => false,
                 'empty_data' => '',
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-s-lg block w-14 p-2.5 text-center',
+                    'size' => '3',
+                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-s-lg block shrink p-2.5 text-center',
                 ],
             ])
             ->add('ingredient', EntityType::class, [
@@ -30,7 +31,7 @@ class ComposerType extends AbstractType
                 'choice_label' => 'nomIngr',
                 'empty_data' => '',
                 'attr' => [
-                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm block w-full grow p-2.5',
+                    'class' => 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm block w-full p-2.5',
                 ],
                 'placeholder' => '',
                 'query_builder' => function (EntityRepository $entityRepository) {

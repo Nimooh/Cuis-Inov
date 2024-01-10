@@ -250,6 +250,12 @@
 
 {{ form_end(form) }}
 
+<style>
+    ul > div[id^="recette_composers_"] > div:nth-child(2) {
+        flex-grow: 1;
+    }
+</style>
+
 <script>
     const addDeleteBtn = (item) => {
         const removeButton = document.createElement('button');
