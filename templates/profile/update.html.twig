@@ -161,14 +161,14 @@
                         form.avatar,
                         {
                             'attr': {
-                            'class': 'hidden' ~ (form.avatar.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                            'class': 'hidden'
                         },
                         }
                     ) }}
                     <div class="flex text-sm text-red-500 text-center">
                         {{ form_errors(form.avatar) }}
                     </div>
-                    <a href="{{ path('app_profile_resetavatar') }}" class="w-fit text-white hover:text-white/90">Reset Avatar</a>
+                    <a href="{{ path('app_profile_resetavatar') }}" class="pt-5 w-fit text-white hover:text-white/90">Reset Avatar</a>
                 </div>
             </div>
         </section>
