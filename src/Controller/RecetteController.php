@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Membre;
 use App\Entity\Recette;
 use App\Form\RecetteType;
 use App\Repository\RecetteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,8 +24,6 @@ class RecetteController extends AbstractController
         $user = $this->getUser();
         $myRecipes = $user->getRecettes();
         $avatarFilename = $user->getAvatarFileName();
-
-        //dump($myRecipes);
 
         return $this->render('recette/mes_recettes.html.twig', [
             'recipes' => $myRecipes,
@@ -52,6 +50,18 @@ class RecetteController extends AbstractController
 
             $entityManager->persist($recipe);
             $entityManager->flush();
+
+            $picture = $form->get('picture')->getData();
+
+            if ($picture) {
+                try {
+                    $picture->move(
+                        $this->getParameter('images_dir').'/recettes/',
+                        $recipe->getId().'.'.$picture->guessExtension(),
+                    );
+                } catch (FileException $e) {
+                }
+            }
 
             return $this->redirect($this->generateUrl('app_details').'?id='.$recipe->getId());
         }
@@ -80,6 +90,24 @@ class RecetteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $picture = $form->get('picture')->getData();
+
+            if ($picture) {
+                $picturePath = $this->getParameter('images_dir').'/recettes/'.$recipe->getPicturePath();
+
+                if (is_file($picturePath)) {
+                    unlink($picturePath);
+                }
+
+                try {
+                    $picture->move(
+                        $this->getParameter('images_dir').'/recettes/',
+                        $recipe->getId().'.'.$picture->guessExtension(),
+                    );
+                } catch (FileException $e) {
+                }
+            }
+
             $entityManager->flush();
 
             return $this->redirect($this->generateUrl('app_details').'?id='.$recipe->getId());
@@ -114,8 +142,13 @@ class RecetteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ('delete' === $form->getClickedButton()?->getName()) {
-                $entityManager->remove($recipe);
+                $picturePath = $this->getParameter('images_dir').'/recettes/'.$recipe->getPicturePath();
 
+                if (is_file($picturePath)) {
+                    unlink($picturePath);
+                }
+
+                $entityManager->remove($recipe);
                 $entityManager->flush();
 
                 return $this->redirectToRoute('app_home');

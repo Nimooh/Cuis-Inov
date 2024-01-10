@@ -46,7 +46,7 @@ class ProfileController extends AbstractController
 
             if ($avatarFile) {
                 if ($membre->getAvatarFilename()) {
-                    unlink($this->getParameter('avatars_directory').'/'.$membre->getAvatarFilename());
+                    unlink($this->getParameter('images_dir').'/avatars/'.$membre->getAvatarFilename());
                 }
                 $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
@@ -54,7 +54,7 @@ class ProfileController extends AbstractController
 
                 try {
                     $avatarFile->move(
-                        $this->getParameter('avatars_directory'),
+                        $this->getParameter('images_dir').'/avatars',
                         $newFilename
                     );
                 } catch (FileException $e) {
@@ -90,7 +90,7 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->getClickedButton() && 'supprimer' === $form->getClickedButton()->getName()) {
                 if ($membre->getAvatarFilename()) {
-                    unlink($this->getParameter('avatars_directory').'/'.$membre->getAvatarFilename());
+                    unlink($this->getParameter('images_dir').'/avatars/'.$membre->getAvatarFilename());
                 }
                 $entityManager->remove($membre);
 
@@ -114,7 +114,7 @@ class ProfileController extends AbstractController
     {
         $membre = $this->getUser();
         if ($membre->getAvatarFilename()) {
-            unlink($this->getParameter('avatars_directory').'/'.$membre->getAvatarFilename());
+            unlink($this->getParameter('images_dir').'/avatars/'.$membre->getAvatarFilename());
         }
 
         $membre->setAvatarFilename(null);
