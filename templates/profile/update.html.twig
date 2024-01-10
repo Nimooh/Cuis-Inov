@@ -1,0 +1,212 @@
+{% extends 'base.html.twig' %}
+
+{% set membre_lastName = membre.getNomMembre() %}
+{% set membre_firstName = membre.getPrnmMembre() %}
+{% set membre_avatarFilename = membre.getAvatarFilename() %}
+
+{% block title %}Edition de {{ membre_firstName }} {{ membre_lastName }}{% endblock %}
+
+{% block nav_avatar %}
+    {% if membre_avatarFilename %}
+        <img class="rounded-full w-[38px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img" alt="Image de profil personnalisee">
+    {% else %}
+        <div class="text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-[10px] text-center cursor-pointer">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+            </svg>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form, {'attr': {'id': 'form_profile', 'class': 'flex justify-center'}}) }}
+
+    <div id="content" class="flex flex-col text-white m-6 gap-8 w-4/5 md:w-3/5 items-center md:items-stretch">
+
+        <section id="details" class="flex md:flex-row flex-col-reverse justify-between items-center w-full">
+            <div id="form_detailsInfo" class="flex flex-col align-start bg-cuiGray rounded-lg p-6 space-y-4 md:p-8 w-full md:max-w-xl shadow-lg h-full">
+                <h1 class="flex text-xl text-white font-bold leading-tight tracking-tight md:text-2xl">Mon Profil</h1>
+
+                <div>
+                    {{ form_label(
+                        form.nomMembre,
+                        'Nom',
+                        {
+                            'label_attr': {
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.nomMembre.vars.valid ? '' : ' text-red-500'),
+                        },
+                        }
+                    ) }}
+                    {{ form_widget(
+                        form.nomMembre,
+                        {
+                            'attr': {
+                            'class': 'bg-cuiGrayDark border border-cuiGrayDark text-white sm:text-sm rounded-lg block w-full p-1 pl-3' ~ (form.nomMembre.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                        },
+                        }
+                    ) }}
+                    <div class="mt-2 text-sm text-red-500">
+                        {{ form_errors(form.nomMembre) }}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form_label(
+                        form.prnmMembre,
+                        'Prénom',
+                        {
+                            'label_attr': {
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.prnmMembre.vars.valid ? '' : ' text-red-500'),
+                        },
+                        }
+                    ) }}
+                    {{ form_widget(
+                        form.prnmMembre,
+                        {
+                            'attr': {
+                            'class': 'bg-cuiGrayDark border border-cuiGrayDark text-white sm:text-sm rounded-lg block w-full p-1 pl-3' ~ (form.prnmMembre.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                        },
+                        }
+                    ) }}
+                    <div class="mt-2 text-sm text-red-500">
+                        {{ form_errors(form.prnmMembre) }}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form_label(
+                        form.email,
+                        'Adresse e-mail',
+                        {
+                            'label_attr': {
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.email.vars.valid ? '' : ' text-red-500'),
+                        },
+                        }
+                    ) }}
+                    {{ form_widget(
+                        form.email,
+                        {
+                            'attr': {
+                            'class': 'bg-cuiGrayDark border border-cuiGrayDark text-white sm:text-sm rounded-lg block w-full p-1 pl-3' ~ (form.email.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                        },
+                        }
+                    ) }}
+                    <div class="mt-2 text-sm text-red-500">
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form_label(
+                        form.password,
+                        'Mot de passe',
+                        {
+                            'label_attr': {
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.password.vars.valid ? '' : ' text-red-500'),
+                        },
+                        }
+                    ) }}
+                    {{ form_widget(
+                        form.password,
+                        {
+                            'attr': {
+                            'class': 'bg-cuiGrayDark border border-cuiGrayDark text-white sm:text-sm rounded-lg block w-full p-1 pl-3' ~ (form.password.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                        },
+                        }
+                    ) }}
+                    <div class="mt-2 text-sm text-red-500">
+                        {{ form_errors(form.password) }}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form_label(
+                        form.telMembre,
+                        'Numéro de téléphone',
+                        {
+                            'label_attr': {
+                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.telMembre.vars.valid ? '' : ' text-red-500'),
+                        },
+                        }
+                    ) }}
+                    {{ form_widget(
+                        form.telMembre,
+                        {
+                            'attr': {
+                            'class': 'bg-cuiGrayDark border border-cuiGrayDark text-white sm:text-sm rounded-lg block w-full p-1 pl-3' ~ (form.telMembre.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                        },
+                        }
+                    ) }}
+                    <div class="mt-2 text-sm text-red-500">
+                        {{ form_errors(form.telMembre) }}
+                    </div>
+                </div>
+            </div>
+            <div id="container_detailsAvatar" class="flex flex-col grow content-center justify-around items-center p-8 gap-8">
+                <div id="avatar" class="flex justify-center">
+                    {% if membre_avatarFilename %}
+                        <img class="rounded-full w-[200px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img">
+                    {% else %}
+                        <div class=" bg-cuiOrange rounded-full px-9 py-9 max-w-fit shadow-lg text-cuiGray">
+                            <svg class="w-20 h-20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+                            </svg>
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="avatarButton" class="flex flex-col text-center items-center">
+                    {{ form_label(form.avatar,'Modifier Image de profil (PNG | JPG | JPEG)',{'label_attr': {'class': 'flex mb-4 text-sm text-cuiOrange hover:text-cuiOrange/90 font-bold w-52 text-center underline underline-offset-2 cursor-pointer bg-cuiGray hover:bg-cuiGray/90 rounded-lg px-5 py-2.5 shadow-lg'}}) }}
+                    {{ form_widget(
+                        form.avatar,
+                        {
+                            'attr': {
+                            'class': 'hidden'
+                        },
+                        }
+                    ) }}
+                    <div class="flex text-sm text-red-500 text-center">
+                        {{ form_errors(form.avatar) }}
+                    </div>
+                    <a href="{{ path('app_profile_resetavatar') }}" class="pt-5 w-fit text-white hover:text-white/90">Reset Avatar</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="allergenes" class="flex flex-col bg-cuiGray rounded-lg p-6 shadow-lg">
+            <h1 id="allergenesTitle" class="flex text-xl text-white font-bold leading-tight tracking-tight pb-6 md:text-2xl">Mes Allergènes</h1>
+            <div>
+                {{ form_widget(
+                    form.allergenes,
+                    {
+                        'attr': {
+                        'class': 'flex flex-row text-gray-300 font-bold bg-cuiGrayDark rounded-lg w-auto p-2 flex-wrap capitalize text-wrap gap-2 md:gap-3' ~ (form.allergenes.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
+                    },
+                    }
+                ) }}
+                <div class="mt-2 text-sm text-red-500">
+                    {{ form_errors(form.allergenes) }}
+                </div>
+            </div>
+        </section>
+
+        <section id="buttons" class="flex flex-col md:flex-row md:justify-between items-center gap-10 max-w-fit md:max-w-full">
+            <div class="flex flex-row gap-2 justify-evenly md:justify-start">
+                {{ form_widget(form.save, {'attr': {'class': 'flex text-white hover:text-white/90 bg-[#0096FF] hover:bg-[#0096FF]/90 font-bold rounded-lg text-sm px-5 py-2.5 text-center mw-20px shadow-lg'}}) }}
+                <a href="{{ path('app_profile') }}" class="flex text-white h-10 bg-cuiGrayLight hover:bg-cuiGrayLight/90 hover:text-white/90 font-bold rounded-lg text-sm px-5 py-2.5 text-center mw-20px shadow-lg">
+                    Annuler
+                </a>
+            </div>
+            <div class="flex text-white h-10 bg-red-600 hover:bg-red-600/90 hover:text-white/90 font-bold rounded-lg text-sm px-5 py-2.5 justify-center max-w-fit shadow-lg">
+                <a href="{{ path('app_profile_delete') }}" class="flex">
+                    Supprimer Profil
+                </a>
+            </div>
+        </section>
+
+
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

@@ -21,28 +21,29 @@ class ComposerRepository extends ServiceEntityRepository
         parent::__construct($registry, Composer::class);
     }
 
-//    /**
-//     * @return Composer[] Returns an array of Composer objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findAllComponentsByRecipeId(int $id):array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('i.id, i.nomIngr, c.qte, u.nomUnit')
+            ->leftJoin('c.ingredient', 'i')
+            ->leftJoin('c.unite', 'u')
+            ->where('c.recette = :idRecipe')
+            ->setParameter('idRecipe', $id)
+            ->getQuery()
+            ->getArrayResult();
+        /*
+        $conn = $this->getEntityManager()->getConnection();
 
-//    public function findOneBySomeField($value): ?Composer
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $sql = '
+        SELECT i.id, qte, nom_unit, i.nom_ingr
+        FROM composer c LEFT JOIN unite u ON (c.unite_id = u.id)
+        LEFT JOIN ingredient i ON (c.ingredient_id = i.id)
+        WHERE c.recette_id = :id
+        ORDER BY i.nom_ingr ASC;
+        ';
+
+        $result = $conn->executeQuery($sql, ['id' => $id]);
+        return $result->fetchAllAssociative();
+        */
+    }
 }

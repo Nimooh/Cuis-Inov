@@ -32,15 +32,6 @@ class RegistrationFormType extends AbstractType
             ->add('lastname', TextType::class, [
                 'property_path' => 'nomMembre',
             ])
-            ->add('address', TextType::class, [
-                'property_path' => 'adrMembre',
-            ])
-            ->add('city', TextType::class, [
-                'property_path' => 'villeMembre',
-            ])
-            ->add('postalCode', TextType::class, [
-                'property_path' => 'CPMembre',
-            ])
             ->add('phone', TelType::class, [
                 'property_path' => 'telMembre',
             ])

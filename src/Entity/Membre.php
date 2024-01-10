@@ -59,14 +59,17 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $telMembre = null;
 
-    #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Interagir::class)]
+    #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Interagir::class, cascade: ['remove'])]
     private Collection $interagirs;
 
-    #[ORM\OneToMany(mappedBy: 'Membre', targetEntity: Recette::class)]
+    #[ORM\OneToMany(mappedBy: 'Membre', targetEntity: Recette::class, cascade: ['remove'])]
     private Collection $recettes;
 
-    #[ORM\ManyToMany(targetEntity: Allergene::class, inversedBy: 'membres')]
+    #[ORM\ManyToMany(targetEntity: Allergene::class, inversedBy: 'membres', cascade: ['remove'])]
     private Collection $allergenes;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatarFilename = null;
 
     public function __construct()
     {
@@ -262,6 +265,18 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeAllergene(Allergene $allergene): static
     {
         $this->allergenes->removeElement($allergene);
+
+        return $this;
+    }
+
+    public function getAvatarFilename(): ?string
+    {
+        return $this->avatarFilename;
+    }
+
+    public function setAvatarFilename(?string $avatarFilename): static
+    {
+        $this->avatarFilename = $avatarFilename;
 
         return $this;
     }

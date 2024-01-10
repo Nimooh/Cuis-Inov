@@ -2,10 +2,22 @@
 
 {% block title %}Inscription{% endblock %}
 
+{% block nav_avatar %}
+    {% if membre_avatarFilename %}
+        <img class="rounded-full w-[38px] aspect-square" src="{{ asset('img/avatars/' ~ membre_avatarFilename) }}" id="img" alt="Image de profil personnalisee">
+    {% else %}
+        <div class="text-cuiGrayDark bg-cuiOrange hover:bg-cuiOrange/90 font-medium rounded-full text-sm px-2.5 py-[10px] text-center cursor-pointer">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+            </svg>
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
-    <div class="w-full bg-cuiGray rounded-lg shadow sm:max-w-md my-3">
+    <div class="w-full bg-cuiGray rounded-lg shadow sm:max-w-lg my-3">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 class="text-xl text-white font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+            <h1 class="text-xl text-white font-bold leading-tight tracking-tight md:text-2xl">
                 Inscrivez vous
             </h1>
 
@@ -113,78 +125,6 @@
 
             <div>
                 {{ form_label(
-                    form.address,
-                    'Adresse',
-                    {
-                        'label_attr': {
-                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.address.vars.valid ? '' : ' text-red-500'),
-                        },
-                    }
-                ) }}
-                {{ form_widget(
-                    form.address,
-                    {
-                        'attr': {
-                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.address.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
-                            'placeholder': "2 Rue de l'IUT",
-                        },
-                    }
-                ) }}
-                <div class="mt-2 text-sm text-red-500">
-                    {{ form_errors(form.address) }}
-                </div>
-            </div>
-
-            <div>
-                {{ form_label(
-                    form.city,
-                    'Ville',
-                    {
-                        'label_attr': {
-                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.city.vars.valid ? '' : ' text-red-500'),
-                        },
-                    }
-                ) }}
-                {{ form_widget(
-                    form.city,
-                    {
-                        'attr': {
-                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.city.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
-                            'placeholder': 'Reims',
-                        },
-                    }
-                ) }}
-                <div class="mt-2 text-sm text-red-500">
-                    {{ form_errors(form.city) }}
-                </div>
-            </div>
-
-            <div>
-                {{ form_label(
-                    form.postalCode,
-                    'Code postal',
-                    {
-                        'label_attr': {
-                            'class': 'block mb-2 text-sm text-cuiOrange font-medium' ~ (form.postalCode.vars.valid ? '' : ' text-red-500'),
-                        },
-                    }
-                ) }}
-                {{ form_widget(
-                    form.postalCode,
-                    {
-                        'attr': {
-                            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5' ~ (form.postalCode.vars.valid ? '' : 'bg-red-50 border-red-500 text-red-500 placeholder-red-500 focus:ring-red-500 focus:border-red-500'),
-                            'placeholder': '51100',
-                        },
-                    }
-                ) }}
-                <div class="mt-2 text-sm text-red-500">
-                    {{ form_errors(form.postalCode) }}
-                </div>
-            </div>
-
-            <div>
-                {{ form_label(
                     form.phone,
                     'Numéro de téléphone',
                     {
@@ -206,8 +146,6 @@
                     {{ form_errors(form.phone) }}
                 </div>
             </div>
-
-            {{ form_rest(form) }}
 
             <button
                     type="submit"

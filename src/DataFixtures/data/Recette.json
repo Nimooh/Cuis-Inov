@@ -7,6 +7,7 @@
       { "nomCatRecette": "Végétarien" }
     ],
     "stars_recette": 4,
+    "nb_personnes": 4,
     "temps_recette": 40,
     "diff_recette": 2,
     "description": "Une soupe réconfortante aux lentilles, agrémentée d'épices et d'aromates pour une saveur chaleureuse et délicieuse.",
@@ -34,7 +35,8 @@
       { "nomCatRecette": "Cuisine du monde" },
       { "nomCatRecette": "Végétarien" }
     ],
-    "stars_recette": 5,
+    "stars_recette": 3.4,
+    "nb_personnes": 2,
     "temps_recette": 15,
     "diff_recette": 1,
     "description": "Une salade colorée et savoureuse inspirée des saveurs méditerranéennes, mélangeant des légumes frais, du fromage feta et des olives pour un repas léger et plein de goût.",
@@ -60,7 +62,8 @@
       { "nomCatRecette": "Cuisine du monde" },
       { "nomCatRecette": "Végétarien" }
     ],
-    "stars_recette": 4,
+    "stars_recette": 2.4,
+    "nb_personnes": 3,
     "temps_recette": 40,
     "diff_recette": 2,
     "description": "Un plat végétarien et épicé, mélangeant des légumes colorés dans une sauce parfumée au curry, parfait pour les amateurs de saveurs indiennes.",
@@ -88,7 +91,8 @@
       { "nomCatRecette": "Dessert" },
       { "nomCatRecette": "Pâtisserie" }
     ],
-    "stars_recette": 5,
+    "stars_recette": 2.8,
+    "nb_personnes": 4,
     "temps_recette": 60,
     "diff_recette": 2,
     "description": "Une délicieuse tarte aux pommes, avec une croûte dorée et des tranches de pommes tendres, parfaitement sucrée et croustillante.",
@@ -109,6 +113,7 @@
       { "nomCatRecette": "Salade" }
     ],
     "stars_recette": 4,
+    "nb_personnes": 2,
     "temps_recette": 20,
     "diff_recette": 1,
     "description": "Une salade classique et savoureuse avec des feuilles de laitue croquante, du poulet grillé, des croûtons et une vinaigrette crémeuse.",
@@ -126,7 +131,8 @@
     "categories": [
       { "nomCatRecette": "Plat" }
     ],
-    "stars_recette": 5,
+    "stars_recette": 2.4,
+    "nb_personnes": 3,
     "temps_recette": 25,
     "diff_recette": 2,
     "description": "Des pâtes crémeuses avec du lard croustillant, du parmesan et des oeufs pour une saveur italienne authentique.",
@@ -146,7 +152,8 @@
       { "nomCatRecette": "Plat" },
       { "nomCatRecette": "Cuisine du monde" }
     ],
-    "stars_recette": 4,
+    "stars_recette": 3.2,
+    "nb_personnes": 6,
     "temps_recette": 60,
     "diff_recette": 2,
     "description": "Un plat épicé et savoureux à base de viande hachée, de haricots rouges, de tomates et d'épices pour une expérience mexicaine authentique.",
@@ -170,7 +177,8 @@
       { "nomCatRecette": "Cuisine du monde" },
       { "nomCatRecette": "Végétarien" }
     ],
-    "stars_recette": 5,
+    "stars_recette": 1,
+    "nb_personnes": 2,
     "temps_recette": 40,
     "diff_recette": 2,
     "description": "Un plat crémeux et parfumé avec du riz Arborio, des champignons sautés et du parmesan, idéal pour une soirée confortable.",
@@ -191,6 +199,7 @@
       { "nomCatRecette": "Pâtisserie" }
     ],
     "stars_recette": 5,
+    "nb_personnes": 3,
     "temps_recette": 45,
     "diff_recette": 2,
     "description": "Un délicieux gâteau moelleux au chocolat noir intense, parfait pour les amateurs de chocolat.",
@@ -210,6 +219,7 @@
       { "nomCatRecette": "Végétarien" }
     ],
     "stars_recette": 4,
+    "nb_personnes": 2,
     "temps_recette": 30,
     "diff_recette": 2,
     "description": "Une salade saine et délicieuse, mêlant du quinoa savoureux et des légumes grillés, parfaite pour un déjeuner léger ou une entrée rafraîchissante.",
@@ -233,6 +243,7 @@
       { "nomCatRecette": "Plat" }
     ],
     "stars_recette": 5,
+    "nb_personnes": 4,
     "temps_recette": 45,
     "diff_recette": 2,
     "description": "Un plat de poulet savoureux et parfumé, mariné avec du citron et de l'ail pour une explosion de saveurs en bouche.",
@@ -254,6 +265,7 @@
       { "nomCatRecette": "Entrée froide" }
     ],
     "stars_recette": 5,
+    "nb_personnes": 1,
     "temps_recette": 10,
     "diff_recette": 1,
     "description": "Un smoothie rafraîchissant, mélangeant des fruits rouges et une touche de banane pour une boisson saine et délicieuse.",
