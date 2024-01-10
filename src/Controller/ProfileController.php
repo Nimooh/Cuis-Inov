@@ -8,11 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -44,7 +42,6 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $avatarFile = $form->get('avatar')->getData();
 
             if ($avatarFile) {
@@ -61,11 +58,9 @@ class ProfileController extends AbstractController
                         $newFilename
                     );
                 } catch (FileException $e) {
-
                 }
 
                 $membre->setAvatarFilename($newFilename);
-
             }
 
             $entityManager->flush();
@@ -111,6 +106,21 @@ class ProfileController extends AbstractController
             'membre' => $membre,
             'form' => $form,
         ]);
+    }
+
+    #[IsGranted('IS_AUTHENTICATED')]
+    #[Route('/profile/resetAvatar', name: 'app_profile_resetavatar')]
+    public function resetAvatar(EntityManagerInterface $entityManager): Response
+    {
+        $membre = $this->getUser();
+        if ($membre->getAvatarFilename()) {
+            unlink($this->getParameter('avatars_directory').'/'.$membre->getAvatarFilename());
+        }
+
+        $membre->setAvatarFilename(null);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_profile_update');
     }
 
 }
