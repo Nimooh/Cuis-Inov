@@ -54,7 +54,7 @@ final class RecetteFactory extends ModelFactory
             'diffRecette' => self::faker()->numberBetween(1,3),
             'instruction' => self::faker()->paragraph(),
             'description' => self::faker()->sentence(),
-            'noteMoyenne' => self::faker()->randomFloat(1, 1, 5),
+            'noteMoyenne' => self::faker()->numberBetween(1,4),
             'nbPers' => self::faker()->randomNumber(),
         ];
     }
