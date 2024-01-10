@@ -143,8 +143,7 @@ class RecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ('delete' === $form->getClickedButton()?->getName()) {
                 $picturePath = $this->getParameter('images_dir').'/recettes/'.$recipe->getPicturePath();
-                dump($picturePath);
-                dump(is_file($picturePath));
+
                 if (is_file($picturePath)) {
                     unlink($picturePath);
                 }
