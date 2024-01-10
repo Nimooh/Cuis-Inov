@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -35,9 +36,9 @@ class MembreCrudController extends AbstractCrudController
                         default => '',
                     };
                 }),
-            TextField::new('adrMembre', 'Adresse'),
-            TextField::new('villeMembre', 'Ville'),
-            TextField::new('CPMembre', 'Code postal'),
+            ImageField::new('avatarFilename', 'Image de profil')
+                ->setBasePath('img/avatars/')
+                ->setUploadDir('public/img/avatars/'),
         ];
     }
 
