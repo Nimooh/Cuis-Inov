@@ -27,19 +27,14 @@ class AllergeneRepository extends ServiceEntityRepository
      */
     public function findWithMembre(int $id): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-            SELECT a.id, a.nom_aller
-            FROM allergene a, membre_allergene ma, membre m
-            WHERE a.id = ma.allergene_id
-              AND ma.membre_id = m.id
-              AND m.id = :id
-            ';
-
-        $resultSet = $conn->executeQuery($sql, ['id' => $id]);
-
-        return $resultSet->fetchAllAssociative();
+        return $this->createQueryBuilder('a')
+            ->select('a.nomAller')
+            ->join('a.membres', 'm')
+            ->where('m.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }
 

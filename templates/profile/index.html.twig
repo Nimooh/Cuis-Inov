@@ -95,7 +95,7 @@
             <div id="allergenesContent" class="flex flex-row gap-3 flex-wrap">
                 {% if allergenes %}
                     {% for allergene in allergenes %}
-                        <div class="flex text-gray-300 font-bold bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">{{ allergene.nom_aller|capitalize }}</div>
+                        <div class="flex text-gray-300 font-bold bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">{{ allergene.nomAller|capitalize }}</div>
                     {% endfor %}
                 {% else %}
                     <div class="flex text-gray-300 font-bold bg-cuiGrayDark rounded-lg w-auto p-1 pl-2 pr-2">Aucun allergène</div>
