@@ -37,6 +37,7 @@ class RecetteType extends AbstractType
             )
             ->add('diffRecette', IntegerType::class, [
                     'empty_data' => '',
+                    'attr' => ['min'=>1,'max'=>3],
                 ]
             )
             ->add('instruction', TextareaType::class, [

@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
 class Recette
@@ -23,6 +25,11 @@ class Recette
     private ?\DateInterval $tempsRecette = null;
 
     #[ORM\Column]
+    #[Assert\Range(
+        min: 1,
+        max: 3,
+        notInRangeMessage: 'La difficulté doit être entre {{ min }} et {{ max }}',
+    )]
     private ?int $diffRecette = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -40,7 +47,7 @@ class Recette
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Interagir::class)]
     private Collection $interagirs;
 
-    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Composer::class, cascade: ['persist','remove'])]
     private Collection $composers;
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]
