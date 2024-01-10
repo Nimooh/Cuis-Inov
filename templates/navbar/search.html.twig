@@ -175,8 +175,8 @@
 
                         </div>
                     </div>
-                    <button type="button" data-modal-hide="crud-modal" onclick="saveForm()"   class=" text-white w-full	place-content-center	 inline-flex items-center bg-cuiOrange hover:bg-cuiOrangeLight focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Sauvegarde des filtres
+                    <button type="button" data-modal-hide="crud-modal" onclick="sendForm()"   class=" text-white w-full	place-content-center	 inline-flex items-center bg-cuiOrange hover:bg-cuiOrangeLight focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Recherche...
                     </button>
             </form>
         </div>
@@ -197,7 +197,7 @@
 
 
 
-    function saveForm(){
+    function sendForm(){
         const form = document.getElementById("myForm");
         const buttons = form.querySelectorAll("button[name='ingredient']");
 
@@ -214,6 +214,8 @@
             input.setAttribute("value",  button.value);
             form.appendChild(input);
         });
+        form.submit();
+
     }
 
     function switchColor(button)
