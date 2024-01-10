@@ -194,13 +194,13 @@
             var doses = document.querySelectorAll('#dose');
             doses.forEach(function(dose)
             {
-                let unites = ['c. à café','c. à soupe','pincée',]
+                let unites = ['c. à café','c. à soupe','pincée','poignée','verre','tasse']
                 let quantity = dose.querySelector('#quantity');
                 let unite = dose.querySelector('#unite');
                 let val = dose.querySelector('#val');
                 let val_qte = parseFloat(val.name) / oldValue *newValue;
 
-                if(unites.includes(unite.innerHTML) || unite.innerHTML==='') {
+                if(unites.includes(unite.innerHTML)) {
 
                    val.name = val_qte
                     quantity.innerHTML =  round(val_qte,1);
