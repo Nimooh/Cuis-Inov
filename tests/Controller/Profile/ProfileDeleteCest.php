@@ -28,4 +28,15 @@ class ProfileDeleteCest
         $I->see('Supprimer');
         $I->see('Annuler');
     }
+
+    public function canCancelDelete(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile/delete');
+        $I->click('Annuler');
+        $I->seeCurrentRouteIs('app_profile_update');
+        $I->assertEquals($I->grabValueFrom('#profile_email'), $membre->getUserIdentifier());
+    }
 }
