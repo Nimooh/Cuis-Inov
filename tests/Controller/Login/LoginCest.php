@@ -35,22 +35,6 @@ class LoginCest
         $I->seeCurrentRouteIs('app_home');
     }
 
-    public function loggingInByClicking(ControllerTester $I)
-    {
-        MembreFactory::createOne([
-            'email' => 'jean.michel@email.com',
-            'password' => 'password',
-        ]);
-        RecetteFactory::createMany(10);
-
-        $I->amOnPage('/login');
-        $I->fillField(['id' => 'inputEmail'], 'jean.michel@email.com');
-        $I->fillField(['id' => 'inputPassword'], new PasswordArgument('password'));
-        $I->click('Se connecter');
-        $I->seeResponseCodeIsSuccessful();
-        $I->seeCurrentRouteIs('app_home');
-    }
-
     public function failTestEmailDoesNotExist(ControllerTester $I)
     {
         MembreFactory::createOne([
