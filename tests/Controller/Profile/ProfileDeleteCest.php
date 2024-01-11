@@ -14,7 +14,7 @@ class ProfileDeleteCest
     // tests
     public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
     {
-        $I->amOnPage('/profile/update');
+        $I->amOnPage('/profile/delete');
         $I->seeCurrentRouteIs('app_login');
     }
 }
