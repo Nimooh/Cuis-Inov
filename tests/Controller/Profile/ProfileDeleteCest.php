@@ -12,7 +12,9 @@ class ProfileDeleteCest
     }
 
     // tests
-    public function tryToTest(ControllerTester $I)
+    public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
     {
+        $I->amOnPage('/profile/update');
+        $I->seeCurrentRouteIs('app_login');
     }
 }
