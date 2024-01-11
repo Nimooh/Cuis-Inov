@@ -47,4 +47,16 @@ class ProfileUpdateCest
         $I->seeCurrentRouteIs('app_profile');
         $I->see('a@b.com', "td");
     }
+
+    public function canCancelUpdate(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile/update');
+        $I->click('Annuler');
+        $I->seeCurrentRouteIs('app_profile');
+        $I->see($membre->getUserIdentifier(), "td");
+    }
+
 }
