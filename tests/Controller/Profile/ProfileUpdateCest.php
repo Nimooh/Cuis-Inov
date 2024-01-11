@@ -28,4 +28,23 @@ class ProfileUpdateCest
         $I->see("Mes Allergènes", 'h1');
         $I->assertEquals($I->grabValueFrom('#profile_email'), $membre->getUserIdentifier());
     }
+
+    public function canUpdateProfile(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne([
+            'email' => 'a@a.com',
+        ])->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnRoute('app_profile_update');
+        $I->submitForm('#form_profile', [
+            'profile[email]' => 'a@b.com',
+            'profile[password]' => 'a',
+            'profile[nomMembre]' => 'Ada',
+            'profile[prnmMembre]' => 'Adala',
+            'profile[telMembre]' => '0102030405',
+        ]);
+        $I->seeCurrentRouteIs('app_profile');
+        $I->see('a@b.com', "td");
+    }
 }
