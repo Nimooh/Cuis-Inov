@@ -14,7 +14,7 @@
     "ingredients": [
       { "nomIngr": "Lentilles vertes", "quantity": 200, "unit": "g", "allergenes": null },
       { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
-      { "nomIngr": "Carottes", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Carotte", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Céleri", "quantity": 2, "unit": "branches", "allergenes": null },
       { "nomIngr": "Ail", "quantity": 2, "unit": "gousses", "allergenes": null },
       { "nomIngr": "Tomates concassées en conserve", "quantity": 400, "unit": "g", "allergenes": null },
@@ -41,11 +41,11 @@
     "diff_recette": 1,
     "description": "Une salade colorée et savoureuse inspirée des saveurs méditerranéennes, mélangeant des légumes frais, du fromage feta et des olives pour un repas léger et plein de goût.",
     "ingredients": [
-      { "nomIngr": "Concombres", "quantity": 2, "unit": null, "allergenes": null },
-      { "nomIngr": "Tomates", "quantity": 3, "unit": null, "allergenes": null },
+      { "nomIngr": "Concombre", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Tomate", "quantity": 3, "unit": null, "allergenes": null },
       { "nomIngr": "Poivron rouge", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Oignon rouge", "quantity": 1, "unit": null, "allergenes": null },
-      { "nomIngr": "Olives noires", "quantity": 100, "unit": "g", "allergenes": null },
+      { "nomIngr": "Olive noire", "quantity": 100, "unit": "g", "allergenes": null },
       { "nomIngr": "Fromage feta", "quantity": 150, "unit": "g", "allergenes": ["lactose"] },
       { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
       { "nomIngr": "Vinaigre balsamique", "quantity": 15, "unit": "ml", "allergenes": null },
@@ -68,10 +68,10 @@
     "diff_recette": 2,
     "description": "Un plat végétarien et épicé, mélangeant des légumes colorés dans une sauce parfumée au curry, parfait pour les amateurs de saveurs indiennes.",
     "ingredients": [
-      { "nomIngr": "Pommes de terre", "quantity": 3, "unit": null, "allergenes": null },
-      { "nomIngr": "Carottes", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Pomme de terre", "quantity": 3, "unit": null, "allergenes": null },
+      { "nomIngr": "Carotte", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Petits pois", "quantity": 150, "unit": "g", "allergenes": null },
-      { "nomIngr": "Tomates", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Tomate", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
       { "nomIngr": "Ail", "quantity": 2, "unit": "gousses", "allergenes": null },
       { "nomIngr": "Gingembre frais", "quantity": 1, "unit": null, "allergenes": null },
@@ -98,7 +98,7 @@
     "description": "Une délicieuse tarte aux pommes, avec une croûte dorée et des tranches de pommes tendres, parfaitement sucrée et croustillante.",
     "ingredients": [
       { "nomIngr": "Pâte brisée", "quantity": 1, "unit": null, "allergenes": ["gluten", "lactose"] },
-      { "nomIngr": "Pommes", "quantity": 4, "unit": null, "allergenes": null },
+      { "nomIngr": "Pomme", "quantity": 4, "unit": null, "allergenes": null },
       { "nomIngr": "Sucre en poudre", "quantity": 50, "unit": "g", "allergenes": null },
       { "nomIngr": "Cannelle en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
       { "nomIngr": "Beurre", "quantity": 20, "unit": "g", "allergenes": ["lactose"] },
@@ -184,7 +184,7 @@
     "description": "Un plat crémeux et parfumé avec du riz Arborio, des champignons sautés et du parmesan, idéal pour une soirée confortable.",
     "ingredients": [
       { "nomIngr": "Riz Arborio", "quantity": 300, "unit": "g", "allergenes": ["gluten"] },
-      { "nomIngr": "Champignons", "quantity": 250, "unit": "g", "allergenes": null },
+      { "nomIngr": "Champignon", "quantity": 250, "unit": "g", "allergenes": null },
       { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
       { "nomIngr": "Bouillon de légumes", "quantity": 1, "unit": "L", "allergenes": null },
       { "nomIngr": "Vin blanc sec", "quantity": 100, "unit": "ml", "allergenes": null },
@@ -225,10 +225,10 @@
     "description": "Une salade saine et délicieuse, mêlant du quinoa savoureux et des légumes grillés, parfaite pour un déjeuner léger ou une entrée rafraîchissante.",
     "ingredients": [
       { "nomIngr": "Quinoa", "quantity": 150, "unit": "g", "allergenes": null },
-      { "nomIngr": "Courgettes", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Courgette", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Poivron rouge", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Oignon rouge", "quantity": 1, "unit": null, "allergenes": null },
-      { "nomIngr": "Tomates cerises", "quantity": 200, "unit": "g", "allergenes": null },
+      { "nomIngr": "Tomates cerise", "quantity": 200, "unit": "g", "allergenes": null },
       { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
       { "nomIngr": "Vinaigre balsamique", "quantity": 15, "unit": "ml", "allergenes": null },
       { "nomIngr": "Basilic frais", "quantity": 10, "unit": "feuilles", "allergenes": null },
@@ -248,7 +248,7 @@
     "diff_recette": 2,
     "description": "Un plat de poulet savoureux et parfumé, mariné avec du citron et de l'ail pour une explosion de saveurs en bouche.",
     "ingredients": [
-      { "nomIngr": "Blancs de poulet", "quantity": 4, "unit": null, "allergenes": null },
+      { "nomIngr": "Blanc de poulet", "quantity": 4, "unit": null, "allergenes": null },
       { "nomIngr": "Citron", "quantity": 2, "unit": null, "allergenes": null },
       { "nomIngr": "Ail", "quantity": 4, "unit": "gousses", "allergenes": null },
       { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
@@ -277,15 +277,191 @@
       { "nomIngr": "Miel", "quantity": 1, "unit": "c. à soupe", "allergenes": null }
     ],
     "instructions": "Mettre les fruits rouges, la banane, le yaourt nature, le lait d'amande et éventuellement le miel dans un blender. \n\nMixer jusqu'à obtenir une consistance lisse. \n\nVerser dans des verres et servir immédiatement pour profiter de la fraîcheur du smoothie."
+  },
+
+  {
+    "name": "Salade Caprese",
+    "categories": [
+      { "nomCatRecette": "Entrée froide" },
+      { "nomCatRecette": "Cuisine du monde" }
+    ],
+    "stars_recette": 0,
+    "nb_personnes": 2,
+    "temps_recette": 10,
+    "diff_recette": 1,
+    "description": "Une salade italienne classique mettant en valeur des ingrédients frais et délicieux.",
+    "ingredients": [
+      { "nomIngr": "Tomate", "quantity": 4, "unit": null, "allergenes": null },
+      { "nomIngr": "Mozzarella di Bufala", "quantity": 200, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Feuilles de basilic frais", "quantity": 20, "unit": "g", "allergenes": null },
+      { "nomIngr": "Huile d'olive extra vierge", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Vinaigre balsamique", "quantity": 15, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
+    ],
+    "instructions": "Couper les tomates en tranches épaisses et la mozzarella en tranches du même épaisseur. \n\nDisposer les tranches de tomates et de mozzarella de manière alternée sur un plat de service. \n\nGarnir avec les feuilles de basilic frais. \n\nArroser d'huile d'olive et de vinaigre balsamique. \n\nAssaisonner avec du sel et du poivre selon votre goût. \n\nLaisser reposer pendant quelques minutes avant de servir pour permettre aux saveurs de se mélanger."
+  },
+
+
+  {
+    "name": "Velouté de Carottes au Gingembre",
+    "categories": [
+      { "nomCatRecette": "Entrée chaude" },
+      { "nomCatRecette": "Végétarien" }
+    ],
+    "stars_recette": 0,
+    "nb_personnes": 4,
+    "temps_recette": 30,
+    "diff_recette": 3,
+    "description": "Un velouté crémeux et réconfortant à base de carottes et de gingembre, idéal comme entrée chaude.",
+    "ingredients": [
+      { "nomIngr": "Carotte", "quantity": 500, "unit": "g", "allergenes": null },
+      { "nomIngr": "Pomme de terre", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Gingembre frais", "quantity": 2, "unit": "cm", "allergenes": null },
+      { "nomIngr": "Bouillon de légumes", "quantity": 1, "unit": "L", "allergenes": null },
+      { "nomIngr": "Crème fraîche", "quantity": 100, "unit": "ml", "allergenes": ["lactose"] },
+      { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Ciboulette", "quantity": 10, "unit": "g", "allergenes": null }
+    ],
+    "instructions": "Éplucher et couper les carottes, les pommes de terre, l'oignon et le gingembre en morceaux. \n\nDans une casserole, faire chauffer l'huile d'olive et faire revenir l'oignon jusqu'à ce qu'il soit translucide. \n\nAjouter les carottes, les pommes de terre et le gingembre. Faire revenir quelques minutes. \n\nVerser le bouillon de légumes dans la casserole et porter à ébullition. \n\nRéduire le feu et laisser mijoter jusqu'à ce que les légumes soient tendres. \n\nUtiliser un mixeur plongeant pour réduire le mélange en purée. \n\nAjouter la crème fraîche, le sel et le poivre. Bien mélanger. \n\nServir chaud, garni de ciboulette fraîche."
+  },
+
+  {
+    "name": "Bruschettas Tomate-Basilic",
+    "categories": [
+      { "nomCatRecette": "Apéritif" },
+      { "nomCatRecette": "Cuisine du monde" }
+    ],
+    "stars_recette": 0,
+    "nb_personnes": 6,
+    "temps_recette": 15,
+    "diff_recette": 1,
+    "description": "Des bruschettas italiennes classiques avec des tomates fraîches et du basilic, parfaites pour débuter un repas.",
+    "ingredients": [
+      { "nomIngr": "Pain baguette", "quantity": 1, "unit": null, "allergenes": ["gluten"] },
+      { "nomIngr": "Tomate", "quantity": 4, "unit": null, "allergenes": null },
+      { "nomIngr": "Ail", "quantity": 2, "unit": "gousses", "allergenes": null },
+      { "nomIngr": "Feuilles de basilic frais", "quantity": 20, "unit": "g", "allergenes": null },
+      { "nomIngr": "Huile d'olive extra vierge", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
+    ],
+    "instructions": "Préchauffer le four à 200°C. \n\nCouper la baguette en tranches d'environ 1 cm d'épaisseur.  \n\nLes disposer sur une plaque de cuisson et les faire griller au four pendant quelques minutes jusqu'à ce qu'elles soient dorées. \n\nFrotter chaque tranche de pain avec une gousse d'ail coupée en deux. \n\nCouper les tomates en petits dés et les mélanger avec le basilic haché.  \n\nAssaisonner avec du sel et du poivre. \n\nRépartir le mélange de tomates sur les tranches de pain.  \n\nArroser d'huile d'olive. \n\nServir immédiatement en apéritif."
+  },
+
+  {
+    "name": "Guacamole avec Chips de Maïs",
+    "categories": [
+      { "nomCatRecette": "Snack" },
+      { "nomCatRecette": "Cuisine du monde" }
+    ],
+    "stars_recette": 0,
+    "nb_personnes": 4,
+    "temps_recette": 15,
+    "diff_recette": 1,
+    "description": "Un dip de guacamole frais accompagné de croustillantes chips de maïs, parfait pour une collation rapide et délicieuse.",
+    "ingredients": [
+      { "nomIngr": "Avocat", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Tomate", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Oignon rouge", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Coriandre fraîche", "quantity": 15, "unit": "g", "allergenes": null },
+      { "nomIngr": "Jus de citron vert", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Chips de maïs", "quantity": 200, "unit": "g", "allergenes": ["maïs", "gluten"] }
+    ],
+    "instructions": "Couper les avocats en deux, retirer le noyau et prélever la chair. Écraser la chair d'avocat dans un bol à l'aide d'une fourchette. \n\nCouper les tomates en petits dés et hacher finement l'oignon rouge et la coriandre. Ajouter au bol d'avocat. \n\nPresser le jus d'un citron vert sur le mélange. Assaisonner avec du sel et du poivre selon votre goût. Mélanger délicatement. \n\nServir le guacamole avec des chips de maïs pour une collation croustillante et savoureuse."
+  },
+
+
+  {
+    "name": "Soupe au Poulet et aux Légumes",
+    "categories": [
+      { "nomCatRecette": "Soupe" },
+      { "nomCatRecette": "Plat" }
+    ],
+    "stars_recette": 0,
+    "nb_personnes": 6,
+    "temps_recette": 45,
+    "diff_recette": 2,
+    "description": "Une soupe réconfortante et nutritive, pleine de saveurs grâce au poulet et aux légumes frais.",
+    "ingredients": [
+      { "nomIngr": "Blanc de poulet", "quantity": 400, "unit": "g", "allergenes": null },
+      { "nomIngr": "Carotte", "quantity": 3, "unit": null, "allergenes": null },
+      { "nomIngr": "Céleri", "quantity": 2, "unit": "branches", "allergenes": null },
+      { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Ail", "quantity": 2, "unit": "gousses", "allergenes": null },
+      { "nomIngr": "Pomme de terre", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Bouillon de poulet", "quantity": 1, "unit": "L", "allergenes": null },
+      { "nomIngr": "Thym frais", "quantity": 1, "unit": "branche", "allergenes": null },
+      { "nomIngr": "Feuilles de laurier", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Huile d'olive", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null }
+    ],
+    "instructions": "Dans une grande casserole, faire chauffer l'huile d'olive à feu moyen. \n\nAjouter l'oignon, l'ail, le céleri et les carottes coupés en dés. \n\nFaire revenir jusqu'à ce qu'ils soient tendres. \n\nAjouter les blancs de poulet coupés en morceaux, les pommes de terre coupées en cubes, le thym, les feuilles de laurier, du sel et du poivre. \n\nVerser le bouillon de poulet. \n\nPorter à ébullition, puis réduire le feu et laisser mijoter pendant environ 30 minutes jusqu'à ce que le poulet soit cuit et les légumes soient tendres. \n\nRetirer le thym et les feuilles de laurier. \n\nRectifier l'assaisonnement si nécessaire et servir chaud."
+  },
+
+  {
+    "name": "Muffins aux Pépites de Chocolat",
+    "categories": [
+      { "nomCatRecette": "Pâtisserie" },
+      { "nomCatRecette": "Dessert" }
+    ],
+    "stars_recette": 0,
+    "nb_personnes": 12,
+    "temps_recette": 30,
+    "diff_recette": 2,
+    "description": "Des muffins moelleux aux pépites de chocolat, parfaits pour le goûter ou le dessert.",
+    "ingredients": [
+      { "nomIngr": "Farine", "quantity": 250, "unit": "g", "allergenes": null },
+      { "nomIngr": "Sucre en poudre", "quantity": 150, "unit": "g", "allergenes": null },
+      { "nomIngr": "Oeuf", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Beurre", "quantity": 120, "unit": "g", "allergenes": ["lactose"] },
+      { "nomIngr": "Lait", "quantity": 120, "unit": "ml", "allergenes": ["lactose"] },
+      { "nomIngr": "Levure chimique", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Extrait de vanille", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Pépites de chocolat", "quantity": 150, "unit": "g", "allergenes": ["lactose", "soja"] }
+    ],
+    "instructions": "Préchauffer le four à 180°C et préparer un moule à muffins avec des caissettes en papier. \n\nDans un grand bol, mélanger la farine, le sucre, la levure chimique et le sel. \n\nDans un autre bol, battre les œufs, puis ajouter le beurre fondu, le lait et l'extrait de vanille. \n\nMélanger bien. \n\nIncorporer les ingrédients liquides dans le mélange sec. \n\nAjouter les pépites de chocolat et mélanger jusqu'à ce que la pâte soit homogène. \n\nRépartir la pâte dans les caissettes à muffins. \n\nCuire au four pendant environ 20 minutes ou jusqu'à ce qu'un cure-dent inséré au centre en ressorte propre. \n\nLaisser refroidir avant de déguster."
+  },
+
+
+  {
+    "name": "Curry de Lentilles et de Légumes",
+    "categories": [
+      { "nomCatRecette": "Plat" },
+      { "nomCatRecette": "Végan" },
+      { "nomCatRecette": "Cuisine du monde" }
+    ],
+    "stars_recette": 0,
+    "nb_personnes": 4,
+    "temps_recette": 45,
+    "diff_recette": 2,
+    "description": "Un délicieux curry vegan riche en protéines grâce aux lentilles et aux légumes, parfait pour un repas sain et savoureux.",
+    "ingredients": [
+      { "nomIngr": "Lentilles corail", "quantity": 200, "unit": "g", "allergenes": null },
+      { "nomIngr": "Oignon", "quantity": 1, "unit": null, "allergenes": null },
+      { "nomIngr": "Ail", "quantity": 2, "unit": "gousses", "allergenes": null },
+      { "nomIngr": "Gingembre frais", "quantity": 1, "unit": "cm", "allergenes": null },
+      { "nomIngr": "Tomates concassées en conserve", "quantity": 400, "unit": "g", "allergenes": null },
+      { "nomIngr": "Lait de coco", "quantity": 200, "unit": "ml", "allergenes": ["noix"] },
+      { "nomIngr": "Carotte", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Courgette", "quantity": 2, "unit": null, "allergenes": null },
+      { "nomIngr": "Curry en poudre", "quantity": 2, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Cumin en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Coriandre en poudre", "quantity": 1, "unit": "c. à café", "allergenes": null },
+      { "nomIngr": "Huile végétale", "quantity": 30, "unit": "ml", "allergenes": null },
+      { "nomIngr": "Sel", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Poivre", "quantity": 1, "unit": "pincée", "allergenes": null },
+      { "nomIngr": "Piment", "quantity": 1, "unit": null, "allergenes": null }
+    ],
+    "instructions": "Rincer les lentilles corail sous l'eau froide. \n\nDans une grande poêle, faire chauffer l'huile à feu moyen. \n\nAjouter l'oignon, l'ail et le gingembre hachés. \n\nFaire revenir jusqu'à ce qu'ils soient dorés. \n\nAjouter les tomates concassées, le curry, le cumin, la coriandre, du sel et du poivre. \n\nLaisser mijoter pendant 5 minutes. \n\nIncorporer les lentilles, le lait de coco, les carottes et les courgettes coupées en dés. \n\nLaisser mijoter pendant 20-25 minutes ou jusqu'à ce que les lentilles et les légumes soient tendres. \n\nRectifier l'assaisonnement si nécessaire et ajouter du piment selon les préférences. Servir chaud avec du riz ou du pain."
   }
-
-
-
-
-
-
-
-
 
 
 
