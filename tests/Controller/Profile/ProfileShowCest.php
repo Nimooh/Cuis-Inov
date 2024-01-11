@@ -60,4 +60,15 @@ class ProfileShowCest
         $I->click('Mes Favoris');
         $I->seeCurrentRouteIs('app_favoris');
     }
+
+    public function logout(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile');
+        $I->click('#logout');
+        $I->seeCurrentRouteIs('app_home');
+        $I->dontSee('#hearth');
+    }
 }
