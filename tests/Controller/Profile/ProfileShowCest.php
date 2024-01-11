@@ -40,4 +40,14 @@ class ProfileShowCest
         $I->seeCurrentRouteIs('app_profile_update');
         $I->seeInTitle("Edition de ".$membre->getPrnmMembre()." ".$membre->getNomMembre());
     }
+
+    public function canAccessProfileRecipes(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile');
+        $I->click('Mes Recettes');
+        $I->seeCurrentRouteIs('app_crud_mes_recettes');
+    }
 }
