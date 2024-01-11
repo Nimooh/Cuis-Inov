@@ -11,4 +11,10 @@ class ShowCest
     public function _before(ControllerTester $I)
     {
     }
+
+    public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
+    {
+        $I->amOnPage('/profile');
+        $I->seeCurrentRouteIs('app_login');
+    }
 }
