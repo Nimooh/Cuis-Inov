@@ -50,4 +50,14 @@ class ProfileShowCest
         $I->click('Mes Recettes');
         $I->seeCurrentRouteIs('app_crud_mes_recettes');
     }
+
+    public function canAccessProfileFavs(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile');
+        $I->click('Mes Favoris');
+        $I->seeCurrentRouteIs('app_favoris');
+    }
 }
