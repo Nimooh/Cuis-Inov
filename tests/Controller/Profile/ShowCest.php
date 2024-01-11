@@ -17,4 +17,16 @@ class ShowCest
         $I->amOnPage('/profile');
         $I->seeCurrentRouteIs('app_login');
     }
+
+    public function isDataLoaded(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile');
+        $I->seeInTitle($membre->getPrnmMembre()." ".$membre->getNomMembre());
+        $I->see("Mon Profil", 'h1');
+        $I->see("Mes Allergènes", 'h1');
+        $I->see($membre->getUserIdentifier(), "td");
+    }
 }
