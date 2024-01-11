@@ -59,4 +59,15 @@ class ProfileUpdateCest
         $I->see($membre->getUserIdentifier(), "td");
     }
 
+    public function canAccessDeleteProfile(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile/update');
+        $I->click('Supprimer Profil');
+        $I->seeCurrentRouteIs('app_profile_delete');
+        $I->seeInTitle("Suppression de ".$membre->getPrnmMembre()." ".$membre->getNomMembre());
+    }
+
 }
