@@ -7,7 +7,7 @@
 {% set membre_phone = membre.getTelMembre() %}
 {% set membre_avatarFilename = membre.getAvatarFilename() %}
 
-{% block title %}{{ membre_firstName|capitalize }} {{ membre_lastName|capitalize }}{% endblock %}
+{% block title %}{{ membre_firstName }} {{ membre_lastName }}{% endblock %}
 
 {% block nav_avatar %}
     {% if membre_avatarFilename %}

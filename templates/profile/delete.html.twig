@@ -4,7 +4,7 @@
 {% set membre_firstName = membre.getPrnmMembre() %}
 {% set membre_avatarFilename = membre.getAvatarFilename() %}
 
-{% block title %}Suppression de {{ membre_firstName|capitalize }} {{ membre_lastName|capitalize }}{% endblock %}
+{% block title %}Suppression de {{ membre_firstName }} {{ membre_lastName }}{% endblock %}
 
 {% block nav_avatar %}
     {% if membre_avatarFilename %}
