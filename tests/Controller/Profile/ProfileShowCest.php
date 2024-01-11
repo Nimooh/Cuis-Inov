@@ -6,7 +6,7 @@ namespace App\Tests\Controller\Profile;
 use App\Factory\MembreFactory;
 use App\Tests\Support\ControllerTester;
 
-class ShowCest
+class ProfileShowCest
 {
     public function _before(ControllerTester $I)
     {
@@ -28,5 +28,16 @@ class ShowCest
         $I->see("Mon Profil", 'h1');
         $I->see("Mes Allergènes", 'h1');
         $I->see($membre->getUserIdentifier(), "td");
+    }
+
+    public function canAccessUpdateProfile(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne()->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile');
+        $I->click('Editer Profil');
+        $I->seeCurrentRouteIs('app_profile_update');
+        $I->seeInTitle("Edition de ".$membre->getPrnmMembre()." ".$membre->getNomMembre());
     }
 }
