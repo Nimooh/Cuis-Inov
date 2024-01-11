@@ -14,7 +14,7 @@ class ProfileUpdateCest
     // tests
     public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
     {
-        $I->amOnPage('/profile');
+        $I->amOnPage('/profile/update');
         $I->seeCurrentRouteIs('app_login');
     }
 }
