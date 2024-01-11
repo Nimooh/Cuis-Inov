@@ -39,4 +39,23 @@ class ProfileDeleteCest
         $I->seeCurrentRouteIs('app_profile_update');
         $I->assertEquals($I->grabValueFrom('#profile_email'), $membre->getUserIdentifier());
     }
+
+    public function canDeleteProfile(ControllerTester $I): void
+    {
+        $membre = MembreFactory::createOne([
+            'email' => 'a@a.com',
+            'password' => 'a',
+        ])->object();
+
+        $I->amLoggedInAs($membre);
+        $I->amOnPage('/profile/delete');
+        $I->click('Supprimer');
+        $I->seeCurrentRouteIs('app_home');
+        $I->amOnPage('/login');
+        $I->submitForm('#login', [
+            'profile[email]' => 'a@a.com',
+            'profile[password]' => 'a',
+        ]);
+        $I->see('Identifiants invalides');
+    }
 }
