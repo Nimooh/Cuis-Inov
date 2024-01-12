@@ -8,6 +8,15 @@
 -   Antoine Terrier `terr0031`
 -   Gabriel Valente `vale0068`
 
+## Version hébergée
+
+Le projet est disponible [en ligne ici](https://10.31.32.91/).
+
+Les utilisateurs de tests sont les suivants :
+
+-   Utilisateur lambda : `user@email.com` => `user`
+-   Administrateur : `admin@email.com` => `admin`
+
 ## Installation
 
 Installation de Symfony : https://symfony.com/download
