@@ -62,3 +62,17 @@ Ce projet utilise [Codeception](https://codeception.com/) afin de réaliser des 
 Génération de la base de données de test et exécution des tests unitaires : `composer test:codeception`
 
 Tests du style de code et unitaires : `composer test`
+
+
+## Screenshots
+
+![Acceuil](readme_pic/Image1.png)
+![Recherche](readme_pic/Image2.png)
+![Profil](readme_pic/Image3.png)
+![Creation_Recette](readme_pic/Image4.png)
+![Mobile](readme_pic/Image5.png)
+![Recette_1](readme_pic/Image6.png)
+![Recette_2](readme_pic/Image7.png)
+![Recette_3](readme_pic/Image8.png)
+![Acceuil_2](readme_pic/Image9.png)
+
